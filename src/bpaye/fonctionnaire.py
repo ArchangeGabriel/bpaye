@@ -341,6 +341,10 @@ class Fonctionnaire:
                 self.ors.append(rentree, ORS_CORPS[corps])
         self.update_vs(year, hsa_vs)
         if heures_service is not None:
+            if not self.ors(rentree):
+                raise ValueError(
+                    f"rentrée {year} : heures_service sans ORS d'enseignement (donner temps_partiel)"
+                )
             temps_partiel = heures_service / self.ors(rentree)
         self.quotite.append(rentree, 1.0 if temps_partiel is None else temps_partiel)
         self.surcotisation.append(rentree, surcotisation)

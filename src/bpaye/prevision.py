@@ -28,7 +28,7 @@ from bpaye.utils import decalage_mois
 __all__ = ["NetPrevu", "nets_prevus"]
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True, slots=True)
 class NetPrevu:
     annee: int
     mois: int

@@ -18,7 +18,9 @@ début et de fin de la classe normale :
 """
 
 import datetime as dt
-from collections.abc import Callable
+from collections.abc import Callable, Iterator, Mapping
+from dataclasses import dataclass
+from types import MappingProxyType
 
 import bpaye.config as config
 from bpaye.classes import Fixe, Ligne, Temporal
@@ -32,6 +34,7 @@ __all__ = [
     "CORPS_DU_CODE",
     "GRILLE_DU_CORPS",
     "HSA_MONTHS",
+    "TauxHeures",
     "calc_hsa",
     "code_colle",
     "compile_hs",
@@ -98,13 +101,33 @@ def calc_hsa(ors: int, point: Fixe, grille: Temporal[Grille], date: dt.date | No
     return inm * pt_annuel / ors * 9 / 13
 
 
+@dataclass(frozen=True, slots=True)
+class TauxHeures(Mapping[str, Mapping[int, float]]):
+    """Les taux, par ORS, de l'HSA (annuel), de l'HSE et de l'HSI (horaires). Ils se lisent
+    aussi par nom : ``taux["HSA"][18]``, ``taux.items()``."""
+
+    hsa: Mapping[int, float]
+    hse: Mapping[int, float]
+    hsi: Mapping[int, float]
+
+    def __getitem__(self, nom: str) -> Mapping[int, float]:
+        return {"HSA": self.hsa, "HSE": self.hse, "HSI": self.hsi}[nom]
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(("HSA", "HSE", "HSI"))
+
+    def __len__(self) -> int:
+        return 3
+
+
 def compile_hs(
     point: Fixe,
     grille: Temporal[Grille],
     date: dt.date | None = None,
     rounded: bool = True,
     bareme: Bareme = BAREME,
-) -> dict[str, dict[int, float]]:
+) -> TauxHeures:
+    """Les taux des heures supplémentaires de ``grille`` à ``date``, pour chaque ORS."""
     taux_hsa: dict[int, float] = {}
     taux_hse: dict[int, float] = {}
     taux_hsi: dict[int, float] = {}
@@ -114,7 +137,7 @@ def compile_hs(
         taux_hsa[ors] = fmt(hsa_value)  # annuelle
         taux_hse[ors] = fmt(hsa_value / 36 * bareme.load("hse_majoration")(date))  # horaire
         taux_hsi[ors] = fmt(hsa_value / 36 * REDUCTION_HSI)  # horaire
-    return {"HSA": taux_hsa, "HSE": taux_hse, "HSI": taux_hsi}
+    return TauxHeures(MappingProxyType(taux_hsa), MappingProxyType(taux_hse), MappingProxyType(taux_hsi))
 
 
 def reference_hsa(fonctionnaire: Agent, date: dt.date) -> tuple[Temporal[Grille], float]:

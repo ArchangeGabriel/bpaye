@@ -11,6 +11,7 @@ n'a rien de vérifié : elle refuse (MANQUANT).
 
 import datetime as dt
 import tomllib
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, overload
 
@@ -26,26 +27,22 @@ __all__ = [
 ]
 
 
+@dataclass(frozen=True, slots=True, eq=False)
 class Grille:
-    def __init__(
-        self,
-        corps: str,
-        indices: list[int],
-        anciennete: list[float | None],
-        classe: str = "",
-        choix: list[float | None] | None = None,
-        grandchoix: list[float | None] | None = None,
-        cn_echelons: int | None = None,
-    ) -> None:
-        self.corps = corps
-        self.classe = classe
-        self.indices = indices
-        self.anciennete = anciennete
-        self.choix = choix
-        self.grandchoix = grandchoix
-        # cn_echelons : nombre d’échelons de la « classe normale » utilisés pour le
-        # calcul de l’inmoyen (formule HSA). None = grille entière.
-        self.cn_echelons = cn_echelons
+    """Une grille à une date : ses indices majorés et ses durées d'échelon (ordinaire, au
+    choix, au grand choix ; None pour un échelon sans avancement automatique). Deux grilles
+    se distinguent par leur identité, celle de leur date dans le Temporal qui les porte.
+
+    cn_echelons : le nombre d'échelons de la « classe normale » qui servent à l'indice
+    moyen de la formule des HSA ; None pour la grille entière."""
+
+    corps: str
+    indices: list[int]
+    anciennete: list[float | None]
+    classe: str = ""
+    choix: list[float | None] | None = None
+    grandchoix: list[float | None] | None = None
+    cn_echelons: int | None = None
 
     def indice(self, echelon: int) -> int:
         return self.indices[echelon - 1]

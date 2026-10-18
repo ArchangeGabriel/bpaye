@@ -1,5 +1,5 @@
-"""Extraction des données depuis les bulletins de paye PDF (format PAY18E).
-V2.3 et V4.0
+"""Extraction des données depuis les bulletins de paye PDF (format PAY18E, V2.3, V4.0 et
+V4.2).
 
 Format : chaque ligne de paye occupe 3 lignes de texte extrait :
   CODE LIBELLE
@@ -17,7 +17,11 @@ Plus difficiles à extraire : position.
 import logging
 import re
 import warnings
+from collections.abc import Iterator, Mapping
+from dataclasses import dataclass, field
 from pathlib import Path
+from types import MappingProxyType
+from typing import Any
 
 from bpaye.codes import ALL_CODES
 
@@ -25,6 +29,7 @@ __all__ = [
     "DR_MONTH_FR",
     "DR_ROW_CODES",
     "SUPPORTED_VERSIONS",
+    "BulletinLu",
     "Span",
     "ecart_totaux",
     "extract_bulletin",
@@ -50,6 +55,67 @@ Span = tuple[float, float, str]
 # point d'écart sans espace dans le flux, on en met une.
 _DY = 1.5
 _ECART = 6.0
+
+
+# Le pied du bulletin : la clé « _… » de chaque champ de BulletinLu, et son nom.
+_PIED = {
+    "_net_payer": "net_payer",
+    "_totaux_mois": "totaux_mois",
+    "_total_ret": "total_ret",
+    "_total_pat": "total_pat",
+    "_montant_imp": "montant_imp",
+    "_rappel_decompte": "rappel_decompte",
+    "_rappel_decompte_ret": "rappel_decompte_ret",
+    "_total_dupercu": "total_dupercu",
+}
+
+
+@dataclass(frozen=True, slots=True)
+class BulletinLu(Mapping[str, Any]):
+    """Un bulletin PDF lu : ses montants par code (``"101000"``, et ``"101000_R"`` pour un
+    rappel), son pied, ses codes inconnus de bpaye.
+
+    Il se lit aussi comme un dictionnaire, clé par clé : ``lu["101000"]``, ``lu.get(…)``,
+    ``"200205_R" in lu``, et ``lu["_totaux_mois"]`` pour un champ du pied, présent
+    seulement s'il a été lu ; ``lu["_unknown"]`` donne les codes inconnus. Un script qui
+    traitait la lecture comme un dict reste juste, sans pouvoir la modifier."""
+
+    montants: Mapping[str, float] = field(default_factory=lambda: MappingProxyType({}))
+    inconnus: tuple[tuple[str, str, float], ...] = ()
+    net_payer: float | None = None
+    totaux_mois: float | None = None
+    total_ret: float | None = None
+    total_pat: float | None = None
+    montant_imp: float | None = None
+    rappel_decompte: float | None = None
+    rappel_decompte_ret: float | None = None
+    total_dupercu: float | None = None
+
+    def _cles(self) -> dict[str, Any]:
+        cles: dict[str, Any] = {"_unknown": list(self.inconnus)}
+        cles.update(self.montants)
+        for cle, nom in _PIED.items():
+            valeur = getattr(self, nom)
+            if valeur is not None:
+                cles[cle] = valeur
+        return cles
+
+    def __getitem__(self, cle: str) -> Any:
+        return self._cles()[cle]
+
+    def __iter__(self) -> Iterator[str]:
+        return iter(self._cles())
+
+    def __len__(self) -> int:
+        return len(self._cles())
+
+
+def _lu(resultats: dict[str, Any]) -> BulletinLu:
+    pied = {nom: resultats[cle] for cle, nom in _PIED.items() if cle in resultats}
+    montants = {cle: v for cle, v in resultats.items() if not cle.startswith("_")}
+    return BulletinLu(
+        montants=MappingProxyType(montants), inconnus=tuple(resultats.get("_unknown", ())), **pied
+    )
 
 
 def _pages(pdf_path: str | Path) -> list[list[Span]]:
@@ -104,9 +170,9 @@ def is_agent_bulletin(pdf_path: str | Path, agent_siret: str) -> bool:
     return agent_siret in extract_sirets(pdf_path)
 
 
-def extract_bulletin(pdf_path: str | Path) -> dict:
+def extract_bulletin(pdf_path: str | Path) -> BulletinLu:
     """
-    Retourne un dict avec :
+    Le bulletin lu (BulletinLu), qui se lit aussi comme un dict à ces clés :
       {code}         : montant courant pour chaque code BP
       {code}_R       : montant rappel si applicable
       '_net_payer'   : NET À PAYER (footer)
@@ -256,17 +322,18 @@ def extract_bulletin(pdf_path: str | Path) -> dict:
                 results["_total_dupercu"] = v
             break
 
-    ecart = ecart_totaux(results)
+    lu = _lu(results)
+    ecart = ecart_totaux(lu)
     if ecart:
         warnings.warn(
             f"{Path(pdf_path).name} : les lignes lues ne font pas TOTAUX DU MOIS "
             f"(écart de {ecart} €) : une ligne est manquée",
             stacklevel=2,
         )
-    return results
+    return lu
 
 
-def ecart_totaux(lu: dict) -> float | None:
+def ecart_totaux(lu: Mapping[str, Any]) -> float | None:
     """TOTAUX DU MOIS moins la somme des lignes de revenu lues (rappels et rappel sur
     décompte compris), au centime : 0 quand toutes les lignes à payer du bulletin ont été
     lues ; None sans TOTAUX DU MOIS. Le contrôle de la lecture : une ligne manquée ou
@@ -322,9 +389,20 @@ def extract_dr(pdf_path: str | Path) -> dict[tuple[int, int], dict[str, float]]:
       < 0 : trop perçu (à rembourser)
 
     La détection repose sur les coordonnées x/y des spans pour être
-    robuste face aux colonnes vides (mois avec PERÇU = 0).
+    robuste face aux colonnes vides (mois avec PERÇU = 0). Chaque page se lit à part, ses
+    ordonnées n'ayant de sens que sur elle ; les corrections d'un même mois s'additionnent.
     """
-    all_spans = [span for page in _pages(pdf_path) for span in page]
+    result: dict[tuple[int, int], dict[str, float]] = {}
+    for page in _pages(pdf_path):
+        for cle, corrections in _dr_page(page).items():
+            cible = result.setdefault(cle, {})
+            for code, valeur in corrections.items():
+                cible[code] = round(cible.get(code, 0.0) + valeur, 2)
+    return result
+
+
+def _dr_page(all_spans: list[Span]) -> dict[tuple[int, int], dict[str, float]]:
+    """Les corrections d'une page de décompte de rappel (extract_dr)."""
 
     def _norm(t: str) -> str:
         return re.sub(r"\s+", "", t.upper())

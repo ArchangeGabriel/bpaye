@@ -8,7 +8,7 @@ bulletins PDF aux lignes calculées, pour comparer calcul et réel.
 
 import datetime as dt
 import warnings
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Callable, Iterable, Iterator, Mapping
 from pathlib import Path
 from typing import Any, ClassVar, Protocol, Self
 
@@ -398,7 +398,7 @@ class Bulletin(ListeLignes):
         assiette_csg_hors_traitement = self.assiette_csg - self.brut - rappel
         return assiette_csg_hors_traitement + mgen_part_employeur(self.date, self.bareme)
 
-    def join(self, pdf_data: dict[str, float]) -> Self:
+    def join(self, pdf_data: Mapping[str, Any]) -> Self:
         """Attache les montants réels (PDF) à chaque Ligne du bulletin.
 
         pdf_data : dict retourné par extract_bulletin().
@@ -461,6 +461,10 @@ class Annee:
         self.bulletins.sort(key=lambda b: b.date)
 
     def __getattr__(self, attr: str) -> Any:
+        """La somme sur l'année d'une grandeur du bulletin (``annee.net``, ``annee.brut``) ;
+        un nom que le bulletin n'a pas reste une erreur, même pour une année vide."""
+        if attr.startswith("_") or not hasattr(Bulletin, attr):
+            raise AttributeError(attr)
         return sum(getattr(b, attr) for b in self)
 
 
@@ -861,7 +865,7 @@ class Paye:
         bulletins_in_range = [b for b in self.bulletins if date_start <= b.date <= date_end]
 
         # ── Chargement des PDF (une fois par année couverte) ───────────────
-        pdf_by_month: dict[tuple[int, int], dict[str, float]] = {}
+        pdf_by_month: dict[tuple[int, int], Mapping[str, Any]] = {}
         if self.bull_dir is not None:
             # Importé ici seulement : lire les PDF demande pdfplumber et codes.toml, le
             # calcul de la paye n'a besoin ni de l'un ni de l'autre.

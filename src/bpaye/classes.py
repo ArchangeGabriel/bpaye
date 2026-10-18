@@ -81,8 +81,10 @@ class Temporal(Generic[T]):
         return len(self) - 1
 
     def value_toindice(self, value: T) -> int:
-        for i, (_, v) in enumerate(self.values):
-            if v == value:
+        """L'indice de la dernière occurrence de ``value``, comme value_todate : après un
+        changement de corps, un même numéro d'échelon revient."""
+        for i in range(len(self.values) - 1, -1, -1):
+            if self.values[i][1] == value:
                 return i
         raise ValueError(f"Valeur ({value}) non trouvée dans les données")
 

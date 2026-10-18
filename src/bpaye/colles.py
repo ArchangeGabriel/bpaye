@@ -120,8 +120,10 @@ class Colle:
         self.payee = payee
         self.troppercue = troppercue
 
+    # Modifiable (payée, date de paiement), une Colle n'a pas de hash : __eq__ sans __hash__.
     def __eq__(self, colle: object) -> bool:
-        assert isinstance(colle, Colle), f"une Colle ne se compare qu'à une Colle : {colle!r}"
+        if not isinstance(colle, Colle):
+            return NotImplemented
         return (
             colle.date == self.date
             and colle.comm == self.comm

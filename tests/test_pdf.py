@@ -136,3 +136,13 @@ def test_find_pdfs_trouve_aussi_les_bulletins_d_un_sous_dossier(tmp_path, faux_b
     (tmp_path / "autre_employeur").mkdir()
     faux_bulletin_pdf(tmp_path / "autre_employeur" / "2026_01_BP_janvier.pdf")
     assert [p.name for p in find_pdfs(tmp_path, 2026)[1]] == ["2026_01_BP_janvier.pdf"]
+
+
+def test_bulletin_lu_se_lit_comme_un_dict_sans_se_modifier(tmp_path, faux_bulletin_pdf):
+    chemin = tmp_path / "2026_01_BP_janvier.pdf"
+    faux_bulletin_pdf(chemin)
+    lu = extract_bulletin(chemin)
+    assert lu.totaux_mois == lu["_totaux_mois"] == 3350.0
+    assert lu.montants["200205_R"] == 50.0 and "200205_R" in lu
+    with pytest.raises(TypeError):
+        lu["101000"] = 0.0

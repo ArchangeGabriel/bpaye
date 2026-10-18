@@ -75,18 +75,10 @@ def calc_ors_single(effectif: int, annee: int, type_classe: str = "sciences") ->
     return ORS_CPGE[cle][classe_effectif(effectif)]
 
 
-def calc_ors(*args: int | tuple[int, int], type_classe: str = "sciences") -> int:
-    """calc_ors((23, 2), (19, 1)) ou calc_ors(23, 2)"""
-    assert len(args) >= 2
-    if type(args[0]) is tuple:
-        # liste de tuple
-        couples = [arg for arg in args if isinstance(arg, tuple)]
-        assert len(couples) == len(args), "calc_ors : des couples (effectif, année), ou un seul"
-        e = max([e for e, a in couples])
-        a = max([a for e, a in couples])
-        return calc_ors_single(e, a, type_classe)
-    if type(args[0]) is int:
-        effectif, annee = args
-        assert isinstance(effectif, int) and isinstance(annee, int), "calc_ors(effectif, année)"
-        return calc_ors_single(effectif, annee, type_classe=type_classe)
-    raise ValueError
+def calc_ors(effectif: int, annee: int, type_classe: str = "sciences") -> int:
+    """L'ORS en CPGE d'un service dans une classe d'``effectif`` élèves, en ``annee`` (1 ou
+    2) : calc_ors_single. Un service partagé entre plusieurs classes n'est pas modélisé
+    (docstring du module) : sa rentrée donne l'ORS (``ors``)."""
+    if annee not in (1, 2):
+        raise ValueError(f"calc_ors : année de classe 1 ou 2, pas {annee!r}")
+    return calc_ors_single(effectif, annee, type_classe=type_classe)

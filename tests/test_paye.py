@@ -1,3 +1,4 @@
+import copy
 import datetime as dt
 import sys
 import types
@@ -301,3 +302,13 @@ def test_agent_sans_ic_csg_refuse_les_mois_depuis_2018(configuration):
     fonc.load_carriere(carriere)
     with pytest.raises(ValueError, match=r"agent\.toml"):
         Paye(fonc).generate(startyear=2025, startmonth=1, n=1)
+
+
+def test_annee_refuse_un_nom_que_le_bulletin_n_a_pas(configuration):
+    paye = _paye_2025(configuration)
+    annee = paye.annee(2025)
+    assert annee.net == pytest.approx(sum(b.net for b in annee))
+    nom = "nett"  # une faute de frappe
+    with pytest.raises(AttributeError):
+        getattr(annee, nom)
+    copy.deepcopy(annee)  # sans TypeError
