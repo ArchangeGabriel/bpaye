@@ -78,8 +78,15 @@ def test_reclassement_echelon_hors_tableau_refuse(tableau, tmp_path):
         reclasse(fonc, JOUR)
 
 
-@pytest.mark.parametrize(("indice", "attendu"), [(800, 4), (801, 5), (100, 1), (2000, 11)])
+@pytest.mark.parametrize(("indice", "attendu"), [(800, 4), (801, 5), (100, 1)])
 def test_echelon_d_accueil_indice_egal_ou_immediatement_superieur(indice, attendu):
     from bpaye.grille import GRILLE_CHSUP
 
     assert echelon_d_accueil(GRILLE_CHSUP.value(dt.date(2023, 9, 1)), indice) == attendu
+
+
+def test_echelon_d_accueil_au_dela_de_la_grille_refuse():
+    from bpaye.grille import GRILLE_CHSUP
+
+    with pytest.raises(ValueError, match="indice personnel"):
+        echelon_d_accueil(GRILLE_CHSUP.value(dt.date(2023, 9, 1)), 2000)

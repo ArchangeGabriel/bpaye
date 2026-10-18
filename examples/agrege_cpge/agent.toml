@@ -16,3 +16,8 @@ zone = 1
 [[transport]]
 date              = 2016-09-01
 abonnement_annuel = 900
+
+[ic_csg]                       # indemnité compensatrice de CSG : le montant de son bulletin
+type   = "Fixe"
+unite  = "mensuel"
+values = [{ date = 2018-01-01, valeur = 57.55 }]

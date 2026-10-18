@@ -148,7 +148,8 @@ pacte  = 1                     # une part de Pacte
 ```
 
 `agent.toml` donne le taux du prélèvement à la source, les enfants, la zone de
-résidence et l'abonnement de transport. Trois agents fictifs complets sont livrés :
+résidence, l'abonnement de transport et l'indemnité compensatrice de CSG (le montant du
+bulletin, propre à chaque agent). Trois agents fictifs complets sont livrés :
 
 | Dossier | Agent |
 | --- | --- |

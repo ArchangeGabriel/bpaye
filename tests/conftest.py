@@ -50,6 +50,11 @@ niveau = 1
 [[transport]]
 date              = 2019-09-01
 abonnement_annuel = 1000
+
+[ic_csg]
+type   = "Fixe"
+unite  = "mensuel"
+values = [{ date = 2018-01-01, valeur = 57.55 }]
 """
 
 

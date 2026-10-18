@@ -489,16 +489,6 @@ class ListeLignes:
         codes = (200205, 200207, 200215, 200497, 200576, 202475, 202476)
         return sum(ligne.valeur for ligne in self if ligne.code in codes)
 
-    @property
-    def hs_exa_net(self) -> float:
-        """011200 – HS exonérées d'IR, montant net mensuel."""
-        hs = self.hs_brut
-        if hs <= 0:
-            return 0.0
-        from bpaye.charges_impots import hs_exa_net as _hs_exa_net
-
-        return _hs_exa_net(hs, getattr(self, "date", None))
-
     # ── Somme calcul + reel ───────────────────────────────────────────────────
 
     def somme(self, code: int | str | None = None) -> Somme:

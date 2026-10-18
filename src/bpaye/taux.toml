@@ -95,7 +95,8 @@ valeur = 0.20
 # https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006073189/LEGISCTA000006156362/2018-06-01/ (L136-8)
 # https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000054336634/2018-06-01 (154 quinquies)
 # MANQUANT : le taux de 2001 (L136-8 n'existe pas dans la version du 1/6/2001 ; le taux
-# était fixé ailleurs, non relu) ; 2001 reprend la valeur de 2002.
+# était fixé ailleurs, non relu) : la part non déductible commence en 2002, et bpaye
+# refuse 2001.
 # ──────────────────────────────────────────────
 [csg.abattement_taux]
 # part de l'assiette retenue après la réduction pour frais professionnels (L136-2, I)
@@ -135,7 +136,7 @@ values = [
 # taux de L136-8 moins la part déductible : 7,5 − 5,1 puis 9,2 − 6,8 points
 type = "Taux"
 values = [
-  { date = 2001-01-01, valeur = 0.024 },
+  { date = 2002-01-01, valeur = 0.024 },
 ]
 
 # ──────────────────────────────────────────────
@@ -170,14 +171,13 @@ values = [
 # rémunérations ou gains sont versés par mois ») lue dans le JORF le 18/10/2026, à l'adresse
 # https://www.legifrance.gouv.fr/jorf/id/<JORFTEXT>. Sert au seuil de la réduction CSG/CRDS
 # et à la part solidaire MGEN (720577).
-# MANQUANT : 2001, fixé en francs (décret 2000-1284), non relu ; 2001 reprend 2002.
+# MANQUANT : 2001, fixé en francs (décret 2000-1284), non relu : bpaye refuse 2001.
 # ──────────────────────────────────────────────
 [pmss]
 type  = "Fixe"
 unite = "mensuel"
 values = [
   # décret 2001-1069 du 16/11/2001, JORF n° 267 du 17/11/2001, JORFTEXT000000403609
-  { date = 2001-01-01, valeur = 2352.0 },  # MANQUANT pour 2001 (voir plus haut)
   { date = 2002-01-01, valeur = 2352.0 },
   # décret 2002-1374 du 22/11/2002, JORF n° 273 du 23/11/2002, JORFTEXT000000599381
   { date = 2003-01-01, valeur = 2432.0 },
@@ -232,8 +232,10 @@ values = [
 # ──────────────────────────────────────────────
 # CONTRIBUTION SOLIDARITÉ
 # ──────────────────────────────────────────────
-# Supprimée au 1er janvier 2018 (loi de finances pour 2018 ; article non relu), compensée
-# par l'indemnité compensatrice de CSG. Taux observé sur les bulletins.
+# Loi 82-939 abrogée pour les revenus perçus depuis le 1/1/2018 (loi 2017-1837, art. 112,
+# III et IV), compensée par l'indemnité compensatrice de CSG (art. 113).
+# https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000036339197 (lu le 19/10/2026)
+# Taux de 1 % relevé sur les bulletins ; la loi 82-939 n'est pas relue.
 [contrisoli]
 type = "Taux"
 values = [
@@ -258,8 +260,9 @@ values = [
 # du point »), art. 4 (versée mensuellement) ; arrêté du 19/10/1999, art. 1 : 6 270 F au
 # 1/9/1999, seul montant écrit. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000212309/2026-10-17/ et
 # https://www.legifrance.gouv.fr/loda/id/LEGITEXT000030338057/2026-10-17/
-# Les montants en euros sont ceux des bulletins ; ils suivent le point (1 064,16 × 58,20 /
-# 56,2323 = 1 101,40 ; × 59,0734 / 56,2323 = 1 117,92). Dates : celles des bulletins.
+# Les montants en euros sont relevés sur les bulletins ; ils suivent le point (1 064,16 ×
+# 58,20 / 56,2323 = 1 101,40, 1 101,41 sur les bulletins ; × 59,0734 / 56,2323 = 1 117,92).
+# Dates : celles des bulletins.
 [ifp_cpge]
 type  = "Fixe"
 unite = "annuel"
@@ -291,15 +294,6 @@ values = [
   { date = 2022-07-01, valeur = 1256.03 },
   { date = 2023-07-01, valeur = 1274.87 },
   { date = 2023-09-01, valeur = 2550 },
-]
-
-[indemnite_comp_csg]
-# Indemnité compensatrice CSG : valeur par défaut. Le montant est propre à chaque agent,
-# recalculé chaque 1er janvier : agent.toml le donne dans [ic_csg].
-type  = "Fixe"
-unite = "mensuel"
-values = [
-  { date = 2018-01-01, valeur = 57.55 },
 ]
 
 # ──────────────────────────────────────────────
@@ -452,11 +446,26 @@ values = [
 ]
 
 [mgen.brut_moyen]
-# Traitement brut moyen national retenu par l'administration (base 720577)
+# Traitement brut moyen national retenu par l'administration (base 720577) : relevé sur
+# les bulletins depuis mai 2026, aucun texte lu ne le donne.
 type  = "Fixe"
 unite = "mensuel"
 values = [
-  { date = 2024-01-01, valeur = 3107.0 },
+  { date = 2026-05-01, valeur = 3107.0 },
+]
+
+[mgen.taux_action_sociale]
+# 720578 : part de (720576 + 720577), relevée sur les bulletins depuis mai 2026
+type = "Taux"
+values = [
+  { date = 2026-05-01, valeur = 0.0177 },
+]
+
+[mgen.taux_aide_retraites]
+# 720579 : part de (720576 + 720577), relevée sur les bulletins depuis mai 2026
+type = "Taux"
+values = [
+  { date = 2026-05-01, valeur = 0.0265 },
 ]
 
 # ──────────────────────────────────────────────

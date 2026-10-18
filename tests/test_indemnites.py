@@ -48,6 +48,11 @@ nombre = 0
 [[residence]]
 date = 2019-09-01
 zone = 3
+
+[ic_csg]
+type   = "Fixe"
+unite  = "mensuel"
+values = [{ date = 2018-01-01, valeur = 57.55 }]
 """
 
 JOUR = dt.date(2025, 1, 31)

@@ -17,7 +17,9 @@ python examples/bulletins.py carriere_longue
 
 Tout est daté. Une grille, un taux, un montant, un échelon, un nombre d'enfants ont une
 valeur à partir d'une date, jusqu'à la suivante. Un bulletin prend, pour chaque élément,
-la valeur en vigueur le dernier jour de son mois. bpaye peut ainsi rejouer une carrière
+la valeur en vigueur le dernier jour de son mois (un échelon pris en cours de mois est payé
+au prorata des jours ; pour le reste, enfant, zone, quotité, cette règle est supposée,
+aucun texte lu ne la donne). bpaye peut ainsi rejouer une carrière
 entière : les durées d'échelon de 2010 pour un avancement de 2010, le reclassement du
 1er septembre 2017, la grille de 2024 pour un bulletin de 2024.
 
@@ -26,7 +28,7 @@ Deux fichiers décrivent l'agent :
 - `carriere.toml` : ce qui fait le traitement et le service (grille, échelons,
   promotions, rentrées) ;
 - `agent.toml` : ce qui lui est propre (prélèvement à la source, enfants, résidence,
-  transport).
+  transport, indemnité compensatrice de CSG).
 
 ## 2. Trois exemples
 
@@ -321,7 +323,7 @@ zone 3, pas de transport, pas de détachement. Un enfant, un abonnement, un forf
 détachement déclaré ne vaut qu'à partir de sa date ; la zone déclarée vaut depuis
 l'entrée dans la carrière. L'indemnité compensatrice de CSG déclarée (`[ic_csg]`) doit
 couvrir tous les mois calculés depuis 2018 : avant son premier montant, bpaye refuse.
-Sans `[ic_csg]`, il prend une valeur par défaut, qui n'est pas celle de l'agent.
+Sans `[ic_csg]`, bpaye refuse les mois depuis 2018 : le montant est propre à chaque agent.
 
 ## 5. Calculer
 

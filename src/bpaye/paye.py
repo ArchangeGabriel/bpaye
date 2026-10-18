@@ -23,7 +23,7 @@ from bpaye.charges import (
     ir,
     transfertprimepoint,
 )
-from bpaye.charges_impots import FACTEUR_HS_NET, ExonerationHS, reduc_cotis_hs
+from bpaye.charges_impots import ExonerationHS, facteur_hs_net, reduc_cotis_hs
 from bpaye.classes import Ligne, ListeLignes, Selection, Somme
 from bpaye.colles import Colle, Colles
 from bpaye.config import BAREME, Bareme
@@ -163,7 +163,7 @@ class Bulletin(ListeLignes):
     @property
     def hs_exa_net(self) -> float:
         """011200 : les heures exonérées, nettes de leur CSG déductible."""
-        return truncate(self.hs_exonerees * FACTEUR_HS_NET, 2)
+        return truncate(self.hs_exonerees * facteur_hs_net(self.date, self.bareme), 2)
 
     # Frais exonérés d'impôt : remboursement domicile-travail et forfait mobilités durables.
     FRAIS_EXONERES = (200039, 200041)
@@ -232,7 +232,7 @@ class Bulletin(ListeLignes):
         self.append(crds(self.assiette_csg, date, mge, hs_exonerees, b))
         self.append(self.rafp_calculateur(date, self.traitement_percu, self.assiette_rafp))
         self.append(contribution_solidarite(self.assiette_cs, date, b))
-        if self.hs_brut > 0 and (reduction := reduc_cotis_hs(self.hs_brut, self.brut * 12, date)):
+        if self.hs_brut > 0 and (reduction := reduc_cotis_hs(self.hs_brut, self.brut * 12, date, b)):
             self.append(reduction)
         tb = calc_traitement_brut(self.fonctionnaire.indice(date), date, b)
         for ligne in mgen_charges(tb, date, b):

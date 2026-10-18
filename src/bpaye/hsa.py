@@ -221,9 +221,11 @@ def hsi(fonctionnaire: Agent, date: dt.date, heures: float, comm: str = "", bare
 
 
 def ds(fonctionnaire: Agent, date: dt.date, heures: float, comm: str = "", bareme: Bareme = BAREME) -> Ligne:
-    """Ces heures sont des HSI (???) qui apparraissent comme des HSE (200215)"""
+    """Heures de devoir surveillé payées comme des HSE (200215), au taux des heures
+    d'interrogation réduit de moitié : relevé sur des bulletins, aucun texte lu ne le dit
+    (supposé)."""
     taux_hsi = taux_hsa_annuel(fonctionnaire, date, rounded=False, bareme=bareme) / 36 * REDUCTION_HSI
-    total = round(taux_hsi * heures / 2, 2)  # rétribuées à 50% sur la base des colles...
+    total = round(taux_hsi * heures / 2, 2)
     return Ligne(total, f"H. Interr. HSI {heures}h 50% - DS {comm}", code=200215, classe="INDEM")
 
 

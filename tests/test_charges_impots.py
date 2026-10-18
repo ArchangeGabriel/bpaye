@@ -4,7 +4,7 @@ import pytest
 
 from bpaye import load_agent
 from bpaye.charges import csg, csg_basculee, csg_nonded
-from bpaye.charges_impots import FACTEUR_HS_NET, reduc_cotis_hs
+from bpaye.charges_impots import facteur_hs_net, reduc_cotis_hs
 from bpaye.colles import inject_colles_prevues
 from bpaye.paye import Paye
 
@@ -47,7 +47,7 @@ def test_plafond_annuel_consomme_dans_l_ordre_puis_plus_rien(paye):
 
 def test_011200_net_de_la_csg_deductible(paye):
     janvier = paye(2026, 1)
-    assert janvier.hs_exa_net == pytest.approx(janvier.hs_exonerees * FACTEUR_HS_NET, abs=0.01)
+    assert janvier.hs_exa_net == pytest.approx(janvier.hs_exonerees * facteur_hs_net(janvier.date), abs=0.01)
 
 
 def test_heures_ajoutees_en_janvier_reduisent_l_exoneration_des_mois_suivants(paye):
@@ -72,3 +72,7 @@ def test_heures_sup_de_2016_sans_reduction_de_cotisations():
 
 def test_heures_sup_de_2019_ont_leur_reduction_de_cotisations():
     assert reduc_cotis_hs(500.0, 30000.0, dt.date(2019, 1, 31)).valeur == 25.0
+
+
+def test_facteur_net_des_heures_exonerees_depuis_2018():
+    assert facteur_hs_net(dt.date(2025, 1, 31)) == pytest.approx(0.93319)

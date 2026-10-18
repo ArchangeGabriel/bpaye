@@ -49,10 +49,6 @@ __all__ = [
 ]
 
 
-_TAUX_ACTION_SOCIALE = 0.0177
-_TAUX_AIDE_RETRAITES = 0.0265
-
-
 def mgen_part_employeur(date: dt.date, bareme: Bareme = BAREME) -> float:
     """Part patronale MGEN (720580) à inclure dans l'assiette CSG sans abattement."""
     return bareme.load("mgen.part_employeur")(date)
@@ -80,8 +76,8 @@ def mgen_charges(tb: float, date: dt.date, bareme: Bareme = BAREME) -> list[Lign
         return []
     val_solidaire = _part_solidaire(tb, date, bareme)
     base_ats = val_forfait + val_solidaire
-    val_action = round(_TAUX_ACTION_SOCIALE * base_ats, 2)
-    val_retraites = round(_TAUX_AIDE_RETRAITES * base_ats, 2)
+    val_action = round(bareme.load("mgen.taux_action_sociale")(date) * base_ats, 2)
+    val_retraites = round(bareme.load("mgen.taux_aide_retraites")(date) * base_ats, 2)
     return [
         Ligne(-val_forfait, "MGEN PART FORFAITAIRE", code=720576, classe="CHARGE"),
         Ligne(-val_solidaire, "MGEN PART SOLIDAIRE", code=720577, classe="CHARGE"),

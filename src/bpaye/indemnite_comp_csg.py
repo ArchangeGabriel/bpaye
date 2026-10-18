@@ -14,27 +14,24 @@ l'autre, changement de quotité et congé maladie neutralisés (art. 5, version 
 https://www.legifrance.gouv.fr/loda/id/JORFTEXT000036342240/2026-10-17/
 
 bpaye ne refait pas ce calcul, qui demande la rémunération de 2017 ou du premier mois :
-agent.toml donne le montant ([ic_csg], relevé sur les bulletins), et taux.toml n'en garde
-qu'une valeur par défaut, pour l'agent qui ne le renseigne pas.
+agent.toml donne le montant ([ic_csg], relevé sur les bulletins). Sans lui, aucune valeur
+ne vaut pour tous les agents : bpaye refuse les mois depuis 2018.
 """
 
 import datetime as dt
 
-import bpaye.config as config
 from bpaye.classes import Ligne
 from bpaye.config import BAREME, Bareme
 from bpaye.fonctionnaire import Fonctionnaire
 
 __all__ = [
     "DEBUT_IC_CSG",
-    "grille",
     "indemnite_comp_csg",
 ]
 
-grille = config.BAREME.load("indemnite_comp_csg")  # valeur par défaut du barème du paquet
-
-
-# Décret 2017-1889 : l'indemnité compense la hausse de la CSG du 1/1/2018 ; rien avant.
+# Loi 2017-1837, art. 113, et décret 2017-1889 : l'indemnité compense, à compter du
+# 1/1/2018, la hausse de la CSG ; rien avant.
+# https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000036339197 (lu le 19/10/2026)
 DEBUT_IC_CSG = dt.date(2018, 1, 1)
 
 
@@ -44,5 +41,10 @@ def indemnite_comp_csg(
     if date < DEBUT_IC_CSG:
         return None
     propre = getattr(fonctionnaire, "ic_csg", None)
-    montant = propre(date) if propre is not None else bareme.load("indemnite_comp_csg")(date)
+    if propre is None:
+        raise ValueError(
+            f"Indemnité compensatrice de CSG au {date} : propre à l'agent, à déclarer dans "
+            "agent.toml ([ic_csg], le montant du bulletin) ; aucune valeur commune (MANQUANT)"
+        )
+    montant = propre(date)
     return Ligne(montant, "Indemnité compensatrice CSG", code=202209, classe="INDEM")

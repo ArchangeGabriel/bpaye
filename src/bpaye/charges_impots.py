@@ -11,40 +11,33 @@ pas les indemnités, ont :
   5 000 / (1 − 98,25 % × 6,8 %) = 5 357,96, arrondi à 5 358 €. Sur ces heures, la CSG
   n'est pas déductible (charges.csg_basculee).
 
-Le net exonéré (011200) se retrouve depuis le bulletin : S = (N + C + R − M) / 0,93319,
-N le net avant impôt, C la CSG non déductible, R la CRDS, M le montant imposable.
+Le net exonéré (011200) se retrouve depuis le bulletin : S = (N + C + R − M) / f, N le
+net avant impôt, C la CSG non déductible, R la CRDS, M le montant imposable, et
+f = 1 − abattement × taux déductible (0,93319 depuis 2018 : facteur_hs_net).
 
 En 2019, les heures de janvier à mars ont été régularisées en octobre (ligne « Regul
 réduction cotis HS montant HS payé ») ; le prélèvement à la source de ces mois les
 comptait encore imposables.
 
-Sources : https://www.fonction-publique.gouv.fr/exoneration-des-heures-supplementaires,
-https://blog.juliendelmas.fr/?les-heures-supplementaires-desocialisees-et-defiscalisees-pour-les-enseignants-a-partir-de-janvier-2019
+Sources : lois 2012-958 et 2018-1213 (ci-dessous) ;
+https://www.fonction-publique.gouv.fr/exoneration-des-heures-supplementaires (taux et plafond
+de la réduction pour les fonctionnaires).
 """
 
 import datetime as dt
 
-import bpaye.config as config
-from bpaye.classes import Fixe, Ligne
+from bpaye.classes import Ligne
 from bpaye.config import BAREME, Bareme
 from bpaye.protocoles import BulletinMois
-from bpaye.utils import truncate
 
 __all__ = [
     "DEBUT_EXONERATION_HS",
-    "FACTEUR_HS_NET",
     "FIN_EXONERATION_TEPA",
     "FIN_REDUCTION_TEPA",
     "ExonerationHS",
-    "hs_exa_net",
+    "facteur_hs_net",
     "reduc_cotis_hs",
 ]
-
-# ── REDUC COTIS HS (code 453000) ─────────────────────────────────────────────
-# Formule : min(HS_brut, 20 % × TB annuel) × 5 %
-# Le 20 % × TB annuel est le plafond annuel ; appliqué ici au bulletin mensuel.
-# La valeur est positive (réduction des retenues, augmente le net).
-
 
 # Ces régimes sont datés par l'heure effectuée ; bpaye prend la date du bulletin.
 # - Loi 2012-958, art. 3 : II abroge l'exonération d'impôt (CGI, art. 81 quater) pour les
@@ -68,40 +61,22 @@ def _refuse_avant(date: dt.date, fin_tepa: dt.date) -> None:
         )
 
 
-def reduc_cotis_hs(hs_brut: float, tb_annuel: float, date: dt.date) -> Ligne | None:
-    """Réduction de cotisations sur heures supplémentaires (code 453000), depuis 2019."""
+def reduc_cotis_hs(hs_brut: float, tb_annuel: float, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """Réduction de cotisations sur heures supplémentaires (code 453000), depuis 2019 : le
+    taux salarial de la RAFP, sur les heures dans la limite de son plafond (20 % du
+    traitement annuel) ; positive, elle augmente le net."""
     _refuse_avant(date, FIN_REDUCTION_TEPA)
     if date < DEBUT_EXONERATION_HS:
         return None
-    assiette = min(hs_brut, 0.20 * tb_annuel)
-    val = round(assiette * 0.05, 2)
+    assiette = min(hs_brut, bareme.get("rafp.plafond_pct.valeur") * tb_annuel)
+    val = round(assiette * bareme.load("rafp")(date), 2)
     return Ligne(val, "Réduction cot. heures sup.", code=453000, classe="CHARGE")
 
 
-# ── HS EXO NETTES (code 011200) ───────────────────────────────────────────────
-# Plafond annuel d'exonération IR (temporel, défini dans taux.toml [hs_exo.plafond_brut])
-#   Avant août 2022 : 5 000 € nets = 5 358 € bruts
-#   Depuis août 2022 : 7 500 € nets = 8 037 € bruts  (loi 2022-1158)
-#   Formule : plafond_net / (1 – 98,25 % × 6,8 %) = plafond_brut
-# Le facteur 0.93319 = 1 – 98.25% × 6.8% traduit la part CSG déductible non
-# applicable sur les HS exonérées.
-# Formule de vérification : S (brut) = (N + C + R – M) / 0.93319
-#   → 011200 (net) = S × 0.93319 = N + C + R – M
-
-_plafond_hs_exo: Fixe = config.BAREME.load("hs_exo.plafond_brut")  # celui du barème du paquet
-FACTEUR_HS_NET = 0.93319  # = 1 – 98,25 % × 6,8 %
-
-
-def hs_exa_net(hs_brut_annuel: float, date: dt.date | None = None, bareme: Bareme = BAREME) -> float:
-    """Montant net mensuel exonéré d'IR sur les heures supplémentaires (011200).
-
-    Applique le plafond annuel brut (temporel) puis le facteur 0.93319.
-    Retourne 0.0 si hs_brut_annuel ≤ 0.
-    """
-    if hs_brut_annuel <= 0:
-        return 0.0
-    plafond = bareme.load("hs_exo.plafond_brut")(date)
-    return truncate(min(hs_brut_annuel, plafond) * FACTEUR_HS_NET, 2)
+def facteur_hs_net(date: dt.date, bareme: Bareme = BAREME) -> float:
+    """Le net d'un euro d'heures exonérées (011200) : sa CSG déductible ne se déduit pas,
+    1 − abattement × taux déductible, 1 − 98,25 % × 6,8 % = 0,93319 depuis 2018."""
+    return 1 - bareme.load("csg.abattement_taux")(date) * bareme.load("csg.deductible")(date)
 
 
 class ExonerationHS:

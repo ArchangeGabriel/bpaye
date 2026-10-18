@@ -47,13 +47,18 @@ def test_ifp_de_septembre_payee_en_octobre(configuration):
     assert len(ifp) == 2 and ifp[0] == ifp[1]
 
 
+def _ic_csg(agent, date, valeur):
+    """agent.toml dont l'indemnité compensatrice de CSG commence à ``date``."""
+    return agent.read_text(encoding="utf-8").replace(
+        "values = [{ date = 2018-01-01, valeur = 57.55 }]",
+        f"values = [{{ date = {date}, valeur = {valeur} }}]",
+    )
+
+
 def test_indemnite_compensatrice_csg_propre_a_l_agent(configuration):
     _, agent = configuration
     sans = _paye(configuration, 1, 3)
-    agent.write_text(
-        agent.read_text(encoding="utf-8") + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\n'
-        "values = [{ date = 2020-01-01, valeur = 30.00 }]\n"
-    )
+    agent.write_text(_ic_csg(agent, "2020-01-01", 30.0), encoding="utf-8")
     avec = _paye(configuration, 1, 3)
     assert [ligne.valeur for ligne in avec(2025, 2) if ligne.code == 202209] == [30.00]
     assert [ligne.valeur for ligne in sans(2025, 2) if ligne.code == 202209] != [30.00]
@@ -281,11 +286,18 @@ def test_bulletin_avant_l_entree_dans_la_carriere_refuse(configuration):
 
 def test_ic_csg_de_l_agent_avant_son_premier_montant_refuse(configuration):
     carriere, agent = configuration
-    agent.write_text(
-        agent.read_text(encoding="utf-8")
-        + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\nvalues = [{ date = 2020-01-01, valeur = 30.0 }]\n'
-    )
+    agent.write_text(_ic_csg(agent, "2020-01-01", 30.0), encoding="utf-8")
     fonc = load_agent(agent)
     fonc.load_carriere(carriere)
     with pytest.raises(ValueError, match="MANQUANT"):
         Paye(fonc).generate(startyear=2019, startmonth=9, n=4)
+
+
+def test_agent_sans_ic_csg_refuse_les_mois_depuis_2018(configuration):
+    carriere, agent = configuration
+    texte = agent.read_text(encoding="utf-8")
+    agent.write_text(texte[: texte.index("[ic_csg]")], encoding="utf-8")
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    with pytest.raises(ValueError, match=r"agent\.toml"):
+        Paye(fonc).generate(startyear=2025, startmonth=1, n=1)

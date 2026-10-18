@@ -615,7 +615,11 @@ def echelon_d_accueil(grille: Grille, indice: float) -> int:
     for echelon, im in enumerate(grille.indices, start=1):
         if im >= indice:
             return echelon
-    return len(grille.indices)
+    # Aucun échelon n'atteint l'ancien indice : le texte prévoit alors un maintien à titre
+    # personnel, que bpaye ne modélise pas.
+    raise ValueError(
+        f"Aucun échelon de la grille n'atteint l'indice {indice} (indice personnel non modélisé)"
+    )
 
 
 def _verifie_colles(year: int, heures: dict[int, float], debut: dt.date | None, fin: dt.date | None) -> None:
