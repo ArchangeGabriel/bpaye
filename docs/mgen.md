@@ -6,7 +6,8 @@ ministère : la participation employeur, la part forfaitaire de la cotisation, u
 solidaire variable et deux contributions variables (action sociale, aide aux retraités),
 les parts variables étant « calculées sur la base de votre rémunération mensuelle »
 (<https://www.education.gouv.fr/la-protection-sociale-complementaire-pour-les-personnels-de-l-education-nationale-de-l-enseignement-325214>,
-page lue le 17 octobre 2026).
+page lue le 17 octobre 2026). bpaye en imprime quatre : la participation employeur (720580), imprimée
+« pour information », n'entre que dans l'assiette de la CSG et de la CRDS.
 
 Le contrat qui fixe les formules n'a pas été trouvé en ligne. Les formules de bpaye sont
 celles qui retrouvent au centime les bulletins PAY18E V4.2 de 2026 : c'est ce que fait la
@@ -24,7 +25,7 @@ paie, pas ce que dit un texte. Les montants de cette page sont fictifs.
 
 Les codes et leurs libellés sont ceux de la nomenclature de la DGFiP de janvier 2026
 (PSC santé, IR 0976 à 0980 ; `codes.toml`). 720578 et 720579 restent dans le montant
-imposable. La part employeur entre dans l'assiette de la CSG après l'abattement de
+imposable. La part employeur entre dans l'assiette de la CSG sans l'abattement de
 1,75 % (`docs/csg.md`).
 
 ## La part solidaire (720577)
@@ -38,7 +39,7 @@ coefficient = (MIN(tb, PMSS + TPP) + TPP) / brut moyen
 
 où `tb` est le traitement brut indiciaire du mois, `PMSS` le plafond mensuel de la
 sécurité sociale (4 005 € en 2026), `TPP` le transfert primes-points mensuel (389 / 12 =
-32,42 €) et `brut moyen` 3 107 €, la valeur retenue par la paie.
+32,42 €) et `brut moyen` 3 107 €, relevé sur les bulletins : aucun texte lu ne le donne.
 
 Pour un traitement de 4 100 € :
 

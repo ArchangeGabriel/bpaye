@@ -2,9 +2,10 @@
 
 python examples/verifier.py DOSSIER_DES_PDF ANNEE [DOSSIER_DE_L_AGENT]
 
-DOSSIER_DES_PDF contient les bulletins tels que l'ENSAP les fournit, renommés
-AAAA_MM_BP_mois.pdf (2025_03_BP_mars.pdf) ; DOSSIER_DE_L_AGENT, son carriere.toml et son
-agent.toml (examples/college, par exemple). Il faut l'extra pdf : pip install "bpaye[pdf]".
+DOSSIER_DES_PDF contient les bulletins de l'ENSAP, nommés AAAA_MM_BP_mois.pdf
+(2025_03_BP_mars.pdf) ; DOSSIER_DE_L_AGENT, son carriere.toml et son agent.toml
+(examples/college, par exemple). Il faut l'extra pdf :
+pip install "bpaye[pdf] @ git+https://github.com/antnardo/bpaye".
 """
 
 import sys
@@ -16,11 +17,12 @@ from bpaye.format import MOIS
 from bpaye.pdf import ecart_totaux, extract_bulletin, find_pdfs
 
 
-def lire(dossier: Path, annee: int) -> dict[int, dict]:
-    """Les bulletins principaux de l'année, mois par mois, lus et contrôlés."""
+def lire(dossier: Path, annee: int, siret: str | None = None) -> dict[int, dict]:
+    """Les bulletins principaux de l'année, mois par mois, lus et contrôlés ; avec un SIRET,
+    ceux de ce seul gestionnaire."""
     lus = {}
     print(f"== Bulletins {annee} lus dans {dossier}")
-    for mois, chemins in sorted(find_pdfs(dossier, annee).items()):
+    for mois, chemins in sorted(find_pdfs(dossier, annee, siret).items()):
         lu = extract_bulletin(chemins[0])
         lus[mois] = lu
         ecart = ecart_totaux(lu)
@@ -64,7 +66,8 @@ def comparer(agent_dossier: Path, annee: int, lus: dict[int, dict]) -> None:
 
 
 def main(dossier: str, annee: str, agent: str | None = None) -> None:
-    lus = lire(Path(dossier), int(annee))
+    siret = load_agent(Path(agent) / "agent.toml").siret if agent is not None else None
+    lus = lire(Path(dossier), int(annee), siret)
     if agent is not None:
         comparer(Path(agent), int(annee), lus)
 

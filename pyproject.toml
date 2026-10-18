@@ -35,7 +35,7 @@ pdf = ["pdfplumber>=0.11"]
 
 [project.urls]
 Repository = "https://github.com/antnardo/bpaye"
-Documentation = "https://github.com/antnardo/bpaye/blob/main/docs/csg.md"
+Documentation = "https://github.com/antnardo/bpaye/blob/main/docs/DOC.md"
 Changelog = "https://github.com/antnardo/bpaye/blob/main/CHANGELOG.md"
 
 [dependency-groups]

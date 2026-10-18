@@ -1,5 +1,6 @@
 """Les extraits de code de README.md et docs/DOC.md, sur l'agente fictive des exemples."""
 
+import re
 from pathlib import Path
 
 import pytest
@@ -21,10 +22,12 @@ def paye():
 
 def test_doc_evenements_hors_carriere(paye):
     net_novembre = paye(2025, 11).net
+    paye.retard_indice((2025, 9), (2025, 11), indice=562)
     paye.retard_paiement((2025, 3), 200205)
-    paye.colle((2025, 10), {157: 6.0})
+    paye.colle((2025, 10), {161: 6.0})
     paye.hse((2025, 11), 3)
     paye.erreur((2025, 4), (2025, 6), 50.0, 200364)
+    paye.gipa(2023, (2025, 12))
     assert paye(2025, 11).net != net_novembre
 
 
@@ -36,3 +39,27 @@ def test_doc_selection_et_somme(paye):
 def test_doc_prevision():
     mois = nets_prevus(EXEMPLE / "carriere.toml", EXEMPLE / "agent.toml", (2025, 9), 12)
     assert [(m.annee, m.mois) for m in mois][:2] == [(2025, 9), (2025, 10)]
+
+
+def _blocs(nom, langue):
+    texte = (EXEMPLE.parents[1] / nom).read_text(encoding="utf-8")
+    return re.findall(rf"```{langue}\n(.*?)```", texte, flags=re.S)
+
+
+def test_readme_montre_la_vraie_sortie_du_bulletin():
+    agente = load_agent(EXEMPLE / "agent.toml")
+    agente.load_carriere(EXEMPLE / "carriere.toml")
+    paye = Paye(agente)
+    paye.generate(startyear=2026, startmonth=1, n=12)
+    assert str(paye(2026, 1)).strip() == _blocs("README.md", "text")[0].strip()
+
+
+def test_readme_montre_la_vraie_somme_et_les_nets_prevus():
+    agente = load_agent(EXEMPLE / "agent.toml")
+    agente.load_carriere(EXEMPLE / "carriere.toml")
+    paye = Paye(agente)
+    paye.generate(startyear=2026, startmonth=1, n=12)
+    sortie = _blocs("README.md", "text")[1].splitlines()
+    assert sortie[0] == str(paye.select(200364, 2026).somme())
+    mois = nets_prevus(EXEMPLE / "carriere.toml", EXEMPLE / "agent.toml", (2026, 8), 3)
+    assert sortie[1:] == [f"{m.annee} {m.mois} {m.net}" for m in mois]

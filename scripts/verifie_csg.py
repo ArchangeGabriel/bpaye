@@ -49,10 +49,10 @@ def tronque(x: float) -> float:
 def main() -> None:
     dossier, agent = Path(sys.argv[1]), Path(sys.argv[2])
     with Path(agent).open("rb") as f:
-        siret = tomllib.load(f)["siret"]
+        siret = tomllib.load(f).get("siret")  # facultatif : sans lui, tous les bulletins
     bulletins = []
     for chemin in sorted(dossier.glob("20*_BP_*.pdf")):
-        if siret in extract_sirets(chemin):
+        if siret is None or siret in extract_sirets(chemin):
             d = extract_bulletin(chemin)
             if "401301" in d:
                 bulletins.append((chemin.name[:7], d))

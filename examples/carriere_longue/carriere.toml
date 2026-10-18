@@ -32,7 +32,7 @@ date   = 2023-09-01
 grille = "GRILLE_CERTHC"
 
 [[rentrees]]
-year = 2006                     # adjointe : 24 heures d'enseignement (décret 2008-775)
+year = 2006                     # adjointe ; ORS de 24 heures (décret 2008-775), sans effet ici : pas d’heure supplémentaire
 
 [[rentrees]]
 year = 2019

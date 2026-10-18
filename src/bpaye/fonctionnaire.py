@@ -58,6 +58,7 @@ class Fonctionnaire:
             None  # indemnité compensatrice de CSG propre à l'agent (agent.toml)
         )
         self.taux_pas = Taux(dt.date(2001, 1, 1), 0)  # prélèvement à la source (agent.toml)
+        self.siret: str | None = None  # du gestionnaire (agent.toml) : trie les bulletins PDF
         self.zone_vacances = ZONE_PAR_DEFAUT  # celle du lycée d'affectation, pour les colles
         self.colles_prevues: dict[int, CollesPrevues] = {}  # par année de rentrée
         self.colles_externes: dict[int, list[CollesExternes]] = {}  # idem
@@ -171,6 +172,7 @@ class Fonctionnaire:
         reste propre à cet agent : deux agents d'un même processus ne se mélangent pas."""
         with Path(path).open("rb") as f:
             cfg = tomllib.load(f)
+        self.siret = cfg.get("siret")
         for entry in cfg["ir"]["values"]:
             date = parse_toml_date(entry["date"])
             if date != dt.date(2001, 1, 1):  # valeur initiale déjà présente

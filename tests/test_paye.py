@@ -74,7 +74,8 @@ def test_select_reel_compte_le_rappel_meme_sans_ligne_bpaye(configuration, monke
     # Décembre : l'IFP du mois et un rappel de trois mois que bpaye ne connaît pas.
     bulletin_pdf = {"101000": 1.0, "200597": 93.16, "200597_R": 279.48}
     faux_pdf = types.SimpleNamespace(
-        find_pdfs=lambda dossier, annee: {12: ["decembre.pdf"]}, extract_bulletin=lambda chemin: bulletin_pdf
+        find_pdfs=lambda dossier, annee, siret=None: {12: ["decembre.pdf"]},
+        extract_bulletin=lambda chemin: bulletin_pdf,
     )
     monkeypatch.setitem(sys.modules, "bpaye.pdf", faux_pdf)
     paye = _paye(configuration, 1, 12)
@@ -86,7 +87,8 @@ def test_select_reel_ne_double_pas_le_mois_a_deux_lignes(configuration, monkeypa
     # Novembre : bpaye porte deux lignes d'HSA (le mois et octobre en rappel).
     bulletin_pdf = {"101000": 1.0, "200205": 100.0, "200205_R": 100.0}
     faux_pdf = types.SimpleNamespace(
-        find_pdfs=lambda dossier, annee: {11: ["novembre.pdf"]}, extract_bulletin=lambda chemin: bulletin_pdf
+        find_pdfs=lambda dossier, annee, siret=None: {11: ["novembre.pdf"]},
+        extract_bulletin=lambda chemin: bulletin_pdf,
     )
     monkeypatch.setitem(sys.modules, "bpaye.pdf", faux_pdf)
     paye = _paye(configuration, 1, 12)

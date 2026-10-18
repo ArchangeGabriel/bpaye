@@ -273,27 +273,23 @@ class Bulletin(ListeLignes):
             except ValueError:
                 actuel = self.fonctionnaire.indice(self.date)
                 s += f"    La grille a changé : l'indice passe à {actuel}\n"
-        if self.fonctionnaire.point.changed_trigger(self.date):
+        point = self.bareme.load("point")  # celui de la Paye, pas celui du paquet
+        if point.changed_trigger(self.date):
             try:
-                prev = self.fonctionnaire.point.previous_value(self.date)
-                actuel = self.fonctionnaire.point(self.date)
+                prev = point.previous_value(self.date)
+                actuel = point(self.date)
                 s += f"    La valeur du point a augmenté de {prev} à {actuel}\n"
             except ValueError:
-                actuel = self.fonctionnaire.point(self.date)
+                actuel = point(self.date)
                 s += f"    La valeur du point a augmenté à {actuel}\n"
-        if self.fonctionnaire.ors.changed_trigger(self.date):
-            try:
-                prev = self.fonctionnaire.ors.previous_value(self.date)
-                actuel = self.fonctionnaire.ors(self.date)
-                s += f"    La valeur de l'ORS est passé de {prev} à {actuel}\n"
-                prev = self.fonctionnaire.vs.previous_value(self.date)
-                actuel = self.fonctionnaire.vs(self.date)
-                s += f"        et HSA de {prev} à {actuel}\n"
-            except ValueError:
-                actuel = self.fonctionnaire.ors(self.date)
-                s += f"    La valeur de l'ORS est passé à {actuel}\n"
-                actuel = self.fonctionnaire.vs(self.date)
-                s += f"        et HSA à {actuel}\n"
+        fonc = self.fonctionnaire
+        if fonc.ors.changed_trigger(self.date):
+            for nom, temporal in (("L'ORS", fonc.ors), ("Le nombre d'HSA", fonc.vs)):
+                prev, actuel = temporal.previous_value(self.date), temporal(self.date)
+                if prev is None:
+                    s += f"    {nom} : {actuel}\n"
+                elif prev != actuel:
+                    s += f"    {nom} passe de {prev} à {actuel}\n"
         if self.fonctionnaire.echelon.changed_trigger(self.date):
             try:
                 prev = self.fonctionnaire.echelon.previous_value(self.date)
@@ -892,7 +888,7 @@ class Paye:
 
             years_covered = {b.date.year for b in bulletins_in_range}
             for y in years_covered:
-                pdfs = find_pdfs(str(self.bull_dir), y)
+                pdfs = find_pdfs(str(self.bull_dir), y, self.fonctionnaire.siret)
                 for month_num, paths in pdfs.items():
                     for path in paths:
                         pdf_data = extract_bulletin(path)

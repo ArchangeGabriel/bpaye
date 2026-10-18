@@ -56,7 +56,8 @@ surcotisation = true            # retraite cotisée comme à temps plein
 Son bulletin de janvier 2026 porte l'ISOE (part fixe et part modulable de professeure
 principale), l'indemnité REP, la prime d'attractivité du 9e échelon, l'heure
 supplémentaire et sa majoration, la part de Pacte. À partir de septembre 2026, traitement,
-résidence, SFT et primes sont réduits aux six septièmes ; la retenue pour pension, elle,
+résidence, SFT et primes sont réduits aux six septièmes (sauf l'indemnité compensatrice
+de CSG) ; la retenue pour pension, elle,
 est prise sur le traitement d'un temps plein, à un taux plus élevé.
 
 ### Un agrégé en classe préparatoire (`examples/agrege_cpge/`)
@@ -249,17 +250,18 @@ direction_ecole = 5            # directeur d'une école de 5 classes (majorée e
 
 Un CPE ou un PsyEN n'a pas d'ORS : ni heures supplémentaires ni colles.
 
-À 80 % et 90 %, l'agent perçoit 6/7 et 32/35 ; une quotité aménagée entre les deux,
-(quotité × 4/7 + 40) % (décret 82-624, art. 1). Le traitement, la NBI, l'indemnité de
+À 80 % et 90 %, l'agent perçoit 6/7 et 32/35 ; pour une quotité aménagée entre les deux,
+la fraction vaut (quotité × 4/7 + 40) % (décret 82-624, art. 1). Le traitement, la NBI, l'indemnité de
 résidence et les primes suivent cette fraction ; le SFT aussi, sauf l'élément fixe d'un
 enfant et sans descendre sous le minimum d'un temps plein ; la prime d'équipement
-informatique reste entière (`temps_partiel.py`). Le Pacte se verse par neuvième ; ses
+informatique reste entière (`temps_partiel.py`), comme l'indemnité compensatrice de CSG,
+propre à l'agent (un changement de quotité ne la modifie pas : décret 2017-1889, art. 5). Le Pacte se verse par neuvième ; ses
 mois, d'octobre à juin, sont supposés.
 
 **Les colles prévues** (pour la paye à venir) :
 
 ```toml
-colles        = { 157 = 4.0 }  # heures par semaine, par code de colle
+colles        = { 161 = 4.0 }  # heures par semaine, par code de colle
 colles_debut  = 2025-09-22
 colles_fin    = 2026-04-10     # au plus tard : 20 semaines de colles comptées
 colles_classe = 7.0            # budget hebdomadaire de sa classe : reliquat en fin d'année
@@ -286,7 +288,7 @@ detache = false
 ## 4. `agent.toml`
 
 ```toml
-siret = "19750000000000"       # facultatif : le gestionnaire, pour trier les PDF
+siret = "19750000000000"       # facultatif : seuls les bulletins de ce gestionnaire sont lus
 
 [ir]                           # seule section obligatoire
 type   = "Taux"
@@ -344,13 +346,17 @@ heures supplémentaires. `paye(2025, 3)` est le bulletin de mars ; ses lignes (`
 ### Ce que la carrière ne prévoit pas
 
 ```python
-paye.retard_indice((2023, 9), (2023, 11), indice=757)   # promotion payée en novembre
+paye.retard_indice((2025, 9), (2025, 11), indice=562)   # promotion payée en novembre
 paye.retard_paiement((2025, 3), 200205)                  # les HSA de mars payées en mai
-paye.colle((2025, 10), {157: 6.0})                       # colles déclarées en octobre
+paye.colle((2025, 10), {161: 6.0})                       # colles déclarées en octobre
 paye.hse((2025, 11), 3)                                  # heures supplémentaires effectives
 paye.erreur((2025, 4), (2025, 6), 50.0, 200364)          # un trop-versé repris deux mois après
-paye.gipa(2023, (2023, 12))                              # la GIPA de 2023, versée en décembre
+paye.gipa(2023, (2025, 12))                              # la GIPA de 2023, versée en décembre 2025
 ```
+
+`retard_indice` reçoit l'indice payé en attendant (562 ici, celui d'avant la
+promotion) : les bulletins de septembre et d'octobre le portent, et novembre rappelle
+l'écart.
 
 ### Comparer au réel
 

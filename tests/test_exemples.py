@@ -36,6 +36,6 @@ def test_verifier_lit_controle_et_compare(tmp_path, capsys, monkeypatch, faux_bu
     monkeypatch.setattr(sys, "argv", ["verifier.py", str(tmp_path), "2026", str(EXEMPLES / "college")])
     runpy.run_path(str(EXEMPLES / "verifier.py"), run_name="__main__")
     sortie = capsys.readouterr().out
-    assert "janvier    net à payer   4000.00 €  lecture complète" in sortie
+    assert "janvier    net à payer   2350.00 €  lecture complète" in sortie
     assert "rappels : 200205" in sortie
     assert "101000 TB" in sortie  # le traitement du faux bulletin n'est pas celui de l'agente

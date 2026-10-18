@@ -21,7 +21,8 @@ L'assiette se construit en quatre temps :
 2. **Heures supplémentaires exonérées d'impôt** : HSA, majoration, colles, HSE, HSE de
    suppléance, parts fonctionnelles du Pacte (décret 2019-133, art. 1, 29°), dans la
    limite d'un plafond annuel (5 000 € nets, soit 5 358 € bruts ; 7 500 € nets, soit
-   8 037 € bruts, à partir de 2023). Le plafond se consomme dans l'ordre de l'année
+   8 037 € bruts, que la loi 2022-1158 fixe pour les revenus de 2022 et que la paie
+   n'applique qu'à partir de 2023). Le plafond se consomme dans l'ordre de l'année
    civile : toutes les heures de janvier, celles de février jusqu'au plafond, plus rien
    ensuite.
 3. **Abattement de 1,75 %**, sous le seuil de `taux.toml`, séparément sur le salaire hors

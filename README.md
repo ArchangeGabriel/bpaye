@@ -77,8 +77,9 @@ d'une erreur de la paie ou d'un événement que la carrière ne décrit pas enco
    rejoue ainsi depuis son début, avec les règles de chaque année.
 2. **Les valeurs viennent des textes.** Chaque grille se compose des indices bruts du
    statut, du barème des indices majorés et des hors-échelle, chacun daté et sourcé
-   (Légifrance, nomenclature de la DGFiP). Une valeur qu'aucun texte lu ne donne est
-   marquée « MANQUANT » : bpaye refuse alors de calculer plutôt que de deviner.
+   (Légifrance, nomenclature de la DGFiP). Les quelques montants que seuls les bulletins
+   donnent sont notés « relevés » ; une valeur ni lue ni relevée est marquée « MANQUANT »,
+   et bpaye refuse alors de calculer plutôt que de deviner.
 3. **La carrière avance seule.** Les échelons suivent les durées du statut, les
    reclassements de 2017 et de 2023 suivent leurs tableaux ; le fichier ne décrit que ce
    qui s'en écarte : un avancement au choix, une promotion, ce que change chaque rentrée.
@@ -169,7 +170,7 @@ certifiés, 2010 pour les chaires supérieures.
 Une rubrique sur l'année, ou la paye des mois à venir :
 
 ```python
-print(paye.select(200364, 2026).somme())       # l'ISOE de 2026
+print(paye.select(200364, 2026).somme())       # l'ISOE de 2026, part fixe
 
 from bpaye.prevision import nets_prevus
 
@@ -185,10 +186,10 @@ Somme [200364] réel=—  calcul=2428.56 € (0/12 mois PDF)
 2026 10 2168.15
 ```
 
-En septembre 2026, l'agente passe à 80 % et n'a plus d'heure supplémentaire : la
-prévision le montre. Ce que la carrière ne prévoit pas (une promotion payée en retard,
-des colles déclarées, une GIPA) se déclare sur la paye : `paye.retard_indice`,
-`paye.colle`, `paye.gipa`… (guide, section 5).
+En septembre 2026, l'agente passe à 80 % : la prévision le montre. Ce que la carrière ne
+prévoit pas (une promotion payée en retard, des colles déclarées, une GIPA) se déclare
+sur la paye : `paye.retard_indice`, `paye.colle`, `paye.gipa`… (guide,
+[section 5](docs/DOC.md#5-calculer)).
 
 ## Vérifier ses bulletins
 
@@ -207,7 +208,7 @@ print(ecart_totaux(lu))                             # 0.0 : lecture complète
 
 ```text
 3000.0 300.0 50.0
-3350.0 4000.0
+3350.0 2350.0
 0.0
 ```
 
@@ -234,15 +235,16 @@ chaque clé des fichiers et chaque rubrique calculée, est dans [`docs/DOC.md`](
 
 ## Limites
 
-- **Les indemnités ponctuelles** (jurys, examens, missions particulières) et la
-  bonification indiciaire des directeurs d'école : la ligne du bulletin se lit, mais
-  n'est pas calculée.
+- **Les indemnités ponctuelles** (jurys, examens, missions particulières) : la ligne du
+  bulletin se lit, mais n'est pas calculée. **La bonification indiciaire des directeurs
+  d'école** n'a pas de rubrique connue : sa ligne est signalée comme code inconnu.
 - **Les montants qu'aucun texte lu ne donne** : la pension civile avant 2011, le plafond
   de transport avant août 2016, l'indemnité des CPE de 2016 à 2021, les chaires
   supérieures avant 2010… bpaye refuse de calculer ces mois-là (liste dans le
-  guide, « Limites »).
+  guide, [« Limites »](docs/DOC.md#9-limites)).
 - **Les cotisations patronales**, imprimées « pour information » sur le bulletin : hors du
-  sujet de bpaye, qui ne calcule que ce que perçoit l'agent (guide, « Limites »).
+  sujet de bpaye, qui ne calcule que ce que perçoit l'agent (guide,
+  [« Limites »](docs/DOC.md#9-limites)).
 - **Les contractuels**, dont l'indice dépend de l'académie, et **l'enseignement privé**,
   qui relève d'autres cotisations.
 - **La part solidaire de la PSC santé sous le plafond de la sécurité sociale** : aucun

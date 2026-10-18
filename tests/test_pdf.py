@@ -124,7 +124,7 @@ def test_extract_bulletin_sur_un_vrai_pdf(tmp_path, faux_bulletin_pdf):
     lu = extract_bulletin(chemin)
     assert (lu["101000"], lu["200205"], lu["200205_R"]) == (3000.0, 300.0, 50.0)
     assert (lu["_totaux_mois"], lu["_total_ret"], lu["_total_pat"]) == (3350.0, 1000.0, 2000.0)
-    assert (lu["_net_payer"], lu["_montant_imp"]) == (4000.0, 3900.0)
+    assert (lu["_net_payer"], lu["_montant_imp"]) == (2350.0, 2600.0)
 
 
 def test_extract_bulletin_reprise_sans_mention_d_un_code_rappelable(bulletin):
