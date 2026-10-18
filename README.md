@@ -108,6 +108,10 @@ Le calcul ne demande que la bibliothèque standard ; l'extra `pdf` ajoute pdfplu
 lit les bulletins PDF. Sans lui (`pip install "bpaye @ git+https://github.com/antnardo/bpaye"`),
 tout fonctionne sauf cette lecture.
 
+Ces commandes suivent la branche principale ; pour une version fixe, ajoutez son tag :
+`git+https://github.com/antnardo/bpaye@v0.2.0`. Les versions et leurs changements sont
+dans [`CHANGELOG.md`](CHANGELOG.md).
+
 Les exemples (`examples/`) ne sont pas dans le paquet installé : pour les lancer,
 clonez le dépôt.
 

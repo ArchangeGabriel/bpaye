@@ -5,7 +5,9 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et la
 
 ## [Non publié]
 
-Première version, sans numéro ni tag encore : le code est sur GitHub depuis le
+## [0.2.0] - 2026-10-19
+
+Première version publiée, sur GitHub seulement (pas sur PyPI) : le code y est depuis le
 18 octobre 2026.
 
 ### Ajouté
@@ -68,4 +70,5 @@ Depuis la mise en ligne du 18 octobre 2026 :
 - **Dates** : un départ le 29, le 30 ou le 31 ne fait plus planter l'avancement ; un
   bulletin d'avant l'entrée dans la carrière est refusé.
 
-[Non publié]: https://github.com/antnardo/bpaye/commits/main
+[Non publié]: https://github.com/antnardo/bpaye/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/antnardo/bpaye/releases/tag/v0.2.0
