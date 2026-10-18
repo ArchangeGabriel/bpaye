@@ -5,7 +5,8 @@ Le format suit [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) et la
 
 ## [Non publié]
 
-Première version publiée.
+Première version, sans numéro ni tag encore : le code est sur GitHub depuis le
+18 octobre 2026.
 
 ### Ajouté
 
@@ -25,6 +26,8 @@ Première version publiée.
 - **Événements** : promotion payée en retard, colles déclarées, heures supplémentaires
   effectives, erreur reprise, GIPA (`Paye.retard_indice`, `Paye.colle`, `Paye.hse`,
   `Paye.erreur`, `Paye.gipa`).
+- **Point d'entrée** : `agente = load_agent("agent.toml")`, puis
+  `agente.load_carriere("carriere.toml")` ; `Paye(agente)` en calcule les bulletins.
 - **Prévision** : la paye des mois à venir, colles prévues comprises
   (`prevision.nets_prevus`).
 - **Lecture des bulletins PDF** (extra `pdf`, pdfplumber) : lignes, rappels, pied du
@@ -39,7 +42,7 @@ Première version publiée.
 
 ### Corrigé
 
-Depuis la première mise en ligne du dépôt, le 18 octobre 2026 :
+Depuis la mise en ligne du 18 octobre 2026 :
 
 - **RAFP** : l'assiette du mois est ce que le cumul de l'année (primes dans la limite des
   plafonds) ajoute aux mois précédents ; elle repart au 1er janvier. Sous le plafond, les
@@ -56,3 +59,13 @@ Depuis la première mise en ligne du dépôt, le 18 octobre 2026 :
 - **Troncature** : le centime n'est plus perdu quand le produit flottant tombe juste sous la
   valeur exacte (traitement de l'IM 480 au 1/10/2008 : 2 193,90 €).
 - **Plafonds de transport** : les montants officiels de chaque 1er janvier de 2023 à 2026.
+- **Heures supplémentaires et majoration** arrondies au centime le plus proche.
+- **Lignes ajoutées** : une charge ajoutée (`addligne`, `erreur_montant`) survit au
+  recalcul ; un rappel de promotion (`retard_indice`) suit la quotité et la NBI.
+- **Lecture des PDF** : un trop-perçu garde son signe ; `select` d'une fonction ne masque
+  plus ses erreurs ; `siret` d'`agent.toml` trie les bulletins ; un sous-dossier par
+  employeur est lu.
+- **Dates** : un départ le 29, le 30 ou le 31 ne fait plus planter l'avancement ; un
+  bulletin d'avant l'entrée dans la carrière est refusé.
+
+[Non publié]: https://github.com/antnardo/bpaye/commits/main

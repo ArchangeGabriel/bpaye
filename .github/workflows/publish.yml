@@ -1,16 +1,13 @@
-name: Publish to PyPI
+name: Release
 
+# bpaye n'est pas publié sur PyPI : une release GitHub reçoit la roue et le sdist, après
+# vérification que le tag annonce la version du paquet.
 on:
   release:
     types: [published]
-  workflow_dispatch:
-    inputs:
-      target:
-        description: "Index cible"
-        required: true
-        default: testpypi
-        type: choice
-        options: [testpypi, pypi]
+
+permissions:
+  contents: write  # joindre les fichiers à la release
 
 jobs:
   build:
@@ -21,10 +18,11 @@ jobs:
       - uses: astral-sh/setup-uv@v5
         with:
           enable-cache: true
-          cache-dependency-glob: "**/pyproject.toml"
+          cache-dependency-glob: |
+            **/uv.lock
+            **/pyproject.toml
       - run: uv build
       - name: Le tag correspond à la version du paquet
-        if: github.event_name == 'release'
         run: |
           tag="${GITHUB_REF_NAME#v}"
           # La version lue sur la roue même qui va partir : le build a produit
@@ -33,43 +31,7 @@ jobs:
           echo "tag=$tag package=$pkg"
           test "$tag" = "$pkg"
       - run: uvx twine check dist/*
-      - uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist/
-
-  testpypi:
-    name: TestPyPI
-    needs: build
-    if: github.event_name == 'workflow_dispatch' && inputs.target == 'testpypi'
-    runs-on: ubuntu-latest
-    environment:
-      name: testpypi
-      url: https://test.pypi.org/p/bpaye
-    permissions:
-      id-token: write  # publication de confiance : aucun jeton stocké
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository-url: https://test.pypi.org/legacy/
-
-  pypi:
-    name: PyPI
-    needs: build
-    if: github.event_name == 'release' || inputs.target == 'pypi'
-    runs-on: ubuntu-latest
-    environment:
-      name: pypi
-      url: https://pypi.org/p/bpaye
-    permissions:
-      id-token: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
-      - uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Joindre à la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" dist/* --clobber

@@ -244,7 +244,7 @@ class Colles:
             bulletin.append(c.paiement(bulletin.date), recalc=True)
 
     def export_colles(self, filename: str | Path, delimiter: str = ";") -> None:
-        with Path(filename).open("w") as f:
+        with Path(filename).open("w", encoding="utf-8") as f:
             for c in self:
                 f.write(c.fmt_csv(delimiter))
 

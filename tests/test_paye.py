@@ -51,7 +51,7 @@ def test_indemnite_compensatrice_csg_propre_a_l_agent(configuration):
     _, agent = configuration
     sans = _paye(configuration, 1, 3)
     agent.write_text(
-        agent.read_text() + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\n'
+        agent.read_text(encoding="utf-8") + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\n'
         "values = [{ date = 2020-01-01, valeur = 30.00 }]\n"
     )
     avec = _paye(configuration, 1, 3)
@@ -237,7 +237,9 @@ def test_erreur_montant_sur_une_charge_corrige_le_mois_et_rattrape_ensuite(confi
 
 def test_promotion_payee_en_retard_a_temps_partiel_rappelle_la_fraction(configuration):
     carriere, agent = configuration
-    carriere.write_text(carriere.read_text() + "\n[[rentrees]]\nyear = 2026\ntemps_partiel = 0.5\n")
+    carriere.write_text(
+        carriere.read_text(encoding="utf-8") + "\n[[rentrees]]\nyear = 2026\ntemps_partiel = 0.5\n"
+    )
     fonc = load_agent(agent)
     fonc.load_carriere(carriere)
     paye = Paye(fonc)
@@ -280,7 +282,7 @@ def test_bulletin_avant_l_entree_dans_la_carriere_refuse(configuration):
 def test_ic_csg_de_l_agent_avant_son_premier_montant_refuse(configuration):
     carriere, agent = configuration
     agent.write_text(
-        agent.read_text()
+        agent.read_text(encoding="utf-8")
         + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\nvalues = [{ date = 2020-01-01, valeur = 30.0 }]\n'
     )
     fonc = load_agent(agent)

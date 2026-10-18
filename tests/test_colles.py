@@ -28,7 +28,9 @@ colles_fin    = 2026-04-10
 @pytest.fixture
 def paye_avec_reliquat(configuration):
     carriere, agent = configuration
-    carriere.write_text(carriere.read_text().replace("161 = 4.0 }", "161 = 4.0 }\ncolles_classe = 7.0"))
+    carriere.write_text(
+        carriere.read_text(encoding="utf-8").replace("161 = 4.0 }", "161 = 4.0 }\ncolles_classe = 7.0")
+    )
     fonc = load_agent(agent)
     fonc.load_carriere(carriere)
     paye = Paye(fonc)
@@ -70,7 +72,7 @@ def test_sans_budget_de_classe_pas_de_reliquat(configuration):
 
 def test_colles_externes_lues_avec_leur_zone(configuration):
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text() + EXTERNES)
+    carriere.write_text(carriere.read_text(encoding="utf-8") + EXTERNES)
     (externes,) = Fonctionnaire().load_carriere(carriere).colles_externes[2025]
     assert (externes.zone, externes.heures, externes.etablissement) == (
         "B",
@@ -81,7 +83,7 @@ def test_colles_externes_lues_avec_leur_zone(configuration):
 
 def test_colles_externes_zone_inconnue_refusee(configuration):
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text() + EXTERNES.replace('"B"', '"D"'))
+    carriere.write_text(carriere.read_text(encoding="utf-8") + EXTERNES.replace('"B"', '"D"'))
     with pytest.raises(ValueError, match="'D'"):
         Fonctionnaire().load_carriere(carriere)
 
@@ -120,7 +122,7 @@ def test_colles_prevues_suivent_la_zone_du_lycee(configuration):
     mois_par_zone = {}
     for zone in ("A", "C"):
         carriere.write_text(
-            carriere.read_text()
+            carriere.read_text(encoding="utf-8")
             .replace('zone_vacances = "A"\n', "")
             .replace("date       = 2019-09-01\n", f'date       = 2019-09-01\nzone_vacances = "{zone}"\n', 1)
         )

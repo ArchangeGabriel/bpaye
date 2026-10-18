@@ -86,7 +86,9 @@ def test_csg_au_dela_du_seuil_abat_la_seule_part_sous_le_seuil():
 def test_load_agent_deux_agents_gardent_chacun_leur_taux(configuration, tmp_path):
     carriere, agent = configuration
     autre = tmp_path / "autre.toml"
-    autre.write_text(agent.read_text().replace("valeur = 0.05", "valeur = 0.12"), encoding="utf-8")
+    autre.write_text(
+        agent.read_text(encoding="utf-8").replace("valeur = 0.05", "valeur = 0.12"), encoding="utf-8"
+    )
     premier, second = Fonctionnaire().load_carriere(carriere), Fonctionnaire().load_carriere(carriere)
     premier.load_agent(agent)
     second.load_agent(autre)
