@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """MGEN PSC – Protection Sociale Complémentaire (depuis mai 2026).
 
 ──────────────────────────────────────────────────────────────

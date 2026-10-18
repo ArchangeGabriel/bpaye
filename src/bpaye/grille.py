@@ -1,3 +1,14 @@
+"""Les grilles indiciaires : l'indice majoré de chaque échelon, à chaque date.
+
+Une grille se compose de textes différents, datés chacun : les indices bruts du statut,
+le barème IB → IM (décret 82-1105), les hors-échelle (décret 85-1148), les durées
+d'échelon. grilles.toml, généré depuis les relevés de docs/verification par
+scripts/genere_grilles.py, garde chaque élément avec sa date et sa source ; _compose en
+refait la grille à chaque date où l'un d'eux change, plutôt que de figer des indices
+majorés qui vieilliraient à chaque revalorisation. Avant sa première date, une grille
+n'a rien de vérifié : elle refuse (MANQUANT).
+"""
+
 import datetime as dt
 import tomllib
 from pathlib import Path
@@ -130,6 +141,7 @@ def _compose(
     dates = {e["date"] for e in indices} | {e["date"] for e in durees}
     dates |= {e["date"] for e in baremes} | {e["date"] for e in hors_echelle}
     temporal: Temporal[Grille] = Temporal()
+    temporal.strict = True
     precedente = None
     for date in sorted(d for d in dates if d >= debut):
         entree = _en_vigueur(indices, date) or indices[0]

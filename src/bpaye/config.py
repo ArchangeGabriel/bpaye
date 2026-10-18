@@ -9,7 +9,6 @@ des fichiers donnés. BAREME est le barème du paquet, valeur par défaut partou
 load() et get() restent, pour lire le barème du paquet.
 """
 
-import copy
 import tomllib
 from pathlib import Path
 from typing import Any, Self
@@ -97,9 +96,6 @@ class Bareme:
             temporal.strict = True
             self._cache[path] = temporal
         return self._cache[path]
-
-    def copie(self) -> Self:
-        return type(self)(copy.deepcopy(self._cfg))
 
 
 BAREME = Bareme.depuis_fichiers()

@@ -5,7 +5,7 @@ from pathlib import Path
 import pytest
 
 import bpaye
-from bpaye.grille import GRILLES, indice_majore
+from bpaye.grille import GRILLE_CHSUP, GRILLES, indice_majore
 
 GRILLES_TOML = Path(bpaye.__file__).parent / "grilles.toml"
 
@@ -77,3 +77,8 @@ def test_chaque_code_cite_sa_source_dgfip():
 )
 def test_indice_majore_avant_2007_suit_les_baremes_du_jo(date, attendu):
     assert indice_majore(524, date) == attendu
+
+
+def test_grille_des_chaires_superieures_avant_2010_refusee():
+    with pytest.raises(ValueError, match="MANQUANT"):
+        GRILLE_CHSUP.value(dt.date(2009, 6, 30))

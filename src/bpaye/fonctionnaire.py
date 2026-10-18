@@ -19,7 +19,7 @@ from bpaye.config import depuis_section
 from bpaye.grille import Grille
 from bpaye.hsa import CODE
 from bpaye.ors import CORPS_SANS_ORS, ORS_CORPS, calc_ors
-from bpaye.point import POINT, calc_traitement_brut
+from bpaye.point import POINT
 from bpaye.reclassement import DATE_PPCR, reclasse
 from bpaye.temps_partiel import fraction_remuneration
 from bpaye.utils import add_date_round, parse_toml_date, truncate
@@ -403,15 +403,6 @@ class Fonctionnaire:
             return truncate(jours / 30 * i_prec + (30 - jours) / 30 * i, 2)
         return self.grille.value(date).indice(self.echelon(date))
 
-    def brut(self, date: dt.date) -> float:
-        return calc_traitement_brut(self.indice(date), date)
-
-    def get_anciennete(self, date: dt.date) -> float:
-        echelon = self.echelon(date)
-        date_entree = self.echelon.value_todate(echelon)
-        anciennete_orig = self.anciennete(date)
-        return anciennete_orig + (date - date_entree).days / 365
-
     def avancement(
         self,
         echelon: int,
@@ -446,7 +437,7 @@ class Fonctionnaire:
             e = self.echelon.value() + 1
         else:
             e = start_echelon
-            # remove les suivants pour mise à jour
+            # Les échelons suivants se recalculent : on les retire d'abord.
             start_date = self.echelon.value_todate(start_echelon)
             self.echelon.remove_fromdate(start_date)
             self.anciennete.remove_fromdate(start_date)
@@ -461,7 +452,6 @@ class Fonctionnaire:
             nouvelle_date = add_date_round(prev_date, delta, self.jour_anniversaire)
             self.echelon.append(nouvelle_date, e)
             self.anciennete.append(nouvelle_date, 0)
-            # maj tour suivant
             prev_echelon = e
             prev_date = nouvelle_date
             grille = self.grille(nouvelle_date)

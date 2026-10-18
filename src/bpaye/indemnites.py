@@ -28,7 +28,7 @@ import datetime as dt
 from typing import Any
 
 import bpaye.config as config
-from bpaye.classes import Ligne, Taux
+from bpaye.classes import Ligne
 from bpaye.config import BAREME, Bareme
 from bpaye.fonctionnaire import Fonctionnaire
 from bpaye.temps_partiel import reduit
@@ -36,42 +36,25 @@ from bpaye.temps_partiel import reduit
 __all__ = [
     "calc_transport",
     "forfait_mobilite_durable",
-    "grille_indemnite_detachement",
-    "grille_indemnite_fonctions_part_cpge",
-    "grille_isoe",
-    "grille_prime_eq_info",
-    "grille_psc",
     "indemnite_detachement",
     "indemnite_fonctions_part_cpge",
     "indemnite_isoe",
     "indemnite_transport",
-    "max_transport",
     "part_fonctionnelle",
     "participation_psc",
     "prime_equipement_info",
-    "taux_transport",
 ]
 
 # Les tables du barème du paquet (les fonctions prennent un barème : bareme=…).
-grille_indemnite_detachement = config.load("indemnite_detachement")
-grille_indemnite_fonctions_part_cpge = config.load("ifp_cpge")
-grille_isoe = config.load("isoe")
-max_transport = config.load("transport.plafond")
-taux_transport: Taux = config.load("transport.taux")
-grille_psc = config.load("psc")
-_fmd_niveaux = {1: config.load("fmd.n1"), 2: config.load("fmd.n2"), 3: config.load("fmd.n3")}
-grille_prime_eq_info = config.load("prime_eq_info")
-grille_isae = config.load("isae")
 _PRIME_ATTRACTIVITE: list[dict[str, Any]] = sorted(config.get("prime_attractivite"), key=lambda e: e["date"])
 
-grille_rep = config.load("rep")
-grille_rep_plus = config.load("rep_plus")
 _ISOE_MODULABLE: dict[str, Any] = config.get("isoe_modulable")
 
 # Qui touche quoi, selon le corps (Fonctionnaire.corps).
 # ISOE : « personnels enseignants du second degré » et « enseignants des classes
 # post-baccalauréat » (décret 93-55, art. 1 et 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/).
-# Les professeurs documentalistes, certifiés, touchent une autre indemnité (non modélisée).
+# Les professeurs documentalistes, certifiés, touchent leur indemnité de sujétions
+# particulières à la place (indemnites_corps.py).
 CORPS_ISOE = frozenset({"Agrégé", "Certifié", "PLP", "PEPS", "Chaire Supérieure"})
 # ISAE : professeurs des écoles (décret 2013-790, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914226/2026-10-17/).
 CORPS_ISAE = frozenset({"PE"})

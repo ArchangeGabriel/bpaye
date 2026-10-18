@@ -19,7 +19,7 @@ import re
 import warnings
 from pathlib import Path
 
-from .codes import ALL_CODES
+from bpaye.codes import ALL_CODES
 
 __all__ = [
     "DR_MONTH_FR",

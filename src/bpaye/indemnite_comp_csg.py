@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Indemnité compensatrice de la hausse de la CSG (202209).
 

@@ -10,16 +10,13 @@ import datetime as dt
 import logging
 from dataclasses import dataclass, field
 
-import bpaye.config as config
 from bpaye.classes import Ligne
 from bpaye.config import BAREME, Bareme
 
 __all__ = [
     "RAFP",
-    "grille_rafp",
 ]
 
-grille_rafp = config.BAREME.load("rafp")  # celui du barème du paquet
 
 _log = logging.getLogger(__name__)
 

@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Cotisations sociales salariales : CSG, CRDS, contribution solidarité, TPP, IR.
 
 ──────────────────────────────────────────────────────────────
@@ -79,43 +78,21 @@ Montant net défiscalisé (code 011200) :
 import datetime as dt
 import math
 
-import bpaye.config as config
 from bpaye.classes import Ligne, Taux
 from bpaye.config import BAREME, Bareme
 
 __all__ = [
     "NOUVEAU_LOGICIEL_PAIE",
-    "abattement_crds",
-    "abattement_csg",
     "contribution_solidarite",
     "crds",
     "csg",
     "csg_basculee",
     "csg_nonded",
-    "grille_contrisoli",
-    "grille_crds",
-    "grille_csg",
-    "grille_csg_nonded",
-    "grille_transfertpp",
     "ir",
     "net_colles_seules",
     "seuil_abattement",
     "transfertprimepoint",
 ]
-
-# Les tables du barème du paquet (les fonctions prennent un barème : bareme=…)
-# CSG ET CRDS
-abattement_csg = config.load("csg.abattement_taux")
-grille_csg = config.load("csg.deductible")
-grille_csg_nonded = config.load("csg.non_deductible")
-abattement_crds = config.load("crds.abattement_taux")
-grille_crds = config.load("crds.taux")
-
-# Contribution solidarité
-grille_contrisoli = config.load("contrisoli")
-
-# Transfert prime en points
-grille_transfertpp = config.load("transfertpp")
 
 
 # Le logiciel de paie a changé en février 2026 (bulletins PAY18E V2.3, puis V4.0 et V4.2) :

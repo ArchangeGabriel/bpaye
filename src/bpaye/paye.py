@@ -403,7 +403,7 @@ class Bulletin(ListeLignes):
 
         pdf_data : dict retourné par extract_bulletin().
         Les montants sont signés selon la convention bpaye (positif=revenu, négatif=retenue).
-        Retourne self pour chaining.
+        Rend le bulletin, pour enchaîner les appels.
         """
         for ligne in self.lignes:
             key = f"{ligne.code:06d}"
@@ -486,9 +486,6 @@ class Paye:
 
     def annee(self, year: int) -> Annee:
         return self.annees[year]
-
-    def brut_courant(self, year: int) -> float:
-        return self.annee(year).brut
 
     # Ce qui démarre à la rentrée arrive un mois tard, en rappel le mois suivant, d'après les
     # bulletins de 2019 à 2026. Les HSA se paient par neuvièmes d'octobre à juin, mais le
@@ -711,7 +708,6 @@ class Paye:
         n_enfants_retard: int | None = None,
         every: bool = True,
     ) -> None:
-        # print('Retard paiement :')
         code_brut = 101000
         code_sft = 104000
         code_pc = 101050
@@ -767,7 +763,7 @@ class Paye:
             if every:
                 year, mois = decalage_mois(year, mois, 1)
             else:
-                year, mois = pdate.year, pdate.month  # and exit
+                year, mois = pdate.year, pdate.month  # un seul mois : on sort
         # régulation
         year, mois = original_date
         lib = f" {year}-{mois} - {pyear}-{pmois} (ind. {indice_retard}/{n_enfants_retard} enf.)"
@@ -819,11 +815,6 @@ class Paye:
         self.addligne(year, mois, ligne_plus)
         self.addligne(pyear, pmois, ligne_neg)
 
-    def erreur_differee(self, date: tuple[int, int], montant: float, code: int) -> None:
-        year, mois = date
-        ligne = Ligne(montant, "Erreur", code=code, classe="INDEM", sommable=False)
-        self.addligne(year, mois, ligne)
-
     def somme_annee(self, code_or_fn: str | int | Callable[[Bulletin], float], year: int) -> Somme:
         """Obsolète : utiliser P.select(code_or_fn, year).somme() à la place."""
         warnings.warn(
@@ -836,26 +827,16 @@ class Paye:
         code_or_fn: str | int | Callable[[Bulletin], float],
         *date_args: int | dt.date | tuple[int, int] | list[int],
     ) -> Selection:
-        """Sélectionne des Lignes sur un range de bulletins et les joint aux PDF.
+        """Les lignes d'une période de bulletins, jointes aux PDF.
 
-        Parameters
-        ----------
-        code_or_fn :
-            - str/int : code BP à 6 chiffres. Toutes les Lignes correspondantes
-              sont incluses (y compris les rappels sur le même mois).
-            - callable : ``lambda b: float`` ; une Ligne synthétique est créée
-              par bulletin.
-        *date_args :
-            - ``year: int``                     → janvier–décembre de year
-            - ``date_start, date_end``           → range inclusif (dt.date ou tuple (y, m))
-
-        Returns
-        -------
-        Selection
-            Liste de Ligne avec ``valeur`` (calcul) et ``valeur_reel`` (PDF si disponible).
+        ``code_or_fn`` est un code de rubrique à 6 chiffres (toutes ses lignes, rappels du
+        mois compris) ou une fonction ``lambda b: float``, qui donne une ligne calculée par
+        bulletin, sans réel. La période est une année (``2025``, de janvier à décembre) ou
+        deux bornes incluses (``dt.date`` ou ``(année, mois)``). Chaque ligne de la
+        Selection porte ``valeur`` (calcul) et ``valeur_reel`` (PDF, s'il a été lu).
         """
 
-        # ── Résolution du range de dates ────────────────────────────────────
+        # ── Les bornes de la période ────────────────────────────────────────
         def _to_date(arg: int | dt.date | tuple[int, int] | list[int], last: bool = False) -> dt.date:
             if isinstance(arg, dt.date):
                 return arg
@@ -876,7 +857,7 @@ class Paye:
         else:
             raise ValueError("Attendu : select(code, year) ou select(code, date_start, date_end)")
 
-        # ── Bulletins dans le range ────────────────────────────────────────
+        # ── Les bulletins de la période ────────────────────────────────────
         bulletins_in_range = [b for b in self.bulletins if date_start <= b.date <= date_end]
 
         # ── Chargement des PDF (une fois par année couverte) ───────────────

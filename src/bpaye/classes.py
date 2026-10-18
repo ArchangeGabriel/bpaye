@@ -6,9 +6,8 @@ rejouer une carrière entière, chaque bulletin prenant les règles de son mois.
 range les montants en mensuel (un montant annuel est divisé par 12 à l'entrée),
 AnnuelPonctuel les verse en une fois, Taux les applique à une assiette.
 
-Restent à faire, notés en 2017 : un taux non linéaire (dépendant de l'assiette, comme
-l'abattement de CSG au-delà d'un seuil), et le mode d'arrondi porté par la ligne
-plutôt que par chaque fonction de calcul.
+Un taux reste linéaire : ce qui dépend de l'assiette (l'abattement de CSG sous un seuil)
+et les arrondis se calculent dans chaque fonction de calcul, pas dans la ligne.
 """
 
 import datetime as dt
@@ -63,7 +62,6 @@ class Temporal(Generic[T]):
         return self.__str__()
 
     def __call__(self, date: dt.date | None = None) -> T:
-        # modifier pour faire le calcul de la multiplication pour prendre en compte des non linéarités
         return self.value(date)
 
     def date_toindice(self, date: dt.date | None) -> int:
@@ -119,15 +117,6 @@ class Temporal(Generic[T]):
         if i == 0:
             raise ValueError(f"Pas de données précédentes à {date}")
         return self.values[i - 1][1]
-
-    def value_next(self, date: dt.date | None = None) -> T:
-        i = self.date_toindice(date)
-        if i == len(self) - 1:
-            raise ValueError(f"Pas de données suivantes à {date}")
-        return self.values[i + 1][1]
-
-    def lastdate(self) -> dt.date:
-        return self.values[-1][0]
 
     def update_date(self, olddate: dt.date, newdate: dt.date) -> None:
         i = self.date_toindice(olddate)
@@ -300,10 +289,10 @@ class Somme:
 
     Attributs
     ---------
-    calcul : float   – somme des ``Ligne.valeur`` (moteur bpaye)
+    calcul : float   – somme des ``Ligne.valeur`` (calcul de bpaye)
     reel   : float   – somme des ``Ligne.valeur_reel`` (bulletins PDF)
                        Lève ValueError si aucune valeur réelle n'est disponible.
-                       Émet un warning si la couverture PDF est incomplète.
+                       Avertit si des mois n'ont pas de bulletin PDF.
     """
 
     def __init__(
@@ -492,13 +481,8 @@ class ListeLignes:
     # ── Somme calcul + reel ───────────────────────────────────────────────────
 
     def somme(self, code: int | str | None = None) -> Somme:
-        """Agrège valeur (calcul) et valeur_reel (PDF) des lignes.
-
-        Parameters
-        ----------
-        code : int | str | None
-            Si fourni, filtre sur les lignes avec ce code.
-        """
+        """Agrège valeur (calcul) et valeur_reel (PDF) des lignes, celles de ``code`` seulement
+        s'il est donné."""
         lignes = self.lignes if code is None else [ligne for ligne in self.lignes if ligne.code == int(code)]
         calcul = round(sum(ligne.valeur for ligne in lignes), 2)
         reel_vals = [ligne.valeur_reel for ligne in lignes if ligne.valeur_reel is not None]
@@ -507,21 +491,16 @@ class ListeLignes:
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# Selection – liste plate de Lignes sur un range de dates, issue de P.select()
+# Selection – liste plate de Lignes sur une période, issue de P.select()
 # ═══════════════════════════════════════════════════════════════════════════════
 
 
 class Selection(ListeLignes):
-    """Liste de Ligne couvrant un range de bulletins (produit de Paye.select()).
+    """Les lignes d'une période de bulletins (produit de Paye.select()).
 
-    Chaque Ligne porte son montant calculé (``valeur``) et, si le bulletin PDF
-    a pu être chargé, son montant réel (``valeur_reel``).
-
-    Usage
-    -----
-    sel = P.select("558000", 2025)
-    sel.somme().reel      # somme issue des PDF
-    sel.somme().calcul    # somme issue du moteur bpaye
+    Chaque Ligne porte son montant calculé (``valeur``) et, si le bulletin PDF a pu être
+    lu, son montant réel (``valeur_reel``) : ``P.select("558000", 2025).somme()`` donne
+    l'un et l'autre (``.calcul``, ``.reel``).
     """
 
     def __init__(self) -> None:

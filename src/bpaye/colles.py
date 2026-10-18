@@ -12,7 +12,7 @@ from collections import defaultdict
 from collections.abc import Iterator
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Protocol, Self
+from typing import Protocol
 
 from bpaye.classes import Ligne
 from bpaye.config import BAREME, Bareme
@@ -167,14 +167,6 @@ class Colle:
         self.date_paiement = date
         return Ligne(self.total, f"H. Interr. HSI Colles {self.commentaire}", code=200207, classe="INDEM")
 
-    def paiement_dupercu(self, date: dt.date) -> Ligne:
-        self.payee = True
-        self.troppercue = False
-        self.date_paiement = date
-        return Ligne(
-            -self.total, f"H. Interr. HSI Colles  Trop-perçu {self.commentaire}", code=200207, classe="INDEM"
-        )
-
 
 class Colles:
     def __init__(self, liste: list[Colle] | None = None, bareme: Bareme = BAREME) -> None:
@@ -223,12 +215,6 @@ class Colles:
 
     def sum(self) -> float:
         return sum([c.total for c in self])
-
-    def non_payees(self) -> Self:
-        return type(self)([c for c in self if not c.payee])
-
-    def trop_percues(self) -> Self:
-        return type(self)([c for c in self if c.troppercue])
 
     @classmethod
     def paiement(cls, bulletin: BulletinMois, colle: Colle | list[Colle]) -> None:
