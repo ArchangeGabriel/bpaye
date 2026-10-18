@@ -33,7 +33,9 @@ def test_code_chaire_superieure_meme_ors_que_son_pendant(chaire_sup, agrege):
 
 def test_colles_prevues_en_codes_chaire_superieure_acceptees(configuration):
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text(encoding="utf-8").replace("161 = 4.0", "157 = 7.0, 1 = 2.0"))
+    carriere.write_text(
+        carriere.read_text(encoding="utf-8").replace("161 = 4.0", "157 = 7.0, 1 = 2.0"), encoding="utf-8"
+    )
     assert Fonctionnaire().load_carriere(carriere).colles_prevues[2025].heures == {157: 7.0, 1: 2.0}
 
 

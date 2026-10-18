@@ -28,7 +28,7 @@ def test_add_date_round_compte_en_mois(depart, annees, jour, attendu):
 
 def test_apres_changement_de_corps_echelon_au_jour_du_changement(configuration):
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text(encoding="utf-8") + CHANGEMENT_DE_CORPS)
+    carriere.write_text(carriere.read_text(encoding="utf-8") + CHANGEMENT_DE_CORPS, encoding="utf-8")
     fonc = Fonctionnaire().load_carriere(carriere)
     assert fonc.echelon(dt.date(2025, 8, 31)) == 4
     assert fonc.echelon(dt.date(2025, 9, 1)) == 5
@@ -39,7 +39,8 @@ def test_zone_vacances_lue_dans_le_depart(configuration):
     carriere.write_text(
         carriere.read_text(encoding="utf-8").replace(
             "date       = 2019-09-01\n", 'date       = 2019-09-01\nzone_vacances = "A"\n', 1
-        )
+        ),
+        encoding="utf-8",
     )
     assert Fonctionnaire().load_carriere(carriere).zone_vacances == "A"
 
@@ -49,7 +50,8 @@ def test_zone_vacances_inconnue_refusee(configuration):
     carriere.write_text(
         carriere.read_text(encoding="utf-8").replace(
             "date       = 2019-09-01\n", 'date       = 2019-09-01\nzone_vacances = "Z"\n', 1
-        )
+        ),
+        encoding="utf-8",
     )
     with pytest.raises(ValueError, match="zone de vacances"):
         Fonctionnaire().load_carriere(carriere)
@@ -58,7 +60,7 @@ def test_zone_vacances_inconnue_refusee(configuration):
 def test_chaire_superieure_trois_ans_et_demi_au_cinquieme_echelon(configuration):
     # Décret 68-503, art. 4, depuis le 6 août 2023 : 3 ans 6 mois au 5e et au 6e.
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text(encoding="utf-8") + CHANGEMENT_DE_CORPS)
+    carriere.write_text(carriere.read_text(encoding="utf-8") + CHANGEMENT_DE_CORPS, encoding="utf-8")
     fonc = Fonctionnaire().load_carriere(carriere)
     assert fonc.echelon(dt.date(2025, 9, 1)) == 5
     assert fonc.echelon(dt.date(2029, 2, 28)) == 5
@@ -159,7 +161,8 @@ def test_enfant_declare_apres_le_depart_absent_avant_sa_date(configuration, tmp_
 def test_indice_du_mois_d_un_avancement_identique_quel_que_soit_le_jour(configuration):
     carriere, agent = configuration
     carriere.write_text(
-        carriere.read_text(encoding="utf-8").replace("date       = 2019-09-01", "date       = 2019-09-15")
+        carriere.read_text(encoding="utf-8").replace("date       = 2019-09-01", "date       = 2019-09-15"),
+        encoding="utf-8",
     )
     fonc = load_agent(agent)
     fonc.load_carriere(carriere)

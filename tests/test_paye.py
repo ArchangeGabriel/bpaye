@@ -248,7 +248,8 @@ def test_erreur_montant_sur_une_charge_corrige_le_mois_et_rattrape_ensuite(confi
 def test_promotion_payee_en_retard_a_temps_partiel_rappelle_la_fraction(configuration):
     carriere, agent = configuration
     carriere.write_text(
-        carriere.read_text(encoding="utf-8") + "\n[[rentrees]]\nyear = 2026\ntemps_partiel = 0.5\n"
+        carriere.read_text(encoding="utf-8") + "\n[[rentrees]]\nyear = 2026\ntemps_partiel = 0.5\n",
+        encoding="utf-8",
     )
     fonc = load_agent(agent)
     fonc.load_carriere(carriere)

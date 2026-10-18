@@ -32,7 +32,8 @@ def test_colles_externes_versees_a_part_du_bulletin_principal(configuration):
     carriere.write_text(
         carriere.read_text(encoding="utf-8")
         + '\n[[rentrees.colles_externes]]\nzone = "B"\ncolles = { 6 = 1.0 }\n'
-        + "colles_debut = 2025-09-22\ncolles_fin = 2026-04-10\n"
+        + "colles_debut = 2025-09-22\ncolles_fin = 2026-04-10\n",
+        encoding="utf-8",
     )
     avec = {(n.annee, n.mois): n for n in nets_prevus(carriere, agent, (2025, 9), 12)}
     assert all(avec[m].net == sans[m].net for m in sans)
@@ -43,6 +44,8 @@ def test_colles_externes_versees_a_part_du_bulletin_principal(configuration):
 
 def test_code_de_colle_inconnu_refuse(configuration):
     carriere = configuration[0]
-    carriere.write_text(carriere.read_text(encoding="utf-8").replace("161 = 4.0", "999 = 4.0"))
+    carriere.write_text(
+        carriere.read_text(encoding="utf-8").replace("161 = 4.0", "999 = 4.0"), encoding="utf-8"
+    )
     with pytest.raises(ValueError, match="999"):
         Fonctionnaire().load_carriere(carriere)
