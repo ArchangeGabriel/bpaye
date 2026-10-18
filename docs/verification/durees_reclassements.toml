@@ -1,0 +1,415 @@
+# Durées d'échelon et tableaux de reclassement — vérification sur Légifrance
+# Lu le 2026-10-17, versions consolidées datées (texte affiché
+# par Légifrance, en-tête « VERSION EN VIGUEUR DU … AU … » recopié dans `vigueur`).
+# Convention des listes de durées : élément i = durée (années) pour passer de
+# l'échelon i+1 à l'échelon i+2 ; le dernier échelon n'a pas de durée.
+# « MANQUANT » = valeur non lue dans un texte officiel.
+
+# ---------------------------------------------------------------------------
+# AGRÉGÉS — décret n° 72-580 du 4 juillet 1972 (JORFTEXT000000500138)
+# ---------------------------------------------------------------------------
+
+[[durees.AGREGE_CN]]
+date       = 1993-09-01   # en vigueur jusqu'au 2017-09-01 (sauf parenthèse 2012-05-09 → 2012-08-30, voir note)
+corps      = ["agrégés"]
+anciennete = [0.25, 0.75, 1.0, 2.5, 3.5, 3.5, 3.5, 4.5, 5.0, 5.5]
+choix      = [0.25, 0.75, 1.0, 2.5, 3.0, 3.0, 3.0, 4.0, 4.0, 4.5]
+grandchoix = [0.25, 0.75, 1.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0]
+proportions = "grand choix : « dans la limite de 30 p. 100 de l'effectif des professeurs inscrits sur cette liste » ; choix : « dans la limite des cinq septièmes de l'effectif des professeurs inscrits sur cette liste » ; les autres à l'ancienneté"
+vigueur    = "art. 13 bis : VERSION EN VIGUEUR DU 01 SEPTEMBRE 1993 AU 09 MAI 2012, puis version identique DU 30 AOÛT 2012 AU 01 SEPTEMBRE 2017 (décret 2012-999, art. 2 : chapitre « rétabli dans sa rédaction en vigueur à la date de publication du décret du 7 mai 2012 »)"
+source     = "décret 72-580, art. 13 bis, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2010-01-01 et https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2016-01-01"
+note       = "Échelons 1→2, 2→3, 3→4 : une seule durée (3 mois, 9 mois, 1 an), quel que soit le rythme. Du 2012-05-09 au 2012-08-30 l'art. 13 bis était abrogé par le décret 2012-702 (art. 25) : contenu de cette parenthèse MANQUANT (non lu), annulé par 2012-999."
+
+[[durees.AGREGE_CN]]
+date       = 2017-09-01
+corps      = ["agrégés"]
+anciennete = [1.0, 1.0, 2.0, 2.0, 2.5, 3.0, 3.0, 3.5, 4.0, 4.0]
+acceleration = "II.- « Les anciennetés détenues dans les 6e et 8e échelons de la classe normale peuvent être bonifiées d'un an. » Listes : 2e année du 6e échelon ; ancienneté dans le 8e « comprise entre 18 et 30 mois ». Bonifications « à hauteur de 30 % de l'effectif des professeurs inscrits sur chacune de ces listes »."
+vigueur    = "VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019 (décret 2017-786, art. 55) ; même tableau DU 17 JUIN 2019 AU 29 OCTOBRE 2021 (décret 2019-595, art. 8) et DEPUIS LE 02 SEPTEMBRE 2024 (décret 2024-727, art. 7, qui ajoute le report des décimales sur deux ans, plafond 30 % sur les deux années)"
+source     = "décret 72-580, art. 13, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000034779104/2017-09-01 ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2021-06-01 ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2026-10-17"
+note       = "Version du 2021-10-29 au 2024-09-02 non lue (MANQUANT), mais tableau identique avant et après."
+
+[[durees.AGREGE_HC]]
+date       = 1993-09-01   # jusqu'au 2017-09-01
+corps      = ["agrégés"]
+anciennete = [2.5, 2.5, 2.5, 2.5, 4.0]   # 6 échelons ; avancement « uniquement à l'ancienneté » (art. 13)
+vigueur    = "art. 13 ter : VERSION EN VIGUEUR DU 01 SEPTEMBRE 1993 AU 01 SEPTEMBRE 2017 (abrogé par 2017-786, art. 56)"
+source     = "décret 72-580, art. 13 ter, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2016-01-01"
+
+[[durees.AGREGE_HC]]
+date       = 2017-09-01
+corps      = ["agrégés"]
+anciennete = [2.0, 2.0, 3.0]   # 4 échelons, inchangé au 2026-10-17 (pas de 5e échelon)
+vigueur    = "mêmes versions de l'art. 13 que AGREGE_CN 2017"
+source     = "décret 72-580, art. 13, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000034779104/2017-09-01 ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2026-10-17"
+
+[[durees.AGREGE_CE]]
+date       = 2017-09-01
+corps      = ["agrégés"]
+anciennete = [2.5, 3.0]   # 3 échelons, pas d'échelon spécial dans le décret 72-580 (inchangé au 2026-10-17)
+vigueur    = "mêmes versions de l'art. 13 que AGREGE_CN 2017"
+source     = "décret 72-580, art. 13, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000034779104/2017-09-01 ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2026-10-17"
+
+# ---------------------------------------------------------------------------
+# CERTIFIÉS — décret n° 72-581 du 4 juillet 1972 (JORFTEXT000000306772)
+# ---------------------------------------------------------------------------
+
+[[durees.CERTIFIE_CN]]
+date       = 1996-09-01   # art. 32 en vigueur jusqu'au 2017-09-01 (sauf parenthèse 2012-05-09 → 2012-08-30)
+corps      = ["certifiés"]   # autres corps : voir entrées dédiées plus bas
+anciennete = [0.25, 0.75, 1.0, 2.5, 3.5, 3.5, 3.5, 4.5, 5.0, 5.5]
+choix      = [0.25, 0.75, 1.0, 2.5, 3.0, 3.0, 3.0, 4.0, 4.0, 4.5]
+grandchoix = [0.25, 0.75, 1.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0]
+proportions = "grand choix : « dans la limite de 30 % de l'effectif des professeurs inscrits sur cette liste » ; choix : « dans la limite des cinq septièmes de l'effectif des professeurs inscrits sur cette liste »"
+vigueur    = "art. 32 : VERSION EN VIGUEUR DU 30 AOÛT 2012 AU 01 SEPTEMBRE 2017 (rétablie par 2012-999 à l'identique de la rédaction antérieure au décret 2012-702)"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2016-01-01"
+note       = "Version antérieure au 2012-05-09 non lue directement (MANQUANT formellement) ; 2012-999 dit la rétablir à l'identique. Parenthèse 2012-05-09 → 2012-08-30 (décret 2012-702, art. 32-4) : durée de référence unique 3 mois, 9 mois, 1 an, 2 ans 6 mois, 3 ans 6 mois ×3, 4 ans 6 mois, 5 ans, 5 ans 6 mois, avec réductions de 2 ou 5 mois par an (base 256 mois pour 100 agents) — abrogée le 2012-08-30."
+
+[[durees.CERTIFIE_CN]]
+date       = 2017-09-01
+corps      = ["certifiés"]
+anciennete = [1.0, 1.0, 2.0, 2.0, 2.5, 3.0, 3.0, 3.5, 4.0, 4.0]
+acceleration = "II.- « Les anciennetés détenues dans les 6e et 8e échelons de la classe normale peuvent être bonifiées d'un an. » Listes : 2e année du 6e ; 8e échelon entre 18 et 30 mois ; « à hauteur de 30 % de l'effectif des professeurs inscrits sur chacune de ces deux listes ». Depuis le 2023-08-06 : décimales reportées sur l'année suivante, 30 % sur les deux années."
+vigueur    = "VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019 (2017-786, art. 73) ; DU 01 JANVIER 2021 AU 29 OCTOBRE 2021 (2019-595 art. 17 et 2017-786 art. 85) ; DEPUIS LE 06 AOÛT 2023 (2023-720, art. 12) — tableau CN identique"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2017-09-01 ; …/2021-06-01 ; …/2026-10-17"
+
+[[durees.CERTIFIE_HC]]
+date       = 1996-09-01   # jusqu'au 2017-09-01
+corps      = ["certifiés"]
+anciennete = [2.5, 2.5, 2.5, 2.5, 3.0, 3.0]   # 7 échelons
+vigueur    = "art. 33 : VERSION EN VIGUEUR DU 01 SEPTEMBRE 1996 AU 01 SEPTEMBRE 2017 (décret 97-565, art. 7 ; abrogé par 2017-786, art. 74)"
+source     = "décret 72-581, art. 33, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2016-01-01"
+
+[[durees.CERTIFIE_HC]]
+date       = 2017-09-01
+corps      = ["certifiés"]
+anciennete = [2.0, 2.0, 2.5, 2.5, 3.0]   # 6 échelons
+vigueur    = "art. 32 : VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2017-09-01"
+
+[[durees.CERTIFIE_HC]]
+date       = 2021-01-01   # création du 7e échelon (2017-786, art. 85, entrée en vigueur reportée au 1/1/2021 ; cf. décret 2017-1736, art. 11, cité sous l'art. 36-1)
+corps      = ["certifiés"]
+anciennete = [2.0, 2.0, 2.5, 2.5, 3.0, 3.0]   # 7 échelons, 6e→7e : 3 ans
+vigueur    = "art. 32 : VERSION EN VIGUEUR DU 01 JANVIER 2021 AU 29 OCTOBRE 2021 ; identique DEPUIS LE 06 AOÛT 2023"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2021-06-01 ; …/2026-10-17"
+
+[[durees.CERTIFIE_CE]]
+date       = 2017-09-01
+corps      = ["certifiés"]
+anciennete = [2.0, 2.0, 2.5]   # 4 échelons + échelon spécial (« ― »)
+echelon_special = "III.- accès au choix, contingenté par arrêté, « les professeurs certifiés inscrits sur un tableau d'avancement ayant au moins trois ans d'ancienneté au 4e échelon de leur grade »"
+vigueur    = "art. 32 : VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019 ; même tableau CE au 2021-06-01"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2017-09-01 ; …/2021-06-01"
+
+[[durees.CERTIFIE_CE]]
+date       = 2023-08-06   # échelon spécial remplacé par un 5e échelon (2023-720, art. 12)
+corps      = ["certifiés"]
+anciennete = [2.0, 2.0, 2.5, 3.0]   # 5 échelons, 4e→5e : 3 ans
+vigueur    = "art. 32 : VERSION EN VIGUEUR DEPUIS LE 06 AOÛT 2023 (décret 2023-720, art. 12)"
+source     = "décret 72-581, art. 32, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2026-10-17"
+
+# Règles de classement lors d'une promotion de grade (certifiés)
+[[classement.CERTIFIE_HC]]
+date   = 1996-09-01
+source = "décret 72-581, art. 35, version DU 01 SEPTEMBRE 1996 AU 01 SEPTEMBRE 2017, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2016-01-01"
+condition_acces = "art. 34 (version DU 01 SEPTEMBRE 2010 AU 01 SEPTEMBRE 2017) : « lorsqu'ils ont atteint au moins le 7e échelon de la classe normale »"
+regle  = "« classés, dès leur nomination, à l'échelon comportant un indice égal ou à défaut immédiatement supérieur à celui dont ils bénéficiaient dans la classe normale. » « Dans la limite de l'ancienneté exigée à l'article 33 ci-dessus pour une promotion à l'échelon supérieur, les intéressés conservent l'ancienneté qu'ils avaient acquise dans l'échelon de leur ancienne classe lorsque l'augmentation de traitement consécutive à leur promotion est inférieure à celle que leur aurait procurée un avancement d'échelon dans leur ancienne classe. » « Les professeurs certifiés ayant atteint le 11e échelon de la classe normale conservent l'ancienneté qu'ils avaient acquise dans cet échelon dans la limite du temps nécessaire à une promotion d'échelon dans la hors-classe. »"
+
+[[classement.CERTIFIE_HC]]
+date   = 2017-09-01
+source = "décret 72-581, art. 35, version DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020 (2017-786 art. 76), puis DEPUIS LE 01 JANVIER 2020 (2019-1554 art. 19, même règle), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2017-09-01 et …/2021-06-01"
+condition_acces = "art. 34 : au moins deux ans d'ancienneté dans le 9e échelon (non relu mot à mot ici pour les certifiés ; texte lu pour les agrégés, art. 13 quinquies)"
+regle  = "Même règle indice égal ou immédiatement supérieur, ancienneté conservée dans la limite de l'art. 32 si le gain est inférieur à celui d'un avancement d'échelon. « Par dérogation à l'alinéa précédent, les agents classés au 9e échelon de la classe normale à la date de leur promotion sont classés au 2e échelon de leur nouveau grade, avec conservation de l'ancienneté acquise au-delà de 2 ans dans leur échelon d'origine. » 11e échelon : ancienneté conservée dans la limite du temps nécessaire à une promotion d'échelon dans la hors-classe."
+
+[[classement.CERTIFIE_CE]]
+date   = 2017-09-01
+source = "décret 72-581, art. 36-1, version DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020 (2017-786 art. 78) ; version DEPUIS LE 01 JANVIER 2021 (2017-786 art. 86) : « 7e échelon de la hors-classe » au lieu du 6e, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000306772/2026-10-17"
+regle  = "« classés, dès leur nomination, à l'échelon comportant un indice égal ou à défaut immédiatement supérieur à celui dont ils bénéficiaient dans la hors-classe. » Ancienneté conservée dans la limite de l'art. 32 si le gain est inférieur à celui d'un avancement d'échelon. « Les professeurs certifiés ayant atteint le 6e [7e depuis le 2021-01-01] échelon de la hors-classe conservent l'ancienneté qu'ils avaient acquise dans cet échelon dans la limite du temps nécessaire à une promotion d'échelon dans la classe exceptionnelle. »"
+condition_acces = "art. 36 (2017) : I. au moins le 3e échelon de la HC et huit années de fonctions difficiles/particulières ; III. dans la limite de 20 % des promotions, « ayant atteint le 6e échelon de la hors-classe » et valeur professionnelle exceptionnelle"
+
+# Règles de classement (agrégés)
+[[classement.AGREGE_HC]]
+date   = 2010-09-01
+source = "décret 72-580, art. 13 quinto, VERSION EN VIGUEUR DU 01 SEPTEMBRE 2010 AU 01 SEPTEMBRE 2017, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2016-01-01"
+condition_acces = "« lorsqu'ils ont atteint au moins le 7e échelon de la classe normale »"
+regle  = "« classés à l'échelon comportant un traitement égal ou immédiatement supérieur au traitement dont ils bénéficiaient dans leur ancien grade. » « Dans la limite de l'ancienneté exigée à l'article 13 ter ci-dessus pour une promotion à l'échelon supérieur, ils conservent l'ancienneté qu'ils avaient acquise dans l'échelon de leur ancien grade lorsque l'augmentation de traitement consécutive à leur nomination est inférieure à celle que leur aurait procurée un avancement d'échelon dans leur ancien grade. » « Toutefois, les professeurs agrégés de classe normale qui étaient classés au 11e échelon de leur grade conservent l'ancienneté qu'ils avaient acquise dans cet échelon dans la limite du temps nécessaire à une promotion d'échelon. »"
+
+[[classement.AGREGE_HC]]
+date   = 2017-09-01
+source = "décret 72-580, art. 13 quinquies, VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020 (2017-786 art. 58) ; même règle DEPUIS LE 02 SEPTEMBRE 2024 (2024-727 art. 8), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2017-09-01 et …/2026-10-17"
+condition_acces = "« au moins deux ans d'ancienneté dans le 9e échelon de la classe normale » au 31 août"
+regle  = "Traitement égal ou, à défaut, immédiatement supérieur ; ancienneté conservée dans la limite de l'art. 13 si le gain est inférieur à un avancement d'échelon. « Par dérogation à l'alinéa précédent, les agents situés au 9e échelon de la classe normale à la date de leur promotion sont classés au 2e échelon de leur nouveau grade, avec conservation de l'ancienneté acquise au-delà de deux ans dans leur échelon d'origine. » 11e échelon : ancienneté conservée « dans la limite du temps nécessaire à une promotion d'échelon »."
+
+[[classement.AGREGE_CE]]
+date   = 2017-09-01
+source = "décret 72-580, art. 13 sexies, V, VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020 (2017-786 art. 59) ; II de la version DEPUIS LE 02 SEPTEMBRE 2024, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000500138/2017-09-01 et …/2026-10-17"
+condition_acces = "2017 : I. au moins le 2e échelon de la HC + huit années de fonctions difficiles ; III. (20 % des promotions) au moins trois ans d'ancienneté dans le 4e échelon de la HC. Depuis le 2024-09-02 : « au moins le 4e échelon de la hors classe »."
+regle  = "« classés … à l'échelon comportant un indice égal ou à défaut immédiatement supérieur à celui dont ils bénéficiaient dans la hors-classe. » 2017 : ancienneté conservée dans la limite de l'art. 13 si le gain est inférieur à un avancement d'échelon. « Les professeurs agrégés ayant atteint le 4e échelon de la hors-classe conservent l'ancienneté qu'ils avaient acquise dans cet échelon dans la limite du temps nécessaire à une promotion d'échelon dans la classe exceptionnelle. »"
+
+# ---------------------------------------------------------------------------
+# CHAIRES SUPÉRIEURES — décret n° 68-503 du 30 mai 1968 (JORFTEXT000000868842)
+# ---------------------------------------------------------------------------
+
+[[durees.CHAIRE_SUP]]
+date       = 1967-01-01   # art. 4 en vigueur DU 01 JANVIER 1967 AU 01 SEPTEMBRE 2017
+corps      = ["chaires supérieures"]
+anciennete = [2.0, 2.0, 2.0, 2.0, 6.0]    # 6 échelons
+choix      = [1.25, 1.25, 1.25, 1.25, 3.5]
+proportions = "en-têtes du tableau : « AVANCEMENT au choix 30 % » et « AVANCEMENT à l'ancienneté 70 % » ; « L'avancement est arrêté chaque année à la date du 1er janvier, partie au choix, partie à l'ancienneté. L'avancement a effet du premier jour du mois qui suit la date à laquelle les intéressés remplissent les conditions »"
+vigueur    = "art. 4 : VERSION EN VIGUEUR DU 01 JANVIER 1967 AU 01 SEPTEMBRE 2017"
+source     = "décret 68-503, art. 4, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2016-01-01"
+lecture_tableau = "Le tableau HTML compte une 7e ligne dont la 1re cellule est vide : « 8 ans 6 mois. » | « 14 ans. ». Ce sont les totaux des colonnes (4 × 1 an 3 mois + 3 ans 6 mois = 8 ans 6 mois ; 4 × 2 ans + 6 ans = 14 ans), pas un échelon de plus. La ligne « Du 5e au 6e échelon » vaut bien 3 ans 6 mois (choix) / 6 ans (ancienneté). Pas de grand choix."
+
+[[durees.CHAIRE_SUP]]
+date       = 2017-09-01
+corps      = ["chaires supérieures"]
+anciennete = [2.0, 2.0, 2.0, 2.0, 4.5]    # 6 échelons, durée unique
+vigueur    = "art. 4 : VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 01 SEPTEMBRE 2018 (décret 2017-957, art. 2)"
+source     = "décret 68-503, art. 4, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2018-01-01"
+
+[[durees.CHAIRE_SUP]]
+date       = 2018-09-01   # rétroactif : décret 2019-595 du 14 juin 2019, art. 1 et 45
+corps      = ["chaires supérieures"]
+anciennete = [2.0, 2.0, 2.0, 2.0, 4.5]    # 6 échelons + échelon spécial (durées « - » pour le 6e et le spécial)
+echelon_special = "art. 5-1 (créé par 2019-595, art. 2, en vigueur au 2018-09-01) : accès au choix, contingenté par arrêté, des professeurs « justifiant d'au moins trois ans d'ancienneté dans le 6e échelon de leur grade »"
+vigueur    = "art. 4 : VERSION EN VIGUEUR DU 01 SEPTEMBRE 2018 AU 06 AOÛT 2023 ; art. 5-1 abrogé le 2023-08-06 (2023-720, art. 3)"
+source     = "décret 68-503, art. 4 et 5-1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2019-01-01"
+
+[[durees.CHAIRE_SUP]]
+date       = 2023-08-06
+corps      = ["chaires supérieures"]
+anciennete = [2.0, 2.0, 2.0, 2.0, 3.5, 3.5]   # 7 échelons
+vigueur    = "art. 4 : VERSION EN VIGUEUR DEPUIS LE 06 AOÛT 2023 (décret 2023-720, art. 2) : « Le corps des professeurs de chaires supérieures comporte sept échelons. »"
+source     = "décret 68-503, art. 4, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2026-10-17"
+
+[[classement.CHAIRE_SUP]]
+date   = 1967-01-01
+source = "décret 68-503, art. 5, VERSION EN VIGUEUR DEPUIS LE 01 JANVIER 1967 (inchangé au 2026-10-17), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2026-10-17"
+condition_acces = "art. 3 (DU 01 SEPTEMBRE 1994 AU 06 AOÛT 2023) : agrégés hors classe, ou agrégés de classe normale « parvenus au 6e échelon de leur grade au 1er septembre », plus deux années de service en CPGE"
+regle  = "« classés lors de leur première nomination à l'échelon comportant un traitement égal ou immédiatement supérieur au traitement dont ils bénéficiaient dans leur ancien corps. » « Dans la limite de l'ancienneté exigée à l'article 4 ci-dessus pour une promotion à l'échelon supérieur, ils conservent l'ancienneté acquise dans leur ancien échelon si leur nomination leur procure un gain indiciaire inférieur à celui que leur aurait donné une promotion d'échelon dans leur ancien grade. » « Toutefois, les professeurs qui appartenaient au 11e échelon de leur corps d'origine en ce qui concerne les professeurs agrégés de l'enseignement du second degré, ou au 6e échelon en ce qui concerne les maîtres assistants agrégés, conservent l'ancienneté qu'ils avaient acquise dans cet échelon dans la limite du temps nécessaire à une promotion d'échelon. »"
+note   = "Rien dans l'art. 5 sur un agrégé venant de la hors classe ou de la classe exceptionnelle au dernier échelon : seule la règle générale s'applique."
+
+[[reclassement.CHAIRE_SUP]]
+date   = 2017-09-01
+source = "décret 2017-957 du 10 mai 2017, art. 3, VERSION EN VIGUEUR DEPUIS LE 01 SEPTEMBRE 2017, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034675424/2026-10-17"
+phrase = "« Au 1er septembre 2017, les fonctionnaires appartenant au corps des professeurs de chaires supérieures régis par le décret du 30 mai 1968 précité, dans sa rédaction antérieure au présent décret, et les agents détachés dans ce corps sont reclassés dans ce même corps conformément au tableau de correspondance suivant » ; colonne « ANCIENNETÉ CONSERVÉE DANS LA LIMITE de la durée de l'échelon »"
+regle_prealable = "aucune (le décret 2017-957 ne contient pas d'article de promotion préalable : art. 1, 2 et 4 modifient des décrets, art. 5 entrée en vigueur, art. 6 exécution)"
+table  = [
+  { ancien = 1, nouveau = 1, anciennete = "Ancienneté acquise" },
+  { ancien = 2, nouveau = 2, anciennete = "Ancienneté acquise" },
+  { ancien = 3, nouveau = 3, anciennete = "Ancienneté acquise" },
+  { ancien = 4, nouveau = 4, anciennete = "Ancienneté acquise" },
+  { ancien = 5, nouveau = 5, anciennete = "Ancienneté acquise" },
+  { ancien = 6, nouveau = 6, anciennete = "Ancienneté acquise" },
+]
+
+[[reclassement.CHAIRE_SUP]]
+date   = 2023-08-06
+source = "décret 2023-720 du 4 août 2023, art. 31, I, VERSION EN VIGUEUR DEPUIS LE 06 AOÛT 2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000047936139/2026-10-17"
+phrase = "« I. - Les professeurs de chaires supérieures des établissements classiques, modernes et techniques sont reclassés selon les modalités suivantes » ; colonne « Ancienneté d'échelon conservée dans la limite de la durée d'échelon »"
+regle_prealable = "aucune dans l'art. 31 ; l'art. 32 reporte au 1er septembre 2024 les sections 2 des chapitres II à VII et IX et l'art. 30 (promotions), pas le reclassement"
+table  = [
+  { ancien = 1, nouveau = 1, anciennete = "Ancienneté acquise" },
+  { ancien = 2, nouveau = 2, anciennete = "Ancienneté acquise" },
+  { ancien = 3, nouveau = 3, anciennete = "Ancienneté acquise" },
+  { ancien = 4, nouveau = 4, anciennete = "Ancienneté acquise" },
+  { ancien = 5, nouveau = 5, anciennete = "Ancienneté acquise", condition = "5e échelon avant 3 ans et 6 mois" },
+  { ancien = 5, nouveau = 6, anciennete = "Sans ancienneté", condition = "5e échelon après 3 ans et 6 mois" },
+  { ancien = 6, nouveau = 6, anciennete = "Ancienneté acquise" },
+  { ancien = "spécial", nouveau = 7, anciennete = "Ancienneté acquise" },
+]
+
+# ---------------------------------------------------------------------------
+# 2023-720, art. 31, II — classe exceptionnelle (échelon spécial → 5e échelon)
+# ---------------------------------------------------------------------------
+
+[[reclassement.CERTIFIE_CE]]
+date   = 2023-08-06
+corps  = ["CPE (chap. II)", "certifiés (chap. IV)", "PEPS (chap. V)", "PE (chap. VI)", "PLP (chap. VII)", "PE de Polynésie (chap. VIII)", "PsyEN (chap. IX)"]
+source = "décret 2023-720 du 4 août 2023, art. 31, II, VERSION EN VIGUEUR DEPUIS LE 06 AOÛT 2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000047936139/2026-10-17"
+phrase = "« II. - Les professeurs et autres agents mentionnés au chapitre II et aux chapitres IV à IX sont reclassés selon les modalités suivantes » ; colonnes « Situation d'origine dans le grade de la classe exceptionnelle » | « Nouvelle situation dans le grade de la classe exceptionnelle » | « Ancienneté d'échelon conservée dans la limite de la durée d'échelon »"
+table  = [
+  { ancien = "spécial", nouveau = 5, anciennete = "Ancienneté acquise" },
+  { ancien = 4, nouveau = 4, anciennete = "Ancienneté acquise" },
+]
+note   = "Le tableau ne liste que ces deux lignes ; les 1er à 3e échelons de CE ne sont pas mentionnés (inchangés). Les agrégés (chap. III) ne sont pas visés par l'art. 31."
+
+# ---------------------------------------------------------------------------
+# PPCR — décret 2017-786 du 5 mai 2017 (JORFTEXT000034600973), reclassements au 1/9/2017
+# Tous les tableaux ont la colonne « ANCIENNETÉ CONSERVÉE dans la limite de la durée de l'échelon »
+# Page lue : https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973 (articles « VERSION EN VIGUEUR DEPUIS LE 08 MAI 2017 »)
+# ---------------------------------------------------------------------------
+
+[[reclassement.AGREGE_CN]]
+date   = 2017-09-01
+source = "décret 2017-786, art. 62 (tableau) et 63 (règle préalable), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+phrase = "« Au 1er septembre 2017, les fonctionnaires appartenant au corps des professeurs agrégés régi par le décret n° 72-580 du 4 juillet 1972 susvisé, dans sa rédaction antérieure au présent décret, et les agents détachés dans ce corps sont reclassés dans ce même corps conformément au tableau de correspondance suivant »"
+regle_prealable = "« Les professeurs agrégés qui, à la date du 1er septembre 2017, sont soit titularisés, soit promus au 4e échelon de la classe normale ou bénéficient, à cette même date, d'une promotion de grade ou de corps sont promus en application des dispositions du décret du 4 juillet 1972 précité, dans sa rédaction antérieure au 1er septembre 2017, puis sont reclassés à cette même date dans ce corps, dans les conditions fixées par le tableau mentionné à l'article 62. »"
+table  = [
+  { ancien = 1,  nouveau = 1,  anciennete = "Ancienneté acquise" },
+  { ancien = 2,  nouveau = 1,  anciennete = "Ancienneté acquise majorée de 3 mois" },
+  { ancien = 3,  nouveau = 3,  anciennete = "Ancienneté acquise" },
+  { ancien = 4,  nouveau = 4,  anciennete = "Ancienneté acquise" },
+  { ancien = 5,  nouveau = 5,  anciennete = "Ancienneté acquise" },
+  { ancien = 6,  nouveau = 6,  anciennete = "Ancienneté acquise" },
+  { ancien = 7,  nouveau = 7,  anciennete = "Ancienneté acquise" },
+  { ancien = 8,  nouveau = 8,  anciennete = "Ancienneté acquise" },
+  { ancien = 9,  nouveau = 9,  anciennete = "Ancienneté acquise" },
+  { ancien = 10, nouveau = 10, anciennete = "Ancienneté acquise" },
+  { ancien = 11, nouveau = 11, anciennete = "Ancienneté acquise" },
+]
+
+[[reclassement.AGREGE_HC]]
+date   = 2017-09-01
+source = "décret 2017-786, art. 62 et 63, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+regle_prealable = "art. 63, voir AGREGE_CN"
+table  = [
+  { ancien = 1, nouveau = 1, anciennete = "Sans ancienneté" },
+  { ancien = 2, nouveau = 1, anciennete = "Sans ancienneté" },
+  { ancien = 3, nouveau = 1, anciennete = "Ancienneté acquise" },
+  { ancien = 4, nouveau = 2, anciennete = "Ancienneté acquise" },
+  { ancien = 5, nouveau = 3, anciennete = "Ancienneté acquise" },
+  { ancien = 6, nouveau = 4, anciennete = "Ancienneté acquise" },
+]
+
+[[reclassement.CERTIFIE_CN]]
+date   = 2017-09-01
+corps  = ["certifiés (art. 81-82)", "PEPS (art. 109-110)", "PE (art. 139-140)", "PLP (art. 157-158)", "CPE (art. 36-37)", "PE de Polynésie (art. 164-165)"]
+source = "décret 2017-786, art. 81 et 82 (certifiés), 109-110 (PEPS), 139-140 (PE), 157-158 (PLP), 36-37 (CPE), 164-165 (PE Polynésie) — tableaux CN identiques, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+phrase = "certifiés, art. 81 : « Au 1er septembre 2017, les fonctionnaires appartenant au corps des professeurs certifiés régi par le décret n° 72-581 du 4 juillet 1972 susvisé, dans sa rédaction antérieure au présent décret, et les agents détachés dans ce corps sont reclassés dans ce même corps conformément au tableau de correspondance suivant »"
+regle_prealable = "certifiés, art. 82 : « Les professeurs certifiés qui, à la date du 1er septembre 2017, sont soit titularisés, soit promus au 4e échelon de la classe normale ou bénéficient, à cette même date, d'une promotion de grade ou de corps sont promus en application des dispositions du décret du 4 juillet 1972 précité, dans sa rédaction antérieure au 1er septembre 2017, puis sont reclassés, à cette même date, dans ce même corps dans les conditions fixées par le tableau mentionné à l'article 81 du présent décret. » Même rédaction pour PEPS (art. 110, décret du 4 août 1980), PE (art. 140, décret du 1er août 1990), PLP (art. 158, décret du 6 novembre 1992), CPE (art. 37, décret du 12 août 1970)."
+table  = [
+  { ancien = 1,  nouveau = 1,  anciennete = "Ancienneté acquise" },
+  { ancien = 2,  nouveau = 1,  anciennete = "Ancienneté acquise majorée de 3 mois" },
+  { ancien = 3,  nouveau = 3,  anciennete = "Ancienneté acquise" },
+  { ancien = 4,  nouveau = 4,  anciennete = "Ancienneté acquise" },
+  { ancien = 5,  nouveau = 5,  anciennete = "Ancienneté acquise" },
+  { ancien = 6,  nouveau = 6,  anciennete = "Ancienneté acquise" },
+  { ancien = 7,  nouveau = 7,  anciennete = "Ancienneté acquise" },
+  { ancien = 8,  nouveau = 8,  anciennete = "Ancienneté acquise" },
+  { ancien = 9,  nouveau = 9,  anciennete = "Ancienneté acquise" },
+  { ancien = 10, nouveau = 10, anciennete = "Ancienneté acquise" },
+  { ancien = 11, nouveau = 11, anciennete = "Ancienneté acquise" },
+]
+note   = "Le nouveau 2e échelon ne reçoit personne au reclassement : 1er → 1er, 2e → 1er (+3 mois), 3e → 3e."
+
+[[reclassement.CERTIFIE_HC]]
+date   = 2017-09-01
+corps  = ["certifiés (art. 81)", "PEPS (art. 109)", "PE (art. 139)", "PLP (art. 157)", "CPE (art. 36)", "PE de Polynésie (art. 164)"]
+source = "décret 2017-786, art. 81, 109, 139, 157, 36, 164 — tableaux HC identiques, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+regle_prealable = "voir CERTIFIE_CN"
+table  = [
+  { ancien = 1, nouveau = 1, anciennete = "Sans ancienneté" },
+  { ancien = 2, nouveau = 1, anciennete = "Ancienneté acquise" },
+  { ancien = 3, nouveau = 2, anciennete = "Ancienneté acquise" },
+  { ancien = 4, nouveau = 3, anciennete = "Ancienneté acquise" },
+  { ancien = 5, nouveau = 4, anciennete = "Ancienneté acquise" },
+  { ancien = 6, nouveau = 5, anciennete = "Ancienneté acquise" },
+  { ancien = 7, nouveau = 6, anciennete = "Ancienneté acquise" },
+]
+note   = "Création du 7e échelon de HC au 2021-01-01 (2017-786, art. 85 pour les certifiés) : aucun tableau de reclassement dans 2017-786 pour cette date (les seuls articles transitoires sont 12-13, 20, 36-39, 62-64, 81-83, 93-94, 109-111, 123-124, 139-141, 157-159, 164-167, 172-173). Pas de reclassement 2017 → 2019 ou 2021 trouvé."
+
+# Autres reclassements lus dans 2017-786 (hors périmètre, pour mémoire) : PEGC art. 123-124,
+# CEEPS art. 12-13, instituteurs art. 20 et 172-173, AE art. 93 : tous échelon pour échelon,
+# « Ancienneté acquise ».
+
+# ---------------------------------------------------------------------------
+# AUTRES CORPS ALIGNÉS SUR LES CERTIFIÉS (mêmes clés CERTIFIE_*)
+# ---------------------------------------------------------------------------
+
+[[durees.CERTIFIE_CN]]
+date       = 1990-09-01   # PE ; 1996/2000/2002/2012 pour les autres (voir vigueur) ; jusqu'au 2017-09-01
+corps      = ["PE", "PLP", "PEPS", "CPE"]
+anciennete = [0.25, 0.75, 1.0, 2.5, 3.5, 3.5, 3.5, 4.5, 5.0, 5.5]
+choix      = [0.25, 0.75, 1.0, 2.5, 3.0, 3.0, 3.0, 4.0, 4.0, 4.5]
+grandchoix = [0.25, 0.75, 1.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0]
+proportions = "PE art. 24 : « ne peut excéder respectivement 30 % et cinq septièmes de l'effectif des professeurs inscrits sur la liste correspondante » ; PLP art. 23, PEPS art. 11 : 30 p. 100 / cinq septièmes ; CPE art. 10-7 : « 30 p. 100 » (grand choix) / « Cinq septièmes » (choix)"
+vigueur    = "PE 90-680 art. 24 DU 01 SEPTEMBRE 1990 AU 01 SEPTEMBRE 2017 ; PLP 92-1189 art. 23 DU 30 AOÛT 2012 AU 01 SEPTEMBRE 2017 ; PEPS 80-627 art. 11 DU 30 AOÛT 2012 AU 01 SEPTEMBRE 2017 ; CPE 70-738 art. 10-6 DU 30 AOÛT 2012 AU 01 SEPTEMBRE 2017 (et art. 10-5, ancien tableau des conseillers d'éducation, abrogé le 2002-09-01)"
+source     = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000350637/2016-01-01 (PE) ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000528079/2016-01-01 (PLP) ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000861758/2016-01-01 (PEPS) ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000874749/2016-01-01 (CPE)"
+note       = "Tableaux identiques à celui des certifiés. Pour PLP, PEPS, CPE, les versions antérieures au 2012-05-09 n'ont pas été lues (rétablies à l'identique par 2012-999)."
+
+[[durees.CERTIFIE_HC]]
+date       = 1996-09-01   # jusqu'au 2017-09-01
+corps      = ["PE (art. 26, depuis 1996-09-01)", "PLP (art. 24, depuis 2000-09-01)", "PEPS (art. 12, depuis 1996-09-01)", "CPE (art. 10-8, depuis 2002-09-01)"]
+anciennete = [2.5, 2.5, 2.5, 2.5, 3.0, 3.0]   # 7 échelons
+source     = "mêmes URL datées 2016-01-01 que ci-dessus ; PE 90-680 art. 26, PLP 92-1189 art. 24, PEPS 80-627 art. 12, CPE 70-738 art. 10-8"
+
+[[durees.CERTIFIE_CN]]
+date       = 2017-09-01
+corps      = ["PE", "PLP", "PEPS", "CPE", "PsyEN"]
+anciennete = [1.0, 1.0, 2.0, 2.0, 2.5, 3.0, 3.0, 3.5, 4.0, 4.0]
+acceleration = "6e et 8e échelons bonifiés d'un an, 30 % de chaque liste (PE art. 24 II ; PLP art. 23 II ; PEPS art. 11 II ; CPE art. 10-6 II ; PsyEN 2017-120 art. 26 II « dans la limite de 30 % »)"
+vigueur    = "PE art. 24 DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019 (lu) ; PsyEN art. 26 DU 01 SEPTEMBRE 2017 AU 17 JUIN 2019 (lu) ; PLP, PEPS, CPE : versions DEPUIS LE 06 AOÛT 2023 lues, versions 2017 non lues (MANQUANT formellement, tableau CN 2023 identique)"
+source     = "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000034947965/2017-09-01 (PE) ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033968083/2017-09-01 (PsyEN) ; …/JORFTEXT000000528079/2026-10-17 (PLP) ; …/JORFTEXT000000861758/2026-10-17 (PEPS) ; …/JORFTEXT000000874749/2026-10-17 (CPE)"
+
+[[durees.CERTIFIE_HC]]
+date       = 2017-09-01
+corps      = ["PE (lu)", "PsyEN (lu)"]
+anciennete = [2.0, 2.0, 2.5, 2.5, 3.0]   # 6 échelons
+source     = "PE art. 24 version 2017-09-01 ; PsyEN art. 26 version 2017-09-01 (URL ci-dessus)"
+note       = "PLP, PEPS, CPE 2017 : non lus (MANQUANT) ; le reclassement 7 → 6 échelons (2017-786 art. 157, 109, 36) le confirme indirectement."
+
+[[durees.CERTIFIE_HC]]
+date       = 2021-01-01
+corps      = ["PE (lu : art. 24, VERSION EN VIGUEUR DU 01 JANVIER 2021 AU 29 OCTOBRE 2021)"]
+anciennete = [2.0, 2.0, 2.5, 2.5, 3.0, 3.0]   # 7 échelons
+source     = "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000034948501/2021-01-01"
+note       = "PLP, PEPS, CPE, PsyEN : 7 échelons HC lus dans les versions DEPUIS LE 06 AOÛT 2023 ; date de création du 7e échelon pour eux non lue (MANQUANT). Indice : 2017-786 contient pour PLP (art. 23), PEPS (art. 11), CPE (art. 10-6) des modifications « (VD) » datées 2021-01-01 (liens LEGIARTI000034849077, 034848472, 034839812)."
+
+[[durees.CERTIFIE_CE]]
+date       = 2017-09-01
+corps      = ["PE (lu)", "PsyEN (lu)"]
+anciennete = [2.0, 2.0, 2.5]   # 4 échelons + échelon spécial ; PsyEN III : « au moins 3 ans d'ancienneté au 4e échelon »
+source     = "PE art. 24 et PsyEN art. 26, versions 2017-09-01 (URL ci-dessus)"
+
+[[durees.CERTIFIE_CE]]
+date       = 2023-08-06
+corps      = ["PE (art. 24, version DEPUIS LE 16 AOÛT 2023, décret 2023-777)", "PLP (art. 23)", "PEPS (art. 11)", "CPE (art. 10-6)", "PsyEN (art. 26)"]
+anciennete = [2.0, 2.0, 2.5, 3.0]   # 5 échelons
+source     = "versions DEPUIS LE 06 AOÛT 2023 (2023-720) lues au 2026-10-17 : …/JORFTEXT000000350637/2026-10-17, …/JORFTEXT000000528079/2026-10-17, …/JORFTEXT000000861758/2026-10-17, …/JORFTEXT000000874749/2026-10-17, …/JORFTEXT000033968083/2026-10-17"
+note       = "PE : la version lue est celle du 2023-08-16 (2023-777, art. 16), qui ajoute un II bis (bonifications des directeurs d'école) ; la version 2023-720 du 6 au 16 août 2023 n'a pas été lue."
+
+# ---------------------------------------------------------------------------
+# PsyEN — intégration au 1/9/2017 (décret 2017-120, chap. VIII et IX)
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000033968083/2017-09-01
+# ---------------------------------------------------------------------------
+
+[[reclassement.CERTIFIE_CN]]
+date   = 2017-09-01
+corps  = ["PsyEN (anciens COP, art. 31 ; anciens PE de classe normale psychologues scolaires, art. 33)"]
+source = "décret 2017-120, art. 31, 33 et 37, versions DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020 (art. 37 : DEPUIS LE 01 SEPTEMBRE 2017)"
+phrase = "art. 31 : « Ils sont reclassés dans le grade de psychologue de l'éducation nationale classe normale, à égalité d'échelon avec conservation de l'ancienneté acquise dans l'échelon d'origine. Si l'ancienneté acquise dans l'échelon d'origine est supérieure à la durée de l'échelon d'accueil, le reclassement se fait à l'échelon supérieur sans ancienneté. » (même phrase à l'art. 33 pour les PE de classe normale)"
+regle_prealable = "art. 37 : « Les psychologues de l'éducation nationale qui, à la date du 1er septembre 2017 sont, soit titularisés, soit promus au 4e échelon de la classe normale ou bénéficient à cette même date d'une promotion de grade ou de corps, sont promus en application des dispositions des décrets 1er août 1990 et du 20 mars 1991 susvisés, dans leurs rédactions antérieures au 1er septembre 2017, puis reclassés à cette même date dans ce même corps dans les conditions mentionnées aux articles 31 et 32 du présent décret. »"
+table  = "règle, pas de tableau : échelon n → n, ancienneté conservée ; si ancienneté > durée de l'échelon d'accueil, échelon n+1 sans ancienneté"
+
+[[reclassement.CERTIFIE_HC]]
+date   = 2017-09-01
+corps  = ["PsyEN (anciens DCIO, art. 32 ; anciens PE hors classe psychologues scolaires, art. 33)"]
+source = "décret 2017-120, art. 32 et 33, versions DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020"
+phrase = "art. 32 : « Ils sont reclassés dans le grade de psychologue de l'éducation nationale hors-classe, à l'échelon comportant un indice égal ou immédiatement supérieur avec conservation de l'ancienneté acquise dans l'échelon d'origine. Si l'ancienneté acquise dans l'échelon d'origine est supérieure à la durée de l'échelon d'accueil, le reclassement se fait à l'échelon supérieur sans ancienneté. » (même règle à l'art. 33 pour les PE hors classe)"
+table  = "règle, pas de tableau (indice égal ou immédiatement supérieur)"
+
+[[classement.CERTIFIE_HC]]
+date   = 2017-09-01
+corps  = ["PsyEN"]
+source = "décret 2017-120, art. 27, VERSION EN VIGUEUR DU 01 SEPTEMBRE 2017 AU 01 JANVIER 2020"
+regle  = "indice égal ou à défaut immédiatement supérieur ; ancienneté conservée dans la limite de l'art. 26 si le gain est inférieur à un avancement d'échelon ; « les agents situés au 9e échelon de la classe normale à la date de leur promotion sont classés au 2e échelon de leur nouveau grade, avec conservation de l'ancienneté acquise au-delà de deux ans dans leur échelon d'origine » ; 11e échelon : ancienneté conservée dans la limite du temps nécessaire à une promotion d'échelon dans la hors-classe"
+
+[[classement.CERTIFIE_HC]]
+date   = 2010-09-01
+corps  = ["PE"]
+source = "décret 90-680, art. 25, VERSION EN VIGUEUR DU 01 SEPTEMBRE 2010 AU 01 SEPTEMBRE 2017, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000350637/2016-01-01"
+condition_acces = "« au moins le 7e échelon de la classe normale »"
+regle  = "indice égal ou, à défaut, immédiatement supérieur ; « Dans la limite de l'ancienneté exigée pour une promotion à l'échelon supérieur, ils conservent l'ancienneté qu'ils avaient acquise dans l'échelon de leur ancienne classe lorsque l'augmentation de traitement consécutive à leur promotion est inférieure à celle que leur aurait procurée un avancement d'échelon dans leur ancienne classe. » 11e échelon : ancienneté conservée dans la limite du temps nécessaire à une promotion d'échelon dans la hors-classe."
+
+# ---------------------------------------------------------------------------
+# MANQUANT (non lu dans un texte officiel)
+# ---------------------------------------------------------------------------
+# - Contenu de la parenthèse 2012-05-09 → 2012-08-30 pour agrégés, PLP, PEPS, CPE, PE (décret 2012-702) ;
+#   seule celle des certifiés (art. 32-4) a été lue.
+# - Versions 2017 des tableaux PLP, PEPS, CPE (lues seulement en 2016 et en 2023+).
+# - Date exacte de création du 7e échelon HC pour PLP, PEPS, CPE, PsyEN (lue pour certifiés et PE : 2021-01-01).
+# - Versions intermédiaires 2019-06-17 → 2023 de chaque art. de durées (seuls quelques instantanés lus).
+# - Condition d'accès à la HC des certifiés en 2017 (art. 34) : non relue mot à mot.
+# - Tableau de grille indiciaire (indices par échelon) : hors périmètre, non lu.

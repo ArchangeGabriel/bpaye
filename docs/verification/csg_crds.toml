@@ -1,0 +1,262 @@
+# CSG, CRDS et plafond de la sécurité sociale — bpaye
+# Relevé le 2026-10-18 sur Légifrance (versions consolidées datées des codes et de
+# l'ordonnance 96-50 ; arrêtés et décrets au JORF).
+# « MANQUANT » = non lu dans un texte officiel : ne rien coder dessus.
+# Convention : `depuis` = date d'effet ; `jusqu_a` = veille de la version suivante (exclue),
+# absent = en vigueur au 2026-10-18. Quand le texte modificatif ne fixe pas de date
+# d'application, `depuis` est la date de la version du code qu'il crée (lendemain du JORF).
+
+[meta]
+date_releve = 2026-10-18
+methode = "Légifrance, version consolidée à la date indiquée dans chaque URL ; JORF pour les plafonds"
+utilise_par = "taux.toml : csg.*, crds.*, pmss ; charges.seuil_abattement"
+
+# ---------------------------------------------------------------------------
+# 1. RÉDUCTION POUR FRAIS PROFESSIONNELS (CSS L136-2, I, puis L136-1-1 depuis 2018-2019)
+# ---------------------------------------------------------------------------
+[[csg.reduction]]
+depuis = 2001-01-01
+jusqu_a = 2005-01-01
+taux = 0.05
+plafond = "aucun"
+regle = "il est opéré une réduction représentative de frais professionnels forfaitairement fixée à 5 p. 100 de ce montant"
+source = "CSS L136-2, I, al. 2, versions du 24/12/2000 au 17/08/2004 (relues au 01/06/2001, 01/06/2002, 01/06/2003, 01/06/2004), https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006740248/2001-06-01"
+
+[[csg.reduction]]
+depuis = 2005-01-01
+jusqu_a = 2010-12-22
+taux = 0.03
+plafond = "aucun"
+regle = "… forfaitairement fixée à 3 p. 100 de ce montant"
+source = "CSS L136-2 mod. par loi 2004-810 art. 72, version du 17/08/2004 ; nota : « applicables aux revenus perçus à compter du 1er janvier 2005 » (art. 72 V), https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006740248/2005-06-01"
+
+[[csg.reduction]]
+depuis = 2010-12-22
+jusqu_a = 2011-12-23
+taux = 0.03
+plafond = "4 × plafond mensuel (L241-3)"
+regle = "Sur le montant brut inférieur à quatre fois la valeur du plafond mentionné à l'article L. 241-3 des traitements, […] il est opéré une réduction […] fixée à 3 % de ce montant."
+source = "loi 2010-1594 (LFSS 2011) art. 20, 1°, JORF n° 295 du 21/12/2010, https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000023261162 ; CSS L136-2 version du 22/12/2010, https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006740248/2011-06-01"
+note = "L'art. 20 ne fixe pas de date d'application (le nota du code cite l'art. 24 III, qui vise un autre article) : date de la version du code."
+
+[[csg.reduction]]
+depuis = 2011-12-23
+taux = 0.0175
+plafond = "4 × plafond mensuel (L241-3)"
+regle = "Le taux : « 3 % » est remplacé par le taux : « 1,75 % »"
+source = "loi 2011-1906 (LFSS 2012) art. 17, I, 2°, JORF n° 296 du 22/12/2011, https://www.legifrance.gouv.fr/jorf/article_jo/JORFARTI000025005945 ; CSS L136-2 version du 23/12/2011 ; inchangé dans les versions du 01/01/2015, 01/01/2018 et du 01/09/2018 (« fixée à 1,75 % pour leur montant inférieur à quatre fois la valeur du plafond »)"
+note = "L'art. 17 ne fixe pas de date d'application : date de la version du code."
+
+# ---------------------------------------------------------------------------
+# 2. TAUX DE LA CSG SUR LES REVENUS D'ACTIVITÉ (CSS L136-8, I)
+# ---------------------------------------------------------------------------
+[[csg.taux]]
+depuis = 2001-01-01
+jusqu_a = 2002-01-01
+taux = "MANQUANT"
+source = "MANQUANT : L136-8 n'apparaît pas dans la version du chapitre au 01/06/2001 ; le texte qui fixait alors le taux n'est pas relu"
+
+[[csg.taux]]
+depuis = 2002-01-01
+jusqu_a = 2018-01-01
+taux = 0.075
+regle = "est fixé à 7,50 p. 100 (2002–2004) ; « 1° A 7,5 % pour la contribution sociale mentionnée à l'article L. 136-1 » (2004–2017)"
+source = "CSS L136-8, versions du 01/01/2002 (loi 2001-647 art. 9), du 17/08/2004 (loi 2004-810 art. 72), du 22/12/2010 et du 01/01/2017, https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006073189/LEGISCTA000006156362/2017-06-01/"
+
+[[csg.taux]]
+depuis = 2018-01-01
+taux = 0.092
+regle = "1° A 9,2 % pour la contribution sociale mentionnée à l'article L. 136-1"
+source = "CSS L136-8 mod. par loi 2017-1836 art. 8, version du 01/01/2018, https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006073189/LEGISCTA000006156362/2018-06-01/"
+
+# ---------------------------------------------------------------------------
+# 3. PART DÉDUCTIBLE (CGI art. 154 quinquies, I)
+# ---------------------------------------------------------------------------
+[[csg.deductible]]
+depuis = 2001-01-01
+jusqu_a = 2018-01-01
+points = 0.051
+regle = "est, à hauteur de 5,1 points […] admise en déduction"
+source = "CGI 154 quinquies, versions du 31/03/2001, 01/01/2004, 01/01/2005, 28/12/2007 et 08/08/2015, https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000054336634/2011-06-01"
+
+[[csg.deductible]]
+depuis = 2018-01-01
+points = 0.068
+regle = "est, à hauteur de 6,8 points […] admise en déduction"
+source = "CGI 154 quinquies mod. par loi 2017-1837 art. 67, version du 01/01/2018, https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000054336634/2018-06-01"
+
+[csg.non_deductible]
+regle = "taux de L136-8 moins la part déductible : 7,5 − 5,1 = 2,4 points (2002–2017), 9,2 − 6,8 = 2,4 points (depuis 2018)"
+
+# ---------------------------------------------------------------------------
+# 4. CRDS (ordonnance 96-50, art. 14 et 19)
+# ---------------------------------------------------------------------------
+[crds.assiette]
+regle = "Cette contribution est assise sur les revenus visés et dans les conditions prévues aux articles L. 136-2 à L. 136-4 et au III de l'article L. 136-8"
+source = "Ord. 96-50 art. 14, I, versions du 31/12/2000, du 17/08/2004, du 01/01/2011 et du 01/01/2015, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000190291/2012-06-01/ ; « L. 136-1-1 à L. 136-4 » dans la version en vigueur"
+note = "La réduction et son plafond sont ceux de la CSG, aux mêmes dates. Aucun texte ne fait passer la réduction de la CRDS à 1,75 % en 2015."
+
+[[crds.taux]]
+depuis = 1996-01-25
+taux = 0.005
+source = "Ord. 96-50 art. 19, versions du 25/01/1996 (« 0,5 p. 100 »), du 01/01/2006 (loi 2005-1720 art. 112), du 13/05/2010 (loi 2010-476 art. 50, « 0,5 % ») et du 01/01/2020, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000190291/2008-06-01/"
+
+# ---------------------------------------------------------------------------
+# 5. PLAFOND MENSUEL DE LA SÉCURITÉ SOCIALE (CSS L241-3, D242-17)
+# Valeur « mensuelle » ou montant « si les rémunérations ou gains sont versés par mois »,
+# pour l'année civile. URL : https://www.legifrance.gouv.fr/jorf/id/<jorf>
+# ---------------------------------------------------------------------------
+[[pmss]]
+annee = 2001
+mensuel = "MANQUANT"
+source = "décret 2000-1284 du 26/12/2000 (montant en francs), JORFTEXT000000768354 : non relu"
+
+[[pmss]]
+annee = 2002
+mensuel = 2352
+source = "décret 2001-1069 du 16/11/2001, NOR MESS0123903D, JORF n° 267 du 17/11/2001"
+jorf = "JORFTEXT000000403609"
+
+[[pmss]]
+annee = 2003
+mensuel = 2432
+source = "décret 2002-1374 du 22/11/2002, NOR SANS0223562D, JORF n° 273 du 23/11/2002"
+jorf = "JORFTEXT000000599381"
+
+[[pmss]]
+annee = 2004
+mensuel = 2476
+source = "décret 2003-1159 du 04/12/2003, NOR SOCS0324422D, JORF n° 282 du 06/12/2003"
+jorf = "JORFTEXT000000433484"
+
+[[pmss]]
+annee = 2005
+mensuel = 2516
+source = "décret 2004-1292 du 26/11/2004, NOR SANS0423754D, JORF n° 277 du 28/11/2004"
+jorf = "JORFTEXT000000810525"
+
+[[pmss]]
+annee = 2006
+mensuel = 2589
+source = "arrêté du 02/12/2005, NOR SANS0524390A, JORF n° 286 du 09/12/2005"
+jorf = "JORFTEXT000000636240"
+
+[[pmss]]
+annee = 2007
+mensuel = 2682
+source = "arrêté du 15/11/2006, NOR SANS0624641A, JORF n° 275 du 28/11/2006"
+jorf = "JORFTEXT000000616003"
+
+[[pmss]]
+annee = 2008
+mensuel = 2773
+source = "arrêté du 30/10/2007, NOR BCFS0769748A, JORF n° 261 du 10/11/2007"
+jorf = "JORFTEXT000000651144"
+
+[[pmss]]
+annee = 2009
+mensuel = 2859
+source = "décret 2008-1394 du 19/12/2008, NOR BCFS0829326D, JORF n° 299 du 24/12/2008"
+jorf = "JORFTEXT000019986645"
+
+[[pmss]]
+annee = 2010
+mensuel = 2885
+source = "arrêté du 18/11/2009, NOR BCFS0927486A, JORF n° 274 du 26/11/2009"
+jorf = "JORFTEXT000021334833"
+
+[[pmss]]
+annee = 2011
+mensuel = 2946
+source = "arrêté du 26/11/2010, NOR BCRS1030162A, JORF n° 276 du 28/11/2010"
+jorf = "JORFTEXT000023140577"
+
+[[pmss]]
+annee = 2012
+mensuel = 3031
+source = "arrêté du 30/12/2011, NOR BCRS1134416A, JORF n° 303 du 31/12/2011"
+jorf = "JORFTEXT000025060928"
+
+[[pmss]]
+annee = 2013
+mensuel = 3086
+source = "arrêté du 12/12/2012, NOR AFSS1242110A, JORF n° 297 du 21/12/2012"
+jorf = "JORFTEXT000026805244"
+
+[[pmss]]
+annee = 2014
+mensuel = 3129
+source = "arrêté du 07/11/2013, NOR AFSS1327624A, JORF n° 268 du 19/11/2013"
+jorf = "JORFTEXT000028214098"
+
+[[pmss]]
+annee = 2015
+mensuel = 3170
+source = "arrêté du 26/11/2014, NOR AFSS1428039A, JORF n° 284 du 09/12/2014"
+jorf = "JORFTEXT000029862934"
+
+[[pmss]]
+annee = 2016
+mensuel = 3218
+source = "arrêté du 17/12/2015, NOR AFSS1530064A, JORF n° 298 du 24/12/2015"
+jorf = "JORFTEXT000031680291"
+
+[[pmss]]
+annee = 2017
+mensuel = 3269
+source = "arrêté du 05/12/2016, NOR AFSS1628753A, JORF n° 289 du 13/12/2016"
+jorf = "JORFTEXT000033578230"
+
+[[pmss]]
+annee = 2018
+mensuel = 3311
+source = "arrêté du 05/12/2017, NOR SSAS1733749A, JORF n° 287 du 09/12/2017"
+jorf = "JORFTEXT000036171732"
+
+[[pmss]]
+annee = 2019
+mensuel = 3377
+source = "arrêté du 11/12/2018, NOR SSAS1833942A, JORF n° 290 du 15/12/2018"
+jorf = "JORFTEXT000037814803"
+
+[[pmss]]
+annee = 2020
+mensuel = 3428
+source = "arrêté du 02/12/2019, NOR SSAS1934384A, JORF n° 280 du 03/12/2019"
+jorf = "JORFTEXT000039440180"
+
+[[pmss]]
+annee = 2021
+mensuel = 3428
+source = "arrêté du 22/12/2020, NOR SSAS2036535A, JORF n° 314 du 29/12/2020"
+jorf = "JORFTEXT000042748904"
+
+[[pmss]]
+annee = 2022
+mensuel = 3428
+source = "arrêté du 15/12/2021, NOR SSAS2137621A, JORF n° 294 du 18/12/2021"
+jorf = "JORFTEXT000044514684"
+
+[[pmss]]
+annee = 2023
+mensuel = 3666
+source = "arrêté du 09/12/2022, NOR SPRS2236037A, JORF n° 291 du 16/12/2022"
+jorf = "JORFTEXT000046745084"
+
+[[pmss]]
+annee = 2024
+mensuel = 3864
+source = "arrêté du 19/12/2023, NOR SPRS2330283A, JORF n° 301 du 29/12/2023"
+jorf = "JORFTEXT000048708693"
+
+[[pmss]]
+annee = 2025
+mensuel = 3925
+source = "arrêté du 19/12/2024, NOR TSSS2429581A, JORF n° 308 du 29/12/2024"
+jorf = "JORFTEXT000050854392"
+
+[[pmss]]
+annee = 2026
+mensuel = 4005
+source = "arrêté du 22/12/2025, NOR CPPS2536168A, JORF n° 300 du 23/12/2025"
+jorf = "JORFTEXT000053143451"

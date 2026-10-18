@@ -1,0 +1,1118 @@
+# Vacances scolaires des zones A, B et C, d'après le calendrier officiel : jeu
+# « fr-en-calendrier-scolaire » de data.education.gouv.fr, lu pour une académie par
+# zone (A Lyon, B Nantes, C Paris). Régénéré par
+# scripts/maj_vacances.py. « debut » est le premier jour sans cours, « reprise » le jour
+# où les cours reprennent.
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Vacances de la Toussaint"
+debut = 2019-10-19
+reprise = 2019-11-04
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Vacances de Noël"
+debut = 2019-12-21
+reprise = 2020-01-06
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Vacances d'Hiver"
+debut = 2020-02-22
+reprise = 2020-03-09
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Vacances de Printemps"
+debut = 2020-04-18
+reprise = 2020-05-04
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Pont de l'Ascension"
+debut = 2020-05-20
+reprise = 2020-05-25
+
+[[vacances]]
+zone = "A"
+annee = "2019-2020"
+nom = "Vacances d'Été"
+debut = 2020-07-04
+reprise = 2020-09-01
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Vacances de la Toussaint"
+debut = 2020-10-17
+reprise = 2020-11-02
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Vacances de Noël"
+debut = 2020-12-19
+reprise = 2021-01-04
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Vacances d'Hiver"
+debut = 2021-02-06
+reprise = 2021-02-22
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Vacances de Printemps"
+debut = 2021-04-10
+reprise = 2021-04-26
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Pont de l'Ascension"
+debut = 2021-05-13
+reprise = 2021-05-17
+
+[[vacances]]
+zone = "A"
+annee = "2020-2021"
+nom = "Vacances d'Été"
+debut = 2021-07-06
+reprise = 2021-09-02
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Vacances de la Toussaint"
+debut = 2021-10-23
+reprise = 2021-11-08
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Vacances de Noël"
+debut = 2021-12-18
+reprise = 2022-01-03
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Vacances d'Hiver"
+debut = 2022-02-12
+reprise = 2022-02-28
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Vacances de Printemps"
+debut = 2022-04-16
+reprise = 2022-05-02
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Pont de l'Ascension"
+debut = 2022-05-26
+reprise = 2022-05-30
+
+[[vacances]]
+zone = "A"
+annee = "2021-2022"
+nom = "Vacances d'Été"
+debut = 2022-07-07
+reprise = 2022-09-01
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Vacances de la Toussaint"
+debut = 2022-10-22
+reprise = 2022-11-07
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Vacances de Noël"
+debut = 2022-12-17
+reprise = 2023-01-03
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Vacances d'Hiver"
+debut = 2023-02-04
+reprise = 2023-02-20
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Vacances de Printemps"
+debut = 2023-04-08
+reprise = 2023-04-24
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Pont de l'Ascension"
+debut = 2023-05-18
+reprise = 2023-05-22
+
+[[vacances]]
+zone = "A"
+annee = "2022-2023"
+nom = "Vacances d'Été"
+debut = 2023-07-08
+reprise = 2023-09-04
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Vacances de la Toussaint"
+debut = 2023-10-21
+reprise = 2023-11-06
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Vacances de Noël"
+debut = 2023-12-23
+reprise = 2024-01-08
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Vacances d'Hiver"
+debut = 2024-02-17
+reprise = 2024-03-04
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Vacances de Printemps"
+debut = 2024-04-13
+reprise = 2024-04-29
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Pont de l'Ascension"
+debut = 2024-05-09
+reprise = 2024-05-13
+
+[[vacances]]
+zone = "A"
+annee = "2023-2024"
+nom = "Vacances d'Été"
+debut = 2024-07-06
+reprise = 2024-09-02
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Vacances de la Toussaint"
+debut = 2024-10-19
+reprise = 2024-11-04
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Vacances de Noël"
+debut = 2024-12-21
+reprise = 2025-01-06
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Vacances d'Hiver"
+debut = 2025-02-22
+reprise = 2025-03-10
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Vacances de Printemps"
+debut = 2025-04-19
+reprise = 2025-05-05
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Pont de l'Ascension"
+debut = 2025-05-29
+reprise = 2025-06-02
+
+[[vacances]]
+zone = "A"
+annee = "2024-2025"
+nom = "Vacances d'Été"
+debut = 2025-07-05
+reprise = 2025-09-01
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Vacances de la Toussaint"
+debut = 2025-10-18
+reprise = 2025-11-03
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Vacances de Noël"
+debut = 2025-12-20
+reprise = 2026-01-05
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Vacances d'Hiver"
+debut = 2026-02-07
+reprise = 2026-02-23
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Vacances de Printemps"
+debut = 2026-04-04
+reprise = 2026-04-20
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Pont de l'Ascension"
+debut = 2026-05-14
+reprise = 2026-05-18
+
+[[vacances]]
+zone = "A"
+annee = "2025-2026"
+nom = "Vacances d'Été"
+debut = 2026-07-04
+reprise = 2026-09-01
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Vacances de la Toussaint"
+debut = 2026-10-17
+reprise = 2026-11-02
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Vacances de Noël"
+debut = 2026-12-19
+reprise = 2027-01-04
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Vacances d'Hiver"
+debut = 2027-02-13
+reprise = 2027-03-01
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Vacances de Printemps"
+debut = 2027-04-10
+reprise = 2027-04-26
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Pont de l'Ascension"
+debut = 2027-05-07
+reprise = 2027-05-07
+
+[[vacances]]
+zone = "A"
+annee = "2026-2027"
+nom = "Vacances d'Été"
+debut = 2027-07-03
+reprise = 2027-09-02
+
+[[vacances]]
+zone = "A"
+annee = "2027-2028"
+nom = "Vacances de la Toussaint"
+debut = 2027-10-23
+reprise = 2027-11-08
+
+[[vacances]]
+zone = "A"
+annee = "2027-2028"
+nom = "Vacances de Noël"
+debut = 2027-12-18
+reprise = 2028-01-03
+
+[[vacances]]
+zone = "A"
+annee = "2027-2028"
+nom = "Vacances d'Hiver"
+debut = 2028-02-19
+reprise = 2028-03-06
+
+[[vacances]]
+zone = "A"
+annee = "2027-2028"
+nom = "Vacances de Printemps"
+debut = 2028-04-22
+reprise = 2028-05-09
+
+[[vacances]]
+zone = "A"
+annee = "2027-2028"
+nom = "Pont de l'Ascension"
+debut = 2028-05-25
+reprise = 2028-05-29
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Vacances de la Toussaint"
+debut = 2019-10-19
+reprise = 2019-11-04
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Vacances de Noël"
+debut = 2019-12-21
+reprise = 2020-01-06
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Vacances d'Hiver"
+debut = 2020-02-15
+reprise = 2020-03-02
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Vacances de Printemps"
+debut = 2020-04-11
+reprise = 2020-04-27
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Pont de l'Ascension"
+debut = 2020-05-20
+reprise = 2020-05-25
+
+[[vacances]]
+zone = "B"
+annee = "2019-2020"
+nom = "Vacances d'Été"
+debut = 2020-07-04
+reprise = 2020-09-01
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Vacances de la Toussaint"
+debut = 2020-10-17
+reprise = 2020-11-02
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Vacances de Noël"
+debut = 2020-12-19
+reprise = 2021-01-04
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Vacances d'Hiver"
+debut = 2021-02-20
+reprise = 2021-03-08
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Vacances de Printemps"
+debut = 2021-04-10
+reprise = 2021-04-26
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Pont de l'Ascension"
+debut = 2021-05-13
+reprise = 2021-05-17
+
+[[vacances]]
+zone = "B"
+annee = "2020-2021"
+nom = "Vacances d'Été"
+debut = 2021-07-06
+reprise = 2021-09-02
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Vacances de la Toussaint"
+debut = 2021-10-23
+reprise = 2021-11-08
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Vacances de Noël"
+debut = 2021-12-18
+reprise = 2022-01-03
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Vacances d'Hiver"
+debut = 2022-02-05
+reprise = 2022-02-21
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Vacances de Printemps"
+debut = 2022-04-09
+reprise = 2022-04-25
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Pont de l'Ascension"
+debut = 2022-05-26
+reprise = 2022-05-30
+
+[[vacances]]
+zone = "B"
+annee = "2021-2022"
+nom = "Vacances d'Été"
+debut = 2022-07-07
+reprise = 2022-09-01
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Vacances de la Toussaint"
+debut = 2022-10-22
+reprise = 2022-11-07
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Vacances de Noël"
+debut = 2022-12-17
+reprise = 2023-01-03
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Vacances d'Hiver"
+debut = 2023-02-11
+reprise = 2023-02-27
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Vacances de Printemps"
+debut = 2023-04-15
+reprise = 2023-05-02
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Pont de l'Ascension"
+debut = 2023-05-18
+reprise = 2023-05-22
+
+[[vacances]]
+zone = "B"
+annee = "2022-2023"
+nom = "Vacances d'Été"
+debut = 2023-07-08
+reprise = 2023-09-04
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Vacances de la Toussaint"
+debut = 2023-10-21
+reprise = 2023-11-06
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Vacances de Noël"
+debut = 2023-12-23
+reprise = 2024-01-08
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Vacances d'Hiver"
+debut = 2024-02-24
+reprise = 2024-03-11
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Vacances de Printemps"
+debut = 2024-04-20
+reprise = 2024-05-06
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Pont de l'Ascension"
+debut = 2024-05-09
+reprise = 2024-05-13
+
+[[vacances]]
+zone = "B"
+annee = "2023-2024"
+nom = "Vacances d'Été"
+debut = 2024-07-06
+reprise = 2024-09-02
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Vacances de la Toussaint"
+debut = 2024-10-19
+reprise = 2024-11-04
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Vacances de Noël"
+debut = 2024-12-21
+reprise = 2025-01-06
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Vacances d'Hiver"
+debut = 2025-02-08
+reprise = 2025-02-24
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Vacances de Printemps"
+debut = 2025-04-05
+reprise = 2025-04-22
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Pont de l'Ascension"
+debut = 2025-05-29
+reprise = 2025-06-02
+
+[[vacances]]
+zone = "B"
+annee = "2024-2025"
+nom = "Vacances d'Été"
+debut = 2025-07-05
+reprise = 2025-09-01
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Vacances de la Toussaint"
+debut = 2025-10-18
+reprise = 2025-11-03
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Vacances de Noël"
+debut = 2025-12-20
+reprise = 2026-01-05
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Vacances d'Hiver"
+debut = 2026-02-14
+reprise = 2026-03-02
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Vacances de Printemps"
+debut = 2026-04-11
+reprise = 2026-04-27
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Pont de l'Ascension"
+debut = 2026-05-14
+reprise = 2026-05-18
+
+[[vacances]]
+zone = "B"
+annee = "2025-2026"
+nom = "Vacances d'Été"
+debut = 2026-07-04
+reprise = 2026-09-01
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Vacances de la Toussaint"
+debut = 2026-10-17
+reprise = 2026-11-02
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Vacances de Noël"
+debut = 2026-12-19
+reprise = 2027-01-04
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Vacances d'Hiver"
+debut = 2027-02-20
+reprise = 2027-03-08
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Vacances de Printemps"
+debut = 2027-04-17
+reprise = 2027-05-03
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Pont de l'Ascension"
+debut = 2027-05-07
+reprise = 2027-05-07
+
+[[vacances]]
+zone = "B"
+annee = "2026-2027"
+nom = "Vacances d'Été"
+debut = 2027-07-03
+reprise = 2027-09-02
+
+[[vacances]]
+zone = "B"
+annee = "2027-2028"
+nom = "Vacances de la Toussaint"
+debut = 2027-10-23
+reprise = 2027-11-08
+
+[[vacances]]
+zone = "B"
+annee = "2027-2028"
+nom = "Vacances de Noël"
+debut = 2027-12-18
+reprise = 2028-01-03
+
+[[vacances]]
+zone = "B"
+annee = "2027-2028"
+nom = "Vacances d'Hiver"
+debut = 2028-02-05
+reprise = 2028-02-21
+
+[[vacances]]
+zone = "B"
+annee = "2027-2028"
+nom = "Vacances de Printemps"
+debut = 2028-04-08
+reprise = 2028-04-24
+
+[[vacances]]
+zone = "B"
+annee = "2027-2028"
+nom = "Pont de l'Ascension"
+debut = 2028-05-25
+reprise = 2028-05-29
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Vacances de la Toussaint"
+debut = 2019-10-19
+reprise = 2019-11-04
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Vacances de Noël"
+debut = 2019-12-21
+reprise = 2020-01-06
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Vacances d'Hiver"
+debut = 2020-02-08
+reprise = 2020-02-24
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Vacances de Printemps"
+debut = 2020-04-04
+reprise = 2020-04-20
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Pont de l'Ascension"
+debut = 2020-05-20
+reprise = 2020-05-25
+
+[[vacances]]
+zone = "C"
+annee = "2019-2020"
+nom = "Vacances d'Été"
+debut = 2020-07-04
+reprise = 2020-09-01
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Vacances de la Toussaint"
+debut = 2020-10-17
+reprise = 2020-11-02
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Vacances de Noël"
+debut = 2020-12-19
+reprise = 2021-01-04
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Vacances d'Hiver"
+debut = 2021-02-13
+reprise = 2021-03-01
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Vacances de Printemps"
+debut = 2021-04-10
+reprise = 2021-04-26
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Pont de l'Ascension"
+debut = 2021-05-13
+reprise = 2021-05-17
+
+[[vacances]]
+zone = "C"
+annee = "2020-2021"
+nom = "Vacances d'Été"
+debut = 2021-07-06
+reprise = 2021-09-02
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Vacances de la Toussaint"
+debut = 2021-10-23
+reprise = 2021-11-08
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Vacances de Noël"
+debut = 2021-12-18
+reprise = 2022-01-03
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Vacances d'Hiver"
+debut = 2022-02-19
+reprise = 2022-03-07
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Vacances de Printemps"
+debut = 2022-04-23
+reprise = 2022-05-09
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Pont de l'Ascension"
+debut = 2022-05-26
+reprise = 2022-05-30
+
+[[vacances]]
+zone = "C"
+annee = "2021-2022"
+nom = "Vacances d'Été"
+debut = 2022-07-07
+reprise = 2022-09-01
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Vacances de la Toussaint"
+debut = 2022-10-22
+reprise = 2022-11-07
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Vacances de Noël"
+debut = 2022-12-17
+reprise = 2023-01-03
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Vacances d'Hiver"
+debut = 2023-02-18
+reprise = 2023-03-06
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Vacances de Printemps"
+debut = 2023-04-22
+reprise = 2023-05-09
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Pont de l'Ascension"
+debut = 2023-05-18
+reprise = 2023-05-22
+
+[[vacances]]
+zone = "C"
+annee = "2022-2023"
+nom = "Vacances d'Été"
+debut = 2023-07-08
+reprise = 2023-09-04
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Vacances de la Toussaint"
+debut = 2023-10-21
+reprise = 2023-11-06
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Vacances de Noël"
+debut = 2023-12-23
+reprise = 2024-01-08
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Vacances d'Hiver"
+debut = 2024-02-10
+reprise = 2024-02-26
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Vacances de Printemps"
+debut = 2024-04-06
+reprise = 2024-04-22
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Pont de l'Ascension"
+debut = 2024-05-09
+reprise = 2024-05-13
+
+[[vacances]]
+zone = "C"
+annee = "2023-2024"
+nom = "Vacances d'Été"
+debut = 2024-07-06
+reprise = 2024-09-02
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Vacances de la Toussaint"
+debut = 2024-10-19
+reprise = 2024-11-04
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Vacances de Noël"
+debut = 2024-12-21
+reprise = 2025-01-06
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Vacances d'Hiver"
+debut = 2025-02-15
+reprise = 2025-03-03
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Vacances de Printemps"
+debut = 2025-04-12
+reprise = 2025-04-28
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Pont de l'Ascension"
+debut = 2025-05-29
+reprise = 2025-06-02
+
+[[vacances]]
+zone = "C"
+annee = "2024-2025"
+nom = "Vacances d'Été"
+debut = 2025-07-05
+reprise = 2025-09-01
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Vacances de la Toussaint"
+debut = 2025-10-18
+reprise = 2025-11-03
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Vacances de Noël"
+debut = 2025-12-20
+reprise = 2026-01-05
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Vacances d'Hiver"
+debut = 2026-02-21
+reprise = 2026-03-09
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Vacances de Printemps"
+debut = 2026-04-18
+reprise = 2026-05-04
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Pont de l'Ascension"
+debut = 2026-05-14
+reprise = 2026-05-18
+
+[[vacances]]
+zone = "C"
+annee = "2025-2026"
+nom = "Vacances d'Été"
+debut = 2026-07-04
+reprise = 2026-09-01
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Vacances de la Toussaint"
+debut = 2026-10-17
+reprise = 2026-11-02
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Vacances de Noël"
+debut = 2026-12-19
+reprise = 2027-01-04
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Vacances d'Hiver"
+debut = 2027-02-06
+reprise = 2027-02-22
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Vacances de Printemps"
+debut = 2027-04-03
+reprise = 2027-04-19
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Pont de l'Ascension"
+debut = 2027-05-07
+reprise = 2027-05-07
+
+[[vacances]]
+zone = "C"
+annee = "2026-2027"
+nom = "Vacances d'Été"
+debut = 2027-07-03
+reprise = 2027-09-02
+
+[[vacances]]
+zone = "C"
+annee = "2027-2028"
+nom = "Vacances de la Toussaint"
+debut = 2027-10-23
+reprise = 2027-11-08
+
+[[vacances]]
+zone = "C"
+annee = "2027-2028"
+nom = "Vacances de Noël"
+debut = 2027-12-18
+reprise = 2028-01-03
+
+[[vacances]]
+zone = "C"
+annee = "2027-2028"
+nom = "Vacances d'Hiver"
+debut = 2028-02-12
+reprise = 2028-02-28
+
+[[vacances]]
+zone = "C"
+annee = "2027-2028"
+nom = "Vacances de Printemps"
+debut = 2028-04-15
+reprise = 2028-05-02
+
+[[vacances]]
+zone = "C"
+annee = "2027-2028"
+nom = "Pont de l'Ascension"
+debut = 2028-05-25
+reprise = 2028-05-29

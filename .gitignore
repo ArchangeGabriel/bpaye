@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[oc]
+
+# macOS
+.DS_Store
+sources
+
+# Environnements et outils
+.venv/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+dist/
+
+# Notes de travail internes, jamais publiées
+docs/interne/

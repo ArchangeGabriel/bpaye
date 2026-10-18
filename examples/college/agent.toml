@@ -1,0 +1,18 @@
+# Données personnelles de l'agente fictive : taux de prélèvement à la source, enfants,
+# zone de résidence, transport.
+
+[ir]
+type = "Taux"
+values = [{ date = 2019-01-01, valeur = 0.045 }]
+
+[[enfants]]
+date   = 2018-03-01
+nombre = 2
+
+[[residence]]
+date = 2008-09-01
+zone = 2                        # 1 % du traitement
+
+[[transport]]
+date              = 2016-09-01
+abonnement_annuel = 600

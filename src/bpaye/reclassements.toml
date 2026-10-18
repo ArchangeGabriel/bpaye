@@ -1,0 +1,126 @@
+# Tableaux de reclassement par grille et par date (reclassement.py).
+#
+# Une ligne par position de la grille de bpaye : échelon, ou chevron d'un groupe hors
+# échelle (trois positions par groupe HEA ou HEB). Règles d'ancienneté : « conservee »
+# (par défaut ; le texte dit « ancienneté acquise »), « neant » (« sans ancienneté »),
+# majoration en années (« ancienneté acquise majorée de 3 mois » : 0.25). L'ancienneté
+# conservée l'est dans la limite de la durée de l'échelon d'arrivée (reclassement.py).
+#
+# Règle préalable du PPCR (décret 2017-786, art. 37, 63, 82, 110, 140, 158) : celui qui, le
+# 1er septembre 2017, est promu au 4e échelon de la classe normale (ou titularisé, ou promu
+# de grade ou de corps) l'est d'abord selon l'ancien statut, puis reclassé ce même jour :
+# reclassement.py prend l'échelon détenu le jour même.
+
+# ── Agrégés : décret 2017-786, art. 62 (tableaux) et 63 ─────────────────────────
+[[GRILLE_AGCN]]
+date = 2017-09-01
+source = "décret 2017-786, art. 62, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+table = [
+  { ancien = 1, nouveau = 1 },
+  { ancien = 2, nouveau = 1, majoration = 0.25 },
+  { ancien = 3, nouveau = 3 },
+  { ancien = 4, nouveau = 4 },
+  { ancien = 5, nouveau = 5 },
+  { ancien = 6, nouveau = 6 },
+  { ancien = 7, nouveau = 7 },
+  { ancien = 8, nouveau = 8 },
+  { ancien = 9, nouveau = 9 },
+  { ancien = 10, nouveau = 10 },
+  { ancien = 11, nouveau = 11 },
+]
+
+[[GRILLE_AGHC]]
+date = 2017-09-01
+# 6 échelons → 4 ; l'ancien 6e (HEA) devient le 4e (HEA) : ses chevrons gardent leur rang.
+source = "décret 2017-786, art. 62, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+table = [
+  { ancien = 1, nouveau = 1, anciennete = "neant" },
+  { ancien = 2, nouveau = 1, anciennete = "neant" },
+  { ancien = 3, nouveau = 1 },
+  { ancien = 4, nouveau = 2 },
+  { ancien = 5, nouveau = 3 },
+  { ancien = 6, nouveau = 4 },
+  { ancien = 7, nouveau = 5 },
+  { ancien = 8, nouveau = 6 },
+]
+
+# ── Type certifié : certifiés (art. 81-82), PEPS (109-110), PE (139-140), PLP (157-158),
+# CPE (36-37) : tableaux identiques. PsyEN : intégration par le décret 2017-120, art. 31 à
+# 33 et 37 (échelon pour échelon, ancienneté conservée), sans tableau.
+[[GRILLE_CERTCN]]
+date = 2017-09-01
+source = "décret 2017-786, art. 81, 109, 139, 157 et 36, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+table = [
+  { ancien = 1, nouveau = 1 },
+  { ancien = 2, nouveau = 1, majoration = 0.25 },
+  { ancien = 3, nouveau = 3 },
+  { ancien = 4, nouveau = 4 },
+  { ancien = 5, nouveau = 5 },
+  { ancien = 6, nouveau = 6 },
+  { ancien = 7, nouveau = 7 },
+  { ancien = 8, nouveau = 8 },
+  { ancien = 9, nouveau = 9 },
+  { ancien = 10, nouveau = 10 },
+  { ancien = 11, nouveau = 11 },
+]
+
+[[GRILLE_CERTHC]]
+date = 2017-09-01
+source = "décret 2017-786, art. 81, 109, 139, 157 et 36, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034600973"
+table = [
+  { ancien = 1, nouveau = 1, anciennete = "neant" },
+  { ancien = 2, nouveau = 1 },
+  { ancien = 3, nouveau = 2 },
+  { ancien = 4, nouveau = 3 },
+  { ancien = 5, nouveau = 4 },
+  { ancien = 6, nouveau = 5 },
+  { ancien = 7, nouveau = 6 },
+]
+
+[[GRILLE_CERTCE]]
+date = 2023-08-06
+# L'échelon spécial (HEA, positions 5 à 7) devient le 5e échelon, ancienneté acquise.
+source = "décret 2023-720, art. 31, II, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000047936139/2026-10-17"
+table = [
+  { ancien = 1, nouveau = 1 },
+  { ancien = 2, nouveau = 2 },
+  { ancien = 3, nouveau = 3 },
+  { ancien = 4, nouveau = 4 },
+  { ancien = 5, nouveau = 5 },
+  { ancien = 6, nouveau = 6 },
+  { ancien = 7, nouveau = 7 },
+]
+
+# ── Chaires supérieures ─────────────────────────────────────────────────────────
+[[GRILLE_CHSUP]]
+date = 2017-09-01
+source = "décret 2017-957, art. 3, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034675424/2026-10-17"
+table = [
+  { ancien = 1, nouveau = 1 },
+  { ancien = 2, nouveau = 2 },
+  { ancien = 3, nouveau = 3 },
+  { ancien = 4, nouveau = 4 },
+  { ancien = 5, nouveau = 5 },
+  { ancien = 6, nouveau = 6 },
+  { ancien = 7, nouveau = 7 },
+  { ancien = 8, nouveau = 8 },
+]
+
+[[GRILLE_CHSUP]]
+date = 2023-08-06
+# Le 5e « après 3 ans et 6 mois » passe au 6e sans ancienneté : c'est la limite de la durée
+# du 5e échelon (3,5 ans) ; l'échelon spécial (HEB, positions 9 à 11) devient le 7e.
+source = "décret 2023-720, art. 31, I, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000047936139/2026-10-17"
+table = [
+  { ancien = 1, nouveau = 1 },
+  { ancien = 2, nouveau = 2 },
+  { ancien = 3, nouveau = 3 },
+  { ancien = 4, nouveau = 4 },
+  { ancien = 5, nouveau = 5 },
+  { ancien = 6, nouveau = 6 },
+  { ancien = 7, nouveau = 7 },
+  { ancien = 8, nouveau = 8 },
+  { ancien = 9, nouveau = 9 },
+  { ancien = 10, nouveau = 10 },
+  { ancien = 11, nouveau = 11 },
+]

@@ -1,0 +1,91 @@
+# Codes de rubrique DGFiP (PAY) de cinq indemnités de l'Éducation nationale.
+# Vérifié le 2026-10-17. Sources : documents DGFiP republiés par l'AMUE (édition du
+# 1er janvier 2026, xlsx ; annexe 14 b de janvier 2023, pdf), adresses ci-dessous.
+# Numéros de ligne : rang de la ligne dans la feuille, en-tête compris (même convention
+# que codes.toml). Le code à 6 chiffres est celui du fichier BJ (« 20 » + code IR).
+
+[documents]
+annexe_14b_2026 = "https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_14B_IR_IMPO_20260101.xlsx"
+bj_2026 = "https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/202601FICPAIBJ.xlsx"
+ingres_2026 = "https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/INGRES_C_V25.00.06_F25.00.00_P00_BG_ANNEXES14_ET_15.xlsx"
+annexe_14b_2023 = "https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf"
+liste_2026 = "https://www.amue.fr/publications/actualites/details/tour-du-web-rh-special-paye-2026"
+
+[[code]]
+indemnite = "Indemnité forfaitaire des CPE (décret 91-468)"
+statut = "trouvé"
+code_ir = "0414"
+code = "200414"
+libelle_officiel = "Indemnité forfaitaire aux conseillers d’éducation, aux conseillers principaux d’éducation et aux personnels non titulaires exerçant les mêmes fonctions"
+libelle_bj = "IND FORF CONSEIL PR EDUCA"
+imposable = true
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 203, ANNEXE_14B_IR_IMPO_20260101.xlsx, observations « Décret n° 91-468 du 14 mai 1991 » ; annexe 14 b janvier 2023, p. 8 ; INGRES ligne 428 (code 414, IMPOSA 1, début 1990-09-01, texte 5316 = arrêté du 24 novembre 2015 fixant le taux) ; BJ janvier 2026 ligne 488"
+note = "Ne pas confondre avec 201129 (IND FORF DE SUJETIONS, conseillers techniques d'éducation spécialisée des instituts nationaux de jeunes sourds et aveugles, décret 2002-1443)."
+
+[[code]]
+indemnite = "Indemnité de fonctions des PsyEN (décret 2017-1552)"
+statut = "trouvé"
+code_ir = "2205"
+code = "202205"
+libelle_officiel = "Indemnité de fonctions allouée aux psychologues de l'éducation nationale"
+libelle_bj = "INDEMNITE DE FONCTIONS"
+imposable = true
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1098, observations « Décret n° 2017-1552 du 10 novembre 2017 » ; annexe 14 b janvier 2023, p. 53 ; INGRES lignes 2257-2258 (IMPOSA 1, début 2017-09-01, textes 6868 = décret 2017-1552 et 6869 = arrêté du 10 novembre 2017 fixant le taux) ; BJ janvier 2026 ligne 1837 « D2017- * / /2017 - PSYCHOLOGUES EDUCATION NATIONALE »"
+note = "Un seul code pour les deux spécialités : aucun code distinct EDA / EDO dans l'annexe 14 B, l'INGRES ni le BJ 2026. Un code par spécialité : MANQUANT (non trouvé, probablement inexistant, non affirmé)."
+
+[[code]]
+indemnite = "ISS des professeurs documentalistes (décret 91-467)"
+statut = "trouvé, avec une discordance entre documents"
+code_ir = "0413"
+code = "200413"
+libelle_officiel = "Indemnité de sujétions particulières en faveur des personnels assurant des fonctions de documentation ou d’information dans un EPLE du 2ème degré"
+libelle_bj = "IND. SUJ. PARTICULIERES"
+imposable = true
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 202, observations « Décret n° 91-467 du 14 mai 1991 » ; annexe 14 b janvier 2023, p. 8 ; BJ janvier 2026 ligne 487 « D91-467*14/05/1991 » ; INGRES ligne 427 (code 413, IMPOSA 1)"
+note = "Discordance : l'INGRES 2026 libelle le code 413 « Indemnité de sujétions particulières en faveur des directeurs de cio et des conseillers d'orientations psychologues » et le rattache au texte 7553 = décret 91-466 (fin de validité 2017-08-31), alors que l'annexe 14 B et le BJ disent décret 91-467 (documentation). Le décret 91-467 n'est pas porté par une autre rubrique dans ces fichiers. Le nom exact de l'indemnité est « sujétions particulières », pas « sujétions spéciales »."
+
+[[code]]
+indemnite = "ISS des directeurs d'école (décret 83-644), rubrique en vigueur"
+statut = "trouvé"
+code_ir = "2568"
+code = "202568"
+libelle_officiel = "Indemnité de sujétions spéciales allouée aux directeurs d'école maternelle et élémentaire, aux maîtres directeurs et aux directeurs d'établissement spécialisé"
+libelle_bj = "IND. SUJETIONS SPECIALES"
+imposable = true
+valide_depuis = "2024-09-01"
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1434, observations « Décret n° 83-644 du 8 juillet 1983 – Décret n° 2015-1087 du 28 août 2015 – Recodification de la 2217 au 1er septembre 2024 suite à la réforme du CLM et du régime de maintien des indemnités » ; INGRES ligne 2757 (IMPOSA 1, début 2024-09-01, libellé court « Ind. sujétions spéciales dir. école ») ; BJ janvier 2026 ligne 2200 « ... - A/C 09/2024 »"
+note = "Une seule rubrique pour l'ISS : aucun code distinct part principale / part variable en vigueur dans les fichiers 2026. Code distinct de la part principale : MANQUANT."
+
+[[code]]
+indemnite = "ISS des directeurs d'école (décret 83-644), rubrique antérieure"
+statut = "trouvé (périmé au 2024-08-31)"
+code_ir = "2217"
+code = "202217"
+libelle_officiel = "Indemnité de sujétions spéciales allouée aux directeurs d'école maternelle et élémentaire, aux maîtres directeurs et aux directeurs d'établissement spécialisé"
+libelle_bj = "IND. SUJETIONS SPECIALES"
+imposable = true
+valide_depuis = "2018-09-01"
+valide_jusqu_a = "2024-08-31"
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1110, observations « ... Décret n° 2015-1087 du 28 août 2015 (nouvelle gestion à compter du 1er septembre 2018) » ; annexe 14 b janvier 2023, p. 54 ; INGRES ligne 2274 (IMPOSA 1, 2018-09-01 au 2024-08-31) ; BJ janvier 2026 ligne 1849"
+note = "Utile pour des bulletins de septembre 2018 à août 2024."
+
+[[code]]
+indemnite = "ISS des directeurs d'école, part variable (ancien régime)"
+statut = "trouvé (périmé au 2010-08-31)"
+code_ir = "1529"
+code = "201529"
+libelle_officiel = "Indemnité de sujétions spéciales allouée aux personnels de direction des écoles et établissements spécialisés – part variable"
+libelle_bj = "I.S.S. - PART VARIABLE"
+imposable = true
+valide_jusqu_a = "2010-08-31"
+source = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 739, observations « Décret n° 83-644 du 8 juillet 1983 Décret n° 90-806 du 11 septembre 1990 » ; annexe 14 b janvier 2023, p. 32 ; INGRES ligne 1598 (IMPOSA 1, fin 2010-08-31) ; BJ janvier 2026 ligne 1291 « ABROGEE PAR D2015-1087*28/08/2015 - CF 202217 »"
+note = "La date de fin de l'INGRES (2010-08-31) et la mention du BJ (abrogée par le décret 2015-1087) ne concordent pas ; dans tous les cas, plus en vigueur. La part principale de l'ancien régime n'a pas de rubrique identifiée : MANQUANT (l'annexe 14 B, ligne 9, cite le décret 83-644 parmi d'autres pour 0112 « Indemnité de sujétions spéciales - charges », BJ 200112, mais sans viser les directeurs d'école : piste seulement)."
+
+[[code]]
+indemnite = "Bonification indiciaire des directeurs d'école (décret 83-50)"
+statut = "MANQUANT"
+code_ir = "MANQUANT"
+code = "MANQUANT"
+libelle_officiel = "MANQUANT"
+source = "MANQUANT : aucune rubrique « bonification indiciaire » des directeurs d'école dans l'annexe 14 B 2026, l'INGRES 2026 ni le BJ janvier 2026 (seule 201314 « BONIFICATION INDEMNITAIRE », décret 2006-778, sans rapport). Les codes de traitement du BJ (101000 TRAITEMENT BRUT, 101070 TRAITEMENT BRUT N.B.I.) n'en ont pas non plus."
+note = "Piste non vérifiée : la BI étant indiciaire, elle s'ajouterait aux points d'indice et serait comprise dans 101000 TRAITEMENT BRUT, sans ligne propre. Aucun document lu ne le dit ; ne pas l'inscrire comme fait."

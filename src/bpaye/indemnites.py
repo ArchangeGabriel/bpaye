@@ -1,0 +1,240 @@
+"""Indemnités à montant fixe : IFP des CPGE, ISOE, transport, PSC, FMD, équipement informatique.
+
+- IFP (200597) : indemnité de fonctions particulières des enseignants de CPGE, décret
+  99-886 du 19 octobre 1999 ; taux annuel fixé par arrêté, indexé sur le point.
+- ISOE part fixe (200364) : décret 93-55 du 15 janvier 1993 ; 2 550 € par an depuis
+  septembre 2023 (arrêté du 15/1/1993, art. 1). Elle reste indexée sur le point (décret
+  93-55, art. 4) : une hausse du point demandera un montant nouveau dans taux.toml.
+- Remboursement domicile-travail (200039) : une part de l'abonnement, plafonnée
+  (taux.toml) ; les abonnements RATP se calculent sur le tarif annuel.
+- FMD (200041) et prime d'équipement informatique (202321) : versements annuels.
+
+- Part fonctionnelle de l'ISOE (202475) ou de l'ISAE (202476), le « Pacte » : 1 250 € par
+  part (arrêté du 15/1/1993, art. 2-1 ; arrêté du 30/8/2013, art. 1-1), versée par
+  neuvième (décret 93-55, art. 6 ; décret 2013-790, art. 3). Aucun texte lu ne dit sur
+  quels mois tombent les neuf neuvièmes : bpaye suppose octobre à juin (MOIS_PACTE).
+
+À temps partiel, ces indemnités suivent la fraction de rémunération (code général de la
+fonction publique, L612-5 : « primes et indemnités de toute nature ») : aucun de leurs
+décrets n'en dispose autrement, ce qui reste « a priori » (temps_partiel.py). Exceptions
+lues : la prime d'équipement informatique est versée à taux plein (décret 2020-1524,
+art. 1). Le remboursement domicile-travail, la PSC, le FMD et la part fonctionnelle n'ont
+pas de règle de temps partiel lue : ils sont versés tels quels.
+
+Les montants sont dans taux.toml ; ce module les met en lignes de bulletin.
+"""
+
+import datetime as dt
+from typing import Any
+
+import bpaye.config as config
+from bpaye.classes import Ligne, Taux
+from bpaye.config import BAREME, Bareme
+from bpaye.fonctionnaire import Fonctionnaire
+from bpaye.temps_partiel import reduit
+
+__all__ = [
+    "calc_transport",
+    "forfait_mobilite_durable",
+    "grille_indemnite_detachement",
+    "grille_indemnite_fonctions_part_cpge",
+    "grille_isoe",
+    "grille_prime_eq_info",
+    "grille_psc",
+    "indemnite_detachement",
+    "indemnite_fonctions_part_cpge",
+    "indemnite_isoe",
+    "indemnite_transport",
+    "max_transport",
+    "part_fonctionnelle",
+    "participation_psc",
+    "prime_equipement_info",
+    "taux_transport",
+]
+
+# Les tables du barème du paquet (les fonctions prennent un barème : bareme=…).
+grille_indemnite_detachement = config.load("indemnite_detachement")
+grille_indemnite_fonctions_part_cpge = config.load("ifp_cpge")
+grille_isoe = config.load("isoe")
+max_transport = config.load("transport.plafond")
+taux_transport: Taux = config.load("transport.taux")
+grille_psc = config.load("psc")
+_fmd_niveaux = {1: config.load("fmd.n1"), 2: config.load("fmd.n2"), 3: config.load("fmd.n3")}
+grille_prime_eq_info = config.load("prime_eq_info")
+grille_isae = config.load("isae")
+_PRIME_ATTRACTIVITE: list[dict[str, Any]] = sorted(config.get("prime_attractivite"), key=lambda e: e["date"])
+
+grille_rep = config.load("rep")
+grille_rep_plus = config.load("rep_plus")
+_ISOE_MODULABLE: dict[str, Any] = config.get("isoe_modulable")
+
+# Qui touche quoi, selon le corps (Fonctionnaire.corps).
+# ISOE : « personnels enseignants du second degré » et « enseignants des classes
+# post-baccalauréat » (décret 93-55, art. 1 et 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/).
+# Les professeurs documentalistes, certifiés, touchent une autre indemnité (non modélisée).
+CORPS_ISOE = frozenset({"Agrégé", "Certifié", "PLP", "PEPS", "Chaire Supérieure"})
+# ISAE : professeurs des écoles (décret 2013-790, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914226/2026-10-17/).
+CORPS_ISAE = frozenset({"PE"})
+# Prime d'attractivité : pas les corps accessibles uniquement par liste d'aptitude, donc
+# pas les chaires supérieures (décret 2021-276, art. 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/).
+CORPS_SANS_PRIME_ATTRACTIVITE = frozenset({"Chaire Supérieure"})
+# ISOE part modulable : code 201228 jusqu'au 31/8/2024, 202566 ensuite (codes.toml).
+DATE_RECODAGE_ISOE_MODULABLE = dt.date(2024, 9, 1)
+# Pacte : les mois des neuf neuvièmes, supposés (aucun texte lu ne les donne).
+MOIS_PACTE = frozenset({10, 11, 12, 1, 2, 3, 4, 5, 6})
+
+
+def calc_transport(mensuel: float, date: dt.date, bareme: Bareme = BAREME) -> float:
+    if not mensuel:
+        return 0.0  # sans abonnement, ni taux ni plafond à lire
+    val = bareme.load("transport.taux").taux(mensuel, date)
+    return min(val, bareme.load("transport.plafond")(date))
+
+
+def indemnite_detachement(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    if not fonc.is_detache(date):
+        return None
+    montant = reduit(bareme.load("indemnite_detachement")(date), fonc.fraction(date))
+    return Ligne(montant, "Indemnité détachement MD", code=201150, classe="INDEM")
+
+
+def _en_cpge(fonc: Fonctionnaire, date: dt.date) -> bool:
+    return bool(fonc.cpge(date)) if len(fonc.cpge) else False
+
+
+def _corps(fonc: Fonctionnaire, date: dt.date) -> str:
+    return fonc.corps(date) if len(fonc.corps) else fonc.grille.value(date).corps
+
+
+def indemnite_fonctions_part_cpge(
+    fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME
+) -> Ligne | None:
+    """IFP, aux seuls enseignants dont la rentrée est en CPGE (carriere.toml)."""
+    if not _en_cpge(fonc, date):
+        return None
+    montant = reduit(bareme.load("ifp_cpge")(date), fonc.fraction(date))
+    return Ligne(montant, "Indemnité Fonctions particulières CPGE", code=200597, classe="INDEM")
+
+
+def indemnite_isoe(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """ISOE part fixe, aux corps enseignants du second degré (CORPS_ISOE)."""
+    if _corps(fonc, date) not in CORPS_ISOE:
+        return None
+    if len(fonc.documentaliste) and fonc.documentaliste(date):
+        return None  # leur indemnité de sujétions particulières (indemnites_corps.py)
+    montant = reduit(bareme.load("isoe")(date), fonc.fraction(date))
+    return Ligne(montant, "ISOE Part fixe", code=200364, classe="INDEM")
+
+
+def indemnite_isae(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """ISAE part fixe (201914), aux professeurs des écoles."""
+    if _corps(fonc, date) not in CORPS_ISAE:
+        return None
+    montant = reduit(bareme.load("isae")(date), fonc.fraction(date))
+    return Ligne(montant, "ISAE", code=201914, classe="INDEM")
+
+
+def indemnite_education_prioritaire(
+    fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME
+) -> Ligne | None:
+    """Indemnité de sujétion REP (201883) ou part fixe REP+ (201882), au douzième
+    (décret 2015-1087, art. 1-2 : part fixe versée mensuellement)."""
+    reseau = fonc.education_prioritaire(date) if len(fonc.education_prioritaire) else None
+    if reseau is None:
+        return None
+    fraction = fonc.fraction(date)
+    if reseau == "REP":
+        montant = reduit(bareme.load("rep")(date), fraction)
+        return Ligne(montant, "Indemnité de sujétion REP", code=201883, classe="INDEM")
+    if reseau == "REP+":
+        montant = reduit(bareme.load("rep_plus")(date), fraction)
+        return Ligne(montant, "Indemnité de sujétion REP+", code=201882, classe="INDEM")
+    raise ValueError(f"éducation prioritaire inconnue {reseau!r}, attendu « REP » ou « REP+ »")
+
+
+def isoe_part_modulable(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """ISOE part modulable du professeur principal, au douzième, selon le niveau de sa
+    classe (taux.toml [isoe_modulable]) ; montants connus depuis le 1/9/2023 seulement."""
+    niveau = fonc.professeur_principal(date) if len(fonc.professeur_principal) else None
+    if niveau is None:
+        return None
+    montants = bareme.get("isoe_modulable")
+    if date < montants["date"]:
+        raise ValueError(f"ISOE part modulable : pas de montant vérifié avant le {montants['date']}")
+    if niveau not in montants or niveau == "date":
+        raise ValueError(f"niveau de professeur principal inconnu {niveau!r}")
+    code = 202566 if date >= DATE_RECODAGE_ISOE_MODULABLE else 201228
+    montant = reduit(round(montants[niveau] / 12, 2), fonc.fraction(date))
+    return Ligne(montant, "ISOE Part modulable", code=code, classe="INDEM")
+
+
+def montant_par_echelon(versions: list[dict[str, Any]], echelon: int, date: dt.date) -> float:
+    """Le montant annuel de l'``echelon`` dans la version de ``versions`` en vigueur à
+    ``date`` (entrées datées, chacune avec ``montants`` par échelon)."""
+    en_vigueur = sorted((e for e in versions if e["date"] <= date), key=lambda e: e["date"])
+    if not en_vigueur:
+        return 0.0
+    montants = en_vigueur[-1]["montants"]
+    return float(montants[echelon - 1]) if echelon <= len(montants) else 0.0
+
+
+def prime_attractivite(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """Prime d'attractivité (202326), selon l'échelon de classe normale : rien en hors
+    classe ni en classe exceptionnelle, ni pour les corps qui en sont exclus
+    (CORPS_SANS_PRIME_ATTRACTIVITE). Versée chaque mois, au douzième arrondi au centime."""
+    grille = fonc.grille.value(date)
+    if grille.classe != "CN" or _corps(fonc, date) in CORPS_SANS_PRIME_ATTRACTIVITE:
+        return None
+    annuel = montant_par_echelon(bareme.get("prime_attractivite"), fonc.echelon(date), date)
+    if annuel == 0.0:
+        return None
+    montant = reduit(round(annuel / 12, 2), fonc.fraction(date))
+    return Ligne(montant, "Prime d'attractivité", code=202326, classe="INDEM")
+
+
+def part_fonctionnelle(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """Les parts fonctionnelles du Pacte de l'année scolaire (Fonctionnaire.pacte, demi-parts
+    permises), au neuvième arrondi au centime, les mois de MOIS_PACTE. Code 202476 pour un
+    professeur des écoles (ISAE), 202475 sinon (ISOE, CPE et PsyEN compris : décret 93-55,
+    art. 3-1). Non soumise à retenue pour pension (décret 93-55, art. 1) ; réduction de
+    cotisations et exonération d'impôt comme les heures supplémentaires (décret 2019-133,
+    art. 1, 29°)."""
+    parts = fonc.pacte(date) if len(fonc.pacte) else 0.0
+    if not parts or date.month not in MOIS_PACTE:
+        return None
+    montant = round(parts * bareme.load("pacte_part").value_annuel(date) / 9, 2)
+    code = 202476 if _corps(fonc, date) in CORPS_ISAE else 202475
+    return Ligne(montant, "Part fonctionnelle (Pacte)", code=code, classe="INDEM")
+
+
+def indemnite_transport(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne:
+    return Ligne(
+        calc_transport(fonc.frais_transport(date), date, bareme),
+        "REMBT DOMICILE-TRAVAIL",
+        code=200039,
+        classe="INDEM",
+    )
+
+
+def participation_psc(date: dt.date, bareme: Bareme = BAREME) -> Ligne:
+    """Participation mensuelle employeur à la mutuelle (PSC)."""
+    return Ligne(bareme.load("psc")(date), "Participation PSC", code=202354, classe="INDEM")
+
+
+def forfait_mobilite_durable(fonc: Fonctionnaire, date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """FMD : versement annuel unique en janvier, au niveau attribué à l'agent."""
+    niveau = fonc.fmd_niveau(date)
+    if not niveau:
+        return None
+    montant = bareme.load(f"fmd.n{int(niveau)}")(date)
+    if montant == 0.0:
+        return None
+    return Ligne(montant, "Forfait Mobilité Durable", code=200041, classe="INDEM")
+
+
+def prime_equipement_info(date: dt.date, bareme: Bareme = BAREME) -> Ligne | None:
+    """PRIME ÉQUIP. INFO : versement annuel unique, uniquement le mois de versement."""
+    montant = bareme.load("prime_eq_info")(date)
+    if montant == 0.0:
+        return None
+    return Ligne(montant, "Prime équipement informatique", code=202321, classe="INDEM")

@@ -1,0 +1,666 @@
+# Codes de paie d'un enseignant de l'Éducation nationale, vérifiés le 2026-10-17.
+#
+# Toutes les sources sont des documents de la DGFiP (paye PAY/PAYSAGE, bureau 2FCE-2A),
+# republiés par l'AMUE. Cette republication est une copie du document de la DGFiP.
+#
+#   [A14A-26] Annexe 14 A « indemnités non imposables », diffusion 1er janvier 2026 (xlsx, n° de ligne)
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_14A_IR_NON_IMPO_20260101.xlsx
+#   [A14B-26] Annexe 14 B « indemnités imposables », 1er janvier 2026
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_14B_IR_IMPO_20260101.xlsx
+#   [A14C-26] Annexe 14 C « dispositifs indemnitaires ouvrant droit à réduction de cotisations
+#             sociales et à exonération de l'impôt sur le revenu », 1er janvier 2026
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_14C_HS_EXO_20260101.xlsx
+#   [A15-26]  Annexe 15 « retenues et précomptes », 1er janvier 2026 (colonne « élément de rémunération »)
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_15_RETENUES_20260101.xlsx
+#   [A07B-26] Annexe 07 B « organismes complémentaires PSC », 1er janvier 2026
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/ANNEXE_07B_OC_PSC_20260101.xlsx
+#   [INGRES]  Annexe 14-15 INGRES V25.00.06, toutes les IR de PAY/PAYSAGE ; colonne R_FOR_IMPOSA
+#             (1 = imposable). La page AMUE dit qu'elle « précise si cet élément est imposable »
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/INGRES_C_V25.00.06_F25.00.00_P00_BG_ANNEXES14_ET_15.xlsx
+#   [BJ-26]   Fichier BJ de la paye de janvier 2026 (202601FICPAIBJ) : code à 6 chiffres du bulletin,
+#             libellé court, libellé long
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/2026/tour_de_web_special_paye/202601FICPAIBJ.xlsx
+#   Page AMUE qui liste ces fichiers : https://www.amue.fr/publications/actualites/details/tour-du-web-rh-special-paye-2026
+#   [A14A-23] Annexe 14 a, diffusion janvier 2023 (PDF, n° de page imprimé)
+#             https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/9.pdf
+#   [A14B-23] https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf
+#   [A14C-23] https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/11.pdf
+#   [A14C-24] https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2024/Paye2024/annexe6.pdf
+#   [A15-23]  https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/14.pdf
+#   [MAA-2018-277] Note de service SG/SRH/SDCAR/2018-277 du 12/04/2018, ministère de l'Agriculture,
+#             p. 5 du PDF : https://info.agriculture.gouv.fr/boagri/instruction-2018-277/telechargement
+#
+# Code à 6 chiffres = « 20 » + code IR pour les indemnités : AUCUN document officiel ne
+# l'énonce comme règle. C'est une DÉDUCTION, appuyée par trois éléments :
+#   - [BJ-26] : 2 030 des 2 114 codes 2xxxxx valent « 20 » + une IR présente dans [INGRES],
+#     et tous les codes connus ci-dessous suivent cette forme ;
+#   - [MAA-2018-277] p. 5 : les IR 2206 et 2209 « font l'objet d'une rubrique dédiée sur le
+#     bulletin de paie : le code 202206 [...] ou le code 202209 » ;
+#   - [A15-26] donne explicitement l'élément de rémunération des retenues (ex. 0919 → 401201),
+#     et ces éléments ne suivent PAS la règle « 20 + IR ».
+#
+# imposable : pris dans [INGRES] (R_FOR_IMPOSA) et confirmé par l'annexe où figure le code
+# (14 A = non imposable, 14 B = imposable, 14 C = exonération d'IR). Pour la 14 C, l'exonération
+# joue dans la limite du plafond annuel (PARAMETRES_20260101, § 2.8, non relu ici).
+# csg_crds : seulement quand le document le dit. RAFP : aucun des documents lus ne le dit
+# code par code.
+
+# ───────────────────────── Rémunération principale (pas de code IR) ─────────────────────────
+
+[[code]]
+code      = "101000"
+libelle   = "TRAITEMENT BRUT"
+categorie = "revenu"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 13, 202601FICPAIBJ.xlsx"
+
+[[code]]
+code      = "101070"
+libelle   = "TRAITEMENT BRUT N.B.I."
+categorie = "revenu"
+note      = "NBI. Aucun code IR : la NBI ne figure dans aucune annexe 14."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 30, 202601FICPAIBJ.xlsx"
+
+[[code]]
+code      = "102000"
+libelle   = "INDEMNITE DE RESIDENCE"
+categorie = "revenu"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 32, 202601FICPAIBJ.xlsx"
+
+[[code]]
+code      = "104000"
+libelle   = "SUPP FAMILIAL TRAITEMENT"
+categorie = "revenu"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 110, 202601FICPAIBJ.xlsx"
+
+# ───────────────────────── Indemnités non imposables (annexe 14 A) ─────────────────────────
+
+[[code]]
+code      = "200033"
+ir        = "0033"
+libelle   = "Remboursement du trajet domicile - travail – Pass Navigo annuels et mensuels"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 A 2026 (copie AMUE), ligne 34, BD06 = X, ANNEXE_14A_IR_NON_IMPO_20260101.xlsx ; INGRES ligne 37 (IMPOSA 0) ; BJ janvier 2026 ligne 145 « REMBT DOMICILE-TRAVAIL / ILE-DE-FRANCE »"
+
+[[code]]
+code      = "200039"
+ir        = "0039"
+libelle   = "Remboursement du trajet domicile - travail – Autres abonnements et titres de transport"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 A 2026 (copie AMUE), ligne 37, BD06 = X ; annexe 14 a janvier 2023, p. 2, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/9.pdf ; INGRES ligne 43 (IMPOSA 0) ; BJ janvier 2026 ligne 151"
+
+[[code]]
+code      = "200041"
+ir        = "0041"
+libelle   = "Forfait mobilités durables"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 A 2026 (copie AMUE), ligne 39, BD06 = X ; annexe 14 a janvier 2023, p. 3, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/9.pdf ; INGRES ligne 46 (IMPOSA 0) ; BJ janvier 2026 ligne 153"
+
+[[code]]
+code      = "200702"
+ir        = "0702"
+libelle   = "Indemnité de sujétions spéciales de remplacement"
+categorie = "revenu"
+imposable = false
+csg_crds  = true
+note      = "ISSR. Soumise à CSG/CRDS : « LES CODES DE 0700 à 0799 sont soumis à CSG/CRDS » (bandeau de l'annexe 14 a 2023, p. 4 ; absent du xlsx 2026)."
+source    = "DGFiP, annexe 14 A 2026 (copie AMUE), ligne 66 ; annexe 14 a janvier 2023, p. 4, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/9.pdf ; INGRES ligne 738 (IMPOSA 0) ; BJ janvier 2026 ligne 710 « IND.SUJETIONS SPECIALES DE REMPLACEMENT (NON IMPOSABLE) »"
+
+# ───────────────────────── Heures supplémentaires et assimilées (annexe 14 C) ─────────────────────────
+
+[[code]]
+code      = "200205"
+ir        = "0205"
+libelle   = "Heures supplémentaires année des professeurs titulaires de l’enseignement secondaire et de l’enseignement technique"
+categorie = "revenu"
+imposable = false
+note      = "HSA. Exonération d'IR dans la limite du plafond annuel."
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 10, ANNEXE_14C_HS_EXO_20260101.xlsx ; annexe 14 C janvier 2023, p. 1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/11.pdf ; INGRES ligne 212 (IMPOSA 0) ; BJ janvier 2026 ligne 299"
+
+[[code]]
+code      = "200207"
+ir        = "0207"
+libelle   = "Heures d’interrogation effectuées par les professeurs des classes préparatoires aux grandes écoles"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 12 ; annexe 14 C janvier 2023, p. 1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/11.pdf ; INGRES ligne 214 (IMPOSA 0) ; BJ janvier 2026 ligne 301"
+
+[[code]]
+code      = "202249"
+ir        = "2249"
+libelle   = "Heures d'interrogation"
+categorie = "revenu"
+imposable = true
+note      = "Annexe 14 B, observation : « hors dispositif de désocialisation et de défiscalisation (dédoublement 0207) »."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1137, ANNEXE_14B_IR_IMPO_20260101.xlsx ; annexe 14 b janvier 2023, p. 55, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 2327 (IMPOSA 1) ; BJ janvier 2026 ligne 1881"
+
+[[code]]
+code      = "200213"
+ir        = "0213"
+libelle   = "Heures supplémentaires année de suppléance des professeurs titulaires du 2nd degré"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 14 ; annexe 14 C janvier 2023, p. 1 ; INGRES ligne 219 (IMPOSA 0) ; BJ janvier 2026 ligne 305"
+
+[[code]]
+code      = "200215"
+ir        = "0215"
+libelle   = "Heures supplémentaires d’enseignement des professeurs titulaires du 2nd degré relevant du ministère de l’éducation nationale"
+categorie = "revenu"
+imposable = false
+note      = "HSE (BJ : « HSE ENSEIGNEMENT 2D »)."
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 15 ; annexe 14 C janvier 2023, p. 1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/11.pdf ; INGRES ligne 221 (IMPOSA 0) ; BJ janvier 2026 ligne 307"
+
+[[code]]
+code      = "200497"
+ir        = "0497"
+libelle   = "Heures supplémentaires d’enseignement (suppléances) des professeurs titulaires du 2nd degré"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 20 ; annexe 14 C janvier 2023, p. 1 ; INGRES ligne 516 (IMPOSA 0) ; BJ janvier 2026 ligne 552 « HSE REMPLACEMENT SUPP 2D »"
+
+[[code]]
+code      = "200576"
+ir        = "0576"
+libelle   = "Majoration de la 1ère HSA d’enseignement des professeurs titulaires du 2nd degré effectuées en dehors des suppléances"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 26 ; annexe 14 C janvier 2023, p. 1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/11.pdf ; INGRES ligne 599 (IMPOSA 0) ; BJ janvier 2026 ligne 604"
+
+[[code]]
+code      = "200577"
+ir        = "0577"
+libelle   = "Majoration de la 1ère HSA d’enseignement des professeurs titulaires du 2nd degré effectuée dans le cadre des suppléances"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 27 ; INGRES ligne 600 (IMPOSA 0) ; BJ janvier 2026 ligne 605"
+
+[[code]]
+code      = "201875"
+ir        = "1875"
+libelle   = "Indemnité allouée aux enseignants du second degré pour mission particulière permanente au sein d'un établissement"
+categorie = "revenu"
+imposable = false
+note      = "IMP annuelle (BJ : « I.M.P. ANNUELLE ETAB. »). Classée en annexe 14 C."
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 73 ; annexe 14 C janvier 2023, p. 3 ; INGRES ligne 2061 (IMPOSA 0) ; BJ janvier 2026 ligne 1636"
+
+[[code]]
+code      = "201876"
+ir        = "1876"
+libelle   = "Indemnité allouée aux enseignants du second degré pour mission particulière permanente au niveau académique"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 74 ; INGRES ligne 2062 (IMPOSA 0) ; BJ janvier 2026 ligne 1637"
+
+[[code]]
+code      = "201877"
+ir        = "1877"
+libelle   = "Indemnité allouée aux enseignants du second degré pour mission particulière ponctuelle au sein d'un établissement"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 75 ; INGRES ligne 2063 (IMPOSA 0) ; BJ janvier 2026 ligne 1638"
+
+[[code]]
+code      = "201878"
+ir        = "1878"
+libelle   = "Indemnité allouée aux enseignants du second degré pour mission particulière ponctuelle au niveau académique"
+categorie = "revenu"
+imposable = false
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 76 ; INGRES ligne 2064 (IMPOSA 0) ; BJ janvier 2026 ligne 1639"
+
+[[code]]
+code      = "202475"
+ir        = "2475"
+libelle   = "Indemnité de suivi et d’orientation des élèves – Part fonctionnelle allouée aux enseignants du 2nd degré"
+categorie = "revenu"
+imposable = false
+note      = "ISOE part fonctionnelle (Pacte), en annexe 14 C depuis 2024."
+source    = "DGFiP, annexe 14 C 2026 (copie AMUE), ligne 153 ; annexe 14C 2024, p. 6, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2024/Paye2024/annexe6.pdf ; INGRES ligne 2655 (IMPOSA 0) ; BJ janvier 2026 ligne 2107"
+
+# ───────────────────────── Indemnités imposables (annexe 14 B) ─────────────────────────
+
+[[code]]
+code      = "200364"
+ir        = "0364"
+libelle   = "Indemnité de suivi et orientation des élèves (part fixe)"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 174 ; annexe 14 b janvier 2023, p. 7, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 376 (IMPOSA 1) ; BJ janvier 2026 ligne 444"
+
+[[code]]
+code      = "200462"
+ir        = "0462"
+libelle   = "Indemnité de suivi et d’orientation des élèves (part fixe) (stagiaires, services mixtes)"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 225 ; annexe 14 b janvier 2023, p. 9 ; INGRES ligne 476 (IMPOSA 1) ; BJ janvier 2026 ligne 521"
+
+[[code]]
+code      = "202566"
+ir        = "2566"
+libelle   = "Indemnité de suivi et d’orientation des élèves (part modulable) allouée aux professeurs principaux"
+categorie = "revenu"
+imposable = true
+note      = "ISOE modulable. Recodification de l'IR 1228 au 1er septembre 2024 (201228, fin 2024-08-31 dans INGRES ligne 1191)."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1432 ; INGRES ligne 2755 (IMPOSA 1) ; BJ janvier 2026 ligne 2198"
+
+[[code]]
+code      = "202567"
+ir        = "2567"
+libelle   = "Indemnité de suivi et d’orientation des élèves (part modulable) allouée aux professeurs référents de groupes d’élèves"
+categorie = "revenu"
+imposable = true
+note      = "Recodification de l'IR 2363 au 1er septembre 2024."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1433 ; INGRES ligne 2756 (IMPOSA 1) ; BJ janvier 2026 ligne 2199"
+
+[[code]]
+code      = "202569"
+ir        = "2569"
+libelle   = "Indemnité de professeur principal"
+categorie = "revenu"
+imposable = true
+note      = "Recodification de l'IR 1227 au 1er septembre 2024."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1435 ; INGRES ligne 2758 (IMPOSA 1) ; BJ janvier 2026 ligne 2201"
+
+[[code]]
+code      = "201914"
+ir        = "1914"
+libelle   = "Indemnité de suivi et d’accompagnement des élèves au bénéfice des personnels enseignants du premier degré"
+categorie = "revenu"
+imposable = true
+note      = "ISAE (1er degré)."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1042 ; INGRES ligne 2121 (IMPOSA 1) ; BJ janvier 2026 ligne 1675"
+
+[[code]]
+code      = "202587"
+ir        = "2587"
+libelle   = "Indemnité de suivi et d’accompagnement des élèves au bénéfice des personnels enseignants du premier degré"
+categorie = "revenu"
+imposable = true
+note      = "ISAE part modulable (libellé BJ)."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1453 ; INGRES ligne 2776 (IMPOSA 1) ; BJ janvier 2026 ligne 2219"
+
+[[code]]
+code      = "202326"
+ir        = "2326"
+libelle   = "Prime d’attractivité allouée aux personnels enseignants titulaires"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1212 ; annexe 14 b janvier 2023, p. 59, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 2441 (IMPOSA 1) ; BJ janvier 2026 ligne 1958 « PRIME GRENELLE »"
+
+[[code]]
+code      = "202327"
+ir        = "2327"
+libelle   = "Prime d’attractivité allouée aux personnels enseignants contractuels"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1213 ; annexe 14 b janvier 2023, p. 59 ; INGRES ligne 2443 (IMPOSA 1) ; BJ janvier 2026 ligne 1959"
+
+[[code]]
+code      = "202398"
+ir        = "2398"
+libelle   = "Indemnité allouée à certains personnels enseignants stagiaires et aux conseillers principaux d'éducation stagiaires relevant du ministère chargé de l'éducation nationale dite « prime Grenelle stage »"
+categorie = "revenu"
+imposable = true
+note      = "Fin de validité 2023-08-31 (INGRES) ; BJ : « ABROGE PAR D2023-626*19/07/2023 »."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1272 ; annexe 14 b janvier 2023, p. 63 ; INGRES ligne 2544 (IMPOSA 1) ; BJ janvier 2026 ligne 2030"
+
+[[code]]
+code      = "202321"
+ir        = "2321"
+libelle   = "Prime d'équipement informatique allouée aux personnels enseignants relevant du ministère chargé de l’éducation et aux psychologues de l’éducation nationale"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1207 ; annexe 14 b janvier 2023, p. 59 ; INGRES ligne 2433 (IMPOSA 1) ; BJ janvier 2026 ligne 1953"
+
+[[code]]
+code      = "200597"
+ir        = "0597"
+libelle   = "Indemnité de fonctions techniques allouée aux personnels enseignants des classes préparatoires aux grandes écoles"
+categorie = "revenu"
+imposable = true
+note      = "Le BJ l'intitule « IND.FONCTIONS PARTIC. » ; le libellé officiel de l'annexe dit « fonctions techniques »."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 285 ; annexe 14 b janvier 2023, p. 11, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 623 (IMPOSA 1) ; BJ janvier 2026 ligne 624"
+
+[[code]]
+code      = "201882"
+ir        = "1882"
+libelle   = "Indemnité de sujétion allouée aux personnels de l'enseignement public affectés dans les écoles et établissements du réseau d'éducation prioritaire renforcée (REP+)"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1014 ; INGRES ligne 2069 (IMPOSA 1) ; BJ janvier 2026 ligne 1643"
+
+[[code]]
+code      = "201883"
+ir        = "1883"
+libelle   = "Indemnité de sujétion allouée aux personnels de l'enseignement public affectés dans les écoles et établissements du réseau d'éducation prioritaire (REP)"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1015 ; INGRES ligne 2071 (IMPOSA 1) ; BJ janvier 2026 ligne 1644"
+
+[[code]]
+code      = "202355"
+ir        = "2355"
+libelle   = "Modulation de l’indemnité de sujétion allouée aux personnels de l'enseignement public affectés dans les écoles et établissements du réseau d'éducation prioritaire renforcée (REP) – part modulable"
+categorie = "revenu"
+imposable = true
+note      = "Part modulable REP+ (BJ : « MODUL. IND. SUJ. REP+ »)."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1234 ; INGRES ligne 2481 (IMPOSA 1) ; BJ janvier 2026 ligne 1987"
+
+[[code]]
+code      = "201357"
+ir        = "1357"
+libelle   = "Indemnité de jurys de concours et d’examens – enseignement supérieur « baccalauréat à licence »"
+categorie = "revenu"
+imposable = true
+note      = "Le libellé INGRES (« sco bac à lic ») et le BJ (« IND.JURY.CONC.EXAM.- SUP. ») divergent sur « supérieur » ; l'annexe 14 B fait foi."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 624 ; annexe 14 b janvier 2023, p. 27, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 1357 (IMPOSA 1) ; BJ janvier 2026 ligne 1122"
+
+[[code]]
+code      = "201480"
+ir        = "1480"
+libelle   = "Garantie individuelle de pouvoir d’achat allouée aux personnels titulaires"
+categorie = "revenu"
+imposable = true
+note      = "GIPA. Fin de validité 2024-12-31 dans INGRES."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 703 ; annexe 14 b janvier 2023, p. 31 ; INGRES ligne 1540 (IMPOSA 1) ; BJ janvier 2026 ligne 1245"
+
+[[code]]
+code      = "201511"
+ir        = "1511"
+libelle   = "Garantie individuelle de pouvoir d’achat allouée aux personnels contractuels"
+categorie = "revenu"
+imposable = true
+note      = "Fin de validité 2024-12-31 dans INGRES."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 727 ; annexe 14 b janvier 2023, p. 32 ; INGRES ligne 1577 (IMPOSA 1) ; BJ janvier 2026 ligne 1273"
+
+[[code]]
+code      = "202206"
+ir        = "2206"
+libelle   = "Indemnité compensatrice allouée aux agents publics et parapublics dans le cadre du transfert de certaines cotisations et contributions salariales sur la CSG"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1099 ; annexe 14 b janvier 2023, p. 53 ; INGRES ligne 2259 (IMPOSA 1) ; BJ janvier 2026 ligne 1838 ; MAA, note SG/SRH/SDCAR/2018-277, p. 5, https://info.agriculture.gouv.fr/boagri/instruction-2018-277/telechargement"
+
+[[code]]
+code      = "202209"
+ir        = "2209"
+libelle   = "Indemnité compensatrice allouée aux agents titulaires recrutés ou réintégrés à compter du 1er janvier 2018 dans le cadre du transfert de certaines cotisations et contributions salariales sur la CSG"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1102 ; annexe 14 b janvier 2023, p. 53, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/10.pdf ; INGRES ligne 2263 (IMPOSA 1) ; BJ janvier 2026 ligne 1841 ; MAA, note SG/SRH/SDCAR/2018-277, p. 5"
+
+[[code]]
+code      = "202354"
+ir        = "2354"
+libelle   = "Participation de l’employeur public à la protection sociale complémentaire"
+categorie = "revenu"
+imposable = true
+note      = "Fin de validité 2026-12-31 dans INGRES."
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1233 ; annexe 14 b janvier 2023, p. 60 ; INGRES ligne 2480 (IMPOSA 1) ; BJ janvier 2026 ligne 1986"
+
+[[code]]
+code      = "202510"
+ir        = "2510"
+libelle   = "Participation de l’employeur public à la protection sociale complémentaire – Prévoyance"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 1376 ; INGRES ligne 2699 (IMPOSA 1) ; BJ janvier 2026 ligne 2142"
+
+[[code]]
+code      = "201847"
+ir        = "1847"
+libelle   = "Indemnité allouée aux personnels enseignants et d'éducation chargés du tutorat des stagiaires du 2nd degré"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 984 ; annexe 14 b janvier 2023, p. 46 ; INGRES ligne 2025 (IMPOSA 1) ; BJ janvier 2026 ligne 1608"
+
+[[code]]
+code      = "201150"
+ir        = "1150"
+libelle   = "Indemnité de fonction aux enseignants du ministère chargé de l’éducation nationale détachés au ministère de la défense"
+categorie = "revenu"
+imposable = true
+source    = "DGFiP, annexe 14 B 2026 (copie AMUE), ligne 456 ; annexe 14 b janvier 2023, p. 20 ; INGRES ligne 1084 (IMPOSA 1) ; BJ janvier 2026 ligne 919"
+
+# ───────────────────────── Retenues salariales ─────────────────────────
+
+[[code]]
+code      = "401201"
+ir        = "0919"
+libelle   = "CSG titulaires"
+categorie = "retenue"
+note      = "Annexe 15 : fiscalité ND (non déductible). BJ : « C.S.G. NON DEDUCTIBLE ». Élément de rémunération donné explicitement par l'annexe 15."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 28, ANNEXE_15_RETENUES_20260101.xlsx ; annexe 15 janvier 2023, p. 2 (« 40 12 01 »), https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/14.pdf ; BJ janvier 2026 ligne 2275"
+
+[[code]]
+code      = "401301"
+ir        = "0925"
+libelle   = "CSG déductible titulaires"
+categorie = "retenue"
+note      = "Fiscalité D (déductible)."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 33 ; annexe 15 janvier 2023, p. 2 ; BJ janvier 2026 ligne 2281"
+
+[[code]]
+code      = "401501"
+ir        = "0927"
+libelle   = "CRDS titulaires"
+categorie = "retenue"
+note      = "Fiscalité ND."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 36 ; annexe 15 janvier 2023, p. 2 ; BJ janvier 2026 ligne 2289"
+
+[[code]]
+code      = "101050"
+libelle   = "RETENUE PC"
+categorie = "retenue"
+note      = "Pension civile. Aucun code IR ni ligne d'annexe 15 : libellé du BJ seulement."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 19, 202601FICPAIBJ.xlsx"
+
+[[code]]
+code      = "501080"
+libelle   = "COT SAL RAFP"
+categorie = "retenue"
+note      = "Aucun code IR : libellé du BJ seulement."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2924"
+
+[[code]]
+code      = "604970"
+ir        = "0970"
+libelle   = "Abattement indemnitaire catégorie A"
+categorie = "retenue"
+note      = "Transfert primes/points (TPP). Annexe 15 : élément « 60 4970 », fiscalité D. BJ : « TRANSFERT PRIMES / POINTS » ; INGRES ligne 880 : « Transfert prime point catégorie A »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 80 ; annexe 15 janvier 2023, p. 3 ; BJ janvier 2026 ligne 3069"
+
+[[code]]
+code      = "604958"
+ir        = "0958"
+libelle   = "Précompte jour de carence au titre du 1er jour de congé de maladie ordinaire (rémunération principale)"
+categorie = "retenue"
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 68 (élément « 60 4958 ») ; BJ janvier 2026 ligne 3063"
+
+[[code]]
+code      = "604959"
+ir        = "0959"
+libelle   = "Précompte jour de carence au titre du 1er jour de congé de maladie ordinaire (indemnité de résidence)"
+categorie = "retenue"
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 69 (élément « 60 4959 ») ; BJ janvier 2026 ligne 3064"
+
+[[code]]
+code      = "604960"
+ir        = "0960"
+libelle   = "Précompte jour de carence au titre du 1er jour de congé de maladie ordinaire (NBI)"
+categorie = "retenue"
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 70 (élément « 60 4960 ») ; BJ janvier 2026 ligne 3065"
+
+[[code]]
+code      = "558000"
+libelle   = "PRELEVEMENT A LA SOURCE"
+categorie = "retenue"
+note      = "L'annexe 15 (IR 0900 « Retenue à la source », ligne 23) donne les éléments 558500 et 558501, pas 558000 : le 558000 n'est attesté que par le BJ."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 3022"
+
+[[code]]
+code      = "604000"
+libelle   = "REGUL COTIS AC AA"
+categorie = "retenue"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 3031"
+
+# PSC santé obligatoire : élément « 72 XX 76 » à « 72 XX 85 », XX = organisme. Pour la MGEN,
+# l'annexe 07 B (ligne 8) donne le code créancier 7205, d'où XX = 05 (déduction, cohérente
+# avec le BJ).
+
+[[code]]
+code      = "720576"
+ir        = "0976"
+libelle   = "PSC Santé part forfaitaire"
+categorie = "retenue"
+note      = "Annexe 15 : élément « 72 XX76 », fiscalité D. BJ : « MGEN PART FORFAITAIRE »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 41 ; annexe 07 B 2026, ligne 8 (MGEN = 7205) ; INGRES ligne 886 ; BJ janvier 2026 ligne 3794"
+
+[[code]]
+code      = "720577"
+ir        = "0977"
+libelle   = "PSC Santé part variable"
+categorie = "retenue"
+note      = "Fiscalité D. BJ : « MGEN PART SOLIDAIRE »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 42 ; INGRES ligne 887 ; BJ janvier 2026 ligne 3795"
+
+[[code]]
+code      = "720578"
+ir        = "0978"
+libelle   = "PSC Santé action sociale"
+categorie = "retenue"
+note      = "Fiscalité ND. BJ : « MGEN ACTION SOCIALE »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 43 ; INGRES ligne 888 ; BJ janvier 2026 ligne 3796"
+
+[[code]]
+code      = "720579"
+ir        = "0979"
+libelle   = "PSC Santé aide aux retraités"
+categorie = "retenue"
+note      = "Fiscalité ND. BJ : « MGEN AIDE RETRAITES »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 44 ; INGRES ligne 889 ; BJ janvier 2026 ligne 3797"
+
+# ───────────────────────── Cotisations patronales ─────────────────────────
+
+[[code]]
+code      = "720580"
+ir        = "0980"
+libelle   = "PSC Santé part employeur"
+categorie = "patronal"
+note      = "Fiscalité ND. BJ : « MGEN PART EMPLOYEUR »."
+source    = "DGFiP, annexe 15 2026 (copie AMUE), ligne 45 ; INGRES ligne 890 ; BJ janvier 2026 ligne 3798"
+
+[[code]]
+code      = "411050"
+libelle   = "CONTRIB.PC"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2876"
+
+[[code]]
+code      = "411058"
+libelle   = "CONTRIBUTION ATI"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2883"
+
+[[code]]
+code      = "501180"
+libelle   = "COT PAT RAFP"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2942"
+
+[[code]]
+code      = "403301"
+libelle   = "COTIS PATRON. ALLOC FAMIL"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2508"
+
+[[code]]
+code      = "403397"
+libelle   = "COT PAT AF MAJORATION"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2565"
+
+[[code]]
+code      = "403501"
+libelle   = "COT PAT FNAL DEPLAFONNEE"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2615"
+
+[[code]]
+code      = "403801"
+libelle   = "CONT SOLIDARITE AUTONOMIE"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2748"
+
+[[code]]
+code      = "404001"
+libelle   = "COT PAT MALADIE DEPLAFON"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2805"
+
+[[code]]
+code      = "404598"
+libelle   = "FORFAIT SOCIAL"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2874"
+
+[[code]]
+code      = "554500"
+libelle   = "COT PAT VST MOBILITE"
+categorie = "patronal"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 3013"
+
+# ───────────────────────── Lignes spéciales (nets, régularisations) ─────────────────────────
+
+[[code]]
+code      = "011100"
+libelle   = "NET A PAYER AVANT PAS"
+categorie = "special"
+note      = "Le BJ porte 11100 (5 chiffres) : le zéro de tête a sans doute été perdu dans le tableur (déduction)."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 4"
+
+[[code]]
+code      = "011200"
+libelle   = "HEURES SUPPL. EXO NETTES"
+categorie = "special"
+note      = "Même remarque sur le zéro de tête."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 5"
+
+[[code]]
+code      = "011300"
+libelle   = "MONTANT NET SOCIAL"
+categorie = "special"
+note      = "Même remarque sur le zéro de tête."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 6"
+
+[[code]]
+code      = "200012"
+ir        = "0012"
+libelle   = "Régularisation réduction de cotisation HS"
+categorie = "special"
+imposable = false
+note      = "Annexe 14 A : « Code interdit à la saisie ». Absent d'INGRES."
+source    = "DGFiP, annexe 14 A 2026 (copie AMUE), ligne 7 ; annexe 14 a janvier 2023, p. 1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2023/JANV/9.pdf ; BJ janvier 2026 ligne 130"
+
+[[code]]
+code      = "453000"
+libelle   = "REDUCTION COT.HEURES SUP."
+categorie = "special"
+note      = "Libellé long du BJ : « CSS ART. L241-17 - R711-1 - D241-22 - TITULAIRES »."
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 2899"
+
+[[code]]
+code      = "800001"
+libelle   = "REGULARISATION D'ACOMPTE"
+categorie = "special"
+source    = "DGFiP, fichier BJ janvier 2026 (copie AMUE), ligne 3856"
+
+# ───────────────────────── MANQUANT ─────────────────────────
+# - Un document officiel qui énonce la règle « 20 + IR » : MANQUANT (voir l'en-tête).
+# - Soumission à la RAFP, code par code : MANQUANT dans les documents lus.
+# - CSG/CRDS code par code : seul le bandeau « 0700 à 0799 » de l'annexe 14 a 2023 (p. 4) le dit.
+# - IR 0225 « Indemnité aux professeurs de classes préparatoires aux grandes écoles »
+#   (annexe 14 B 2026, ligne 74) : fin de validité 2010 dans INGRES (ligne 232). Hors liste.

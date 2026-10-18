@@ -1,0 +1,671 @@
+# Primes, indemnités, ORS, heures supplémentaires, éléments communs — bpaye
+# Relevé le 2026-10-17 sur Légifrance (versions consolidées datées,
+# /loda/id/<ID>/<AAAA-MM-JJ>/). Chaque valeur porte sa source.
+# « MANQUANT » = non lu dans un texte officiel : ne rien coder dessus.
+# Convention : `depuis` = date d'effet du texte ; `jusqu_a` = veille de la
+# version suivante (exclue), absent = en vigueur au 2026-10-17.
+
+[meta]
+date_releve = 2026-10-17
+methode = "Légifrance, version consolidée à la date indiquée dans chaque URL ; texte lu intégralement pour l'article cité"
+
+# ---------------------------------------------------------------------------
+# 1. PRIME D'ATTRACTIVITÉ
+# ---------------------------------------------------------------------------
+[prime_attractivite]
+texte = "Décret n° 2021-276 du 12 mars 2021 ; arrêté du 12 mars 2021 (montants)"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2026-10-17/"
+entree_en_vigueur = 2021-05-01  # décret art. 7, arrêté art. 3
+
+[[prime_attractivite.beneficiaires]]
+depuis = 2021-05-01
+jusqu_a = 2023-09-01
+regle = "Peuvent bénéficier de la prime prévue à l'article 1er du présent décret les agents appartenant au premier grade de leur corps, ayant accompli leur période de stage. Son attribution est liée à l'exercice effectif des fonctions. Par dérogation à l'alinéa précédent, ne peuvent bénéficier de la prime les personnels enseignants exerçant intégralement leurs fonctions dans un établissement d'enseignement supérieur ainsi que les personnels enseignants appartenant à un corps accessible uniquement par liste d'aptitude."
+source = "Décret 2021-276, art. 2, version 15/03/2021–01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2022-01-01/"
+
+[[prime_attractivite.beneficiaires]]
+depuis = 2023-09-01
+regle = "Peuvent bénéficier de la prime prévue à l'article 1er du présent décret les agents appartenant au premier grade de leur corps. Par dérogation à l'alinéa précédent, ne peuvent bénéficier de la prime les personnels enseignants exerçant intégralement leurs fonctions dans un établissement d'enseignement supérieur ainsi que les personnels enseignants appartenant à un corps accessible uniquement par liste d'aptitude."
+source = "Décret 2021-276, art. 2 mod. par décret 2023-626 art. 1, en vigueur 01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/"
+note = "Exclusions déduites du texte : hors-classe et classe exceptionnelle (pas le premier grade) ; chaires supérieures (corps accessible uniquement par liste d'aptitude, et pas de classe normale) ; enseignants exerçant intégralement dans le supérieur. Stagiaires inclus à partir du 01/09/2023 (mention « ayant accompli leur période de stage » retirée)."
+
+[[prime_attractivite.contractuels_champ]]
+depuis = 2021-05-01
+jusqu_a = 2023-09-01
+regle = "La prime est attribuée dans les mêmes conditions aux agents contractuels de première et de seconde catégories relevant du décret du 29 août 2016 susvisé, aux agents contractuels relevant du dernier alinéa de l'article 1er du décret du 19 mars 1993 susvisé et aux maîtres mentionnés à l'article R. 914-57 du code de l'éducation."
+source = "Décret 2021-276, art. 3, version 15/03/2021–01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2022-01-01/"
+
+[[prime_attractivite.contractuels_champ]]
+depuis = 2023-09-01
+regle = "… ajoute « aux professeurs associés relevant du décret n° 2007-322 du 8 mars 2007 »."
+source = "Décret 2021-276, art. 3 mod. par décret 2023-626 art. 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/"
+
+[[prime_attractivite.versement]]
+depuis = 2021-05-01
+jusqu_a = 2026-02-15
+regle = "La prime est versée mensuellement à terme échu à ses bénéficiaires en fonction de l'échelon ou de l'indice de rémunération qu'ils détiennent. Le versement de l'indemnité suit les mêmes règles que celles applicables pour le calcul du traitement principal."
+source = "Décret 2021-276, art. 6, version 15/03/2021–15/02/2026, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2022-01-01/"
+note = "Proratisation au temps partiel : le texte dit seulement « suit les mêmes règles que … le traitement principal » ; aucune règle de quotité propre."
+
+[[prime_attractivite.versement]]
+depuis = 2026-02-15
+regle = "La prime est versée mensuellement à terme échu à ses bénéficiaires en fonction de l'échelon ou de l'indice de rémunération qu'ils détiennent."
+source = "Décret 2021-276, art. 6 mod. par décret 2026-89 art. 32 (second alinéa supprimé), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/"
+note = "Depuis le 15/02/2026, plus aucune phrase sur le temps partiel dans le décret : règle de proratisation MANQUANT (non lue ailleurs)."
+
+# Montants annuels bruts, fonctionnaires (arrêté art. 1). Clé = échelon.
+[[prime_attractivite.titulaires]]
+depuis = 2021-05-01
+jusqu_a = 2022-02-01
+champ = "fonctionnaires ayant accompli leur période de stage, échelon du premier grade"
+montants = { 2 = 1400, 3 = 1250, 4 = 900, 5 = 700, 6 = 500, 7 = 500 }
+source = "Arrêté du 12/03/2021, art. 1, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2021-06-01/"
+
+[[prime_attractivite.titulaires]]
+depuis = 2022-02-01
+jusqu_a = 2023-09-01
+champ = "fonctionnaires ayant accompli leur période de stage, échelon du premier grade"
+montants = { 2 = 2200, 3 = 2050, 4 = 1500, 5 = 1100, 6 = 900, 7 = 900, 8 = 400, 9 = 400 }
+source = "Arrêté du 12/03/2021, art. 1 mod. par arrêté du 14/12/2021 (en vigueur 01/02/2022), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2022-06-01/"
+
+[[prime_attractivite.titulaires]]
+depuis = 2023-09-01
+champ = "échelon détenu dans la classe normale"
+montants = { 1 = 2130, 2 = 2980, 3 = 3370, 4 = 3180, 5 = 2880, 6 = 2500, 7 = 1500, 8 = 400, 9 = 400 }
+source = "Arrêté du 12/03/2021, art. 1 mod. par arrêté du 19/07/2023 art. 1 (NOR MENH2318567A), en vigueur 01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2026-10-17/"
+
+# Contractuels (arrêté art. 2) : bornes d'indice brut inclusives [ib_min, ib_max], montant annuel brut.
+[[prime_attractivite.contractuels]]
+depuis = 2021-05-01
+jusqu_a = 2022-02-01
+tranches = [
+  { ib_max = 408, montant = 800 }, { ib_min = 409, ib_max = 412, montant = 750 },
+  { ib_min = 413, ib_max = 441, montant = 700 }, { ib_min = 442, ib_max = 442, montant = 650 },
+  { ib_min = 443, ib_max = 469, montant = 600 }, { ib_min = 470, ib_max = 471, montant = 550 },
+  { ib_min = 472, ib_max = 500, montant = 500 }, { ib_min = 501, ib_max = 501, montant = 450 },
+  { ib_min = 502, ib_max = 591, montant = 400 },
+]
+note = "Rien au-delà de l'IB 591 dans cette version."
+source = "Arrêté du 12/03/2021, art. 2, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2021-06-01/"
+
+[[prime_attractivite.contractuels]]
+depuis = 2022-02-01
+jusqu_a = 2023-09-01
+tranches = [
+  { ib_max = 408, montant = 1200 }, { ib_min = 409, ib_max = 412, montant = 1150 },
+  { ib_min = 413, ib_max = 441, montant = 1100 }, { ib_min = 442, ib_max = 442, montant = 1050 },
+  { ib_min = 443, ib_max = 469, montant = 1000 }, { ib_min = 470, ib_max = 471, montant = 950 },
+  { ib_min = 472, ib_max = 500, montant = 900 }, { ib_min = 501, ib_max = 501, montant = 850 },
+  { ib_min = 502, ib_max = 591, montant = 800 }, { ib_min = 592, ib_max = 592, montant = 750 },
+  { ib_min = 593, ib_max = 593, montant = 700 }, { ib_min = 594, ib_max = 595, montant = 650 },
+  { ib_min = 596, ib_max = 596, montant = 600 }, { ib_min = 597, ib_max = 597, montant = 550 },
+  { ib_min = 598, ib_max = 599, montant = 500 }, { ib_min = 600, ib_max = 600, montant = 450 },
+  { ib_min = 601, montant = 400 },
+]
+source = "Arrêté du 12/03/2021, art. 2 mod. par arrêté du 14/12/2021 art. 2 (en vigueur 01/02/2022), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2022-06-01/"
+
+[[prime_attractivite.contractuels]]
+depuis = 2023-09-01
+jusqu_a = 2024-07-25
+tranches = [
+  { ib_max = 408, montant = 1500 }, { ib_min = 409, ib_max = 412, montant = 1450 },
+  { ib_min = 413, ib_max = 441, montant = 1400 }, { ib_min = 442, ib_max = 442, montant = 1350 },
+  { ib_min = 443, ib_max = 469, montant = 1300 }, { ib_min = 470, ib_max = 471, montant = 1250 },
+  { ib_min = 472, ib_max = 500, montant = 1200 }, { ib_min = 501, ib_max = 501, montant = 1150 },
+  { ib_min = 502, ib_max = 591, montant = 1100 }, { ib_min = 592, ib_max = 592, montant = 1050 },
+  { ib_min = 593, ib_max = 593, montant = 1000 }, { ib_min = 594, ib_max = 595, montant = 950 },
+  { ib_min = 596, ib_max = 596, montant = 900 }, { ib_min = 597, ib_max = 597, montant = 850 },
+  { ib_min = 598, ib_max = 599, montant = 800 }, { ib_min = 600, ib_max = 600, montant = 750 },
+  { ib_min = 601, montant = 700 },
+]
+source = "Arrêté du 12/03/2021, art. 2 mod. par arrêté du 19/07/2023 art. 2 (en vigueur 01/09/2023), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2023-10-01/"
+
+[[prime_attractivite.contractuels]]
+depuis = 2024-07-25
+tranches = [
+  { ib_max = 412, montant = 1500 },
+  { ib_min = 413, ib_max = 441, montant = 1400 }, { ib_min = 442, ib_max = 442, montant = 1350 },
+  { ib_min = 443, ib_max = 469, montant = 1300 }, { ib_min = 470, ib_max = 471, montant = 1250 },
+  { ib_min = 472, ib_max = 500, montant = 1200 }, { ib_min = 501, ib_max = 501, montant = 1150 },
+  { ib_min = 502, ib_max = 591, montant = 1100 }, { ib_min = 592, ib_max = 592, montant = 1050 },
+  { ib_min = 593, ib_max = 593, montant = 1000 }, { ib_min = 594, ib_max = 595, montant = 950 },
+  { ib_min = 596, ib_max = 596, montant = 900 }, { ib_min = 597, ib_max = 597, montant = 850 },
+  { ib_min = 598, ib_max = 599, montant = 800 }, { ib_min = 600, ib_max = 600, montant = 750 },
+  { ib_min = 601, montant = 700 },
+]
+note = "Seul changement : la tranche 409–412 (1 450 €) disparaît, « Inférieur ou égal à 412 » = 1 500 €."
+source = "Arrêté du 12/03/2021, art. 2 mod. par arrêté du 8/07/2024 art. 1, en vigueur 25/07/2024, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2026-10-17/"
+
+# ---------------------------------------------------------------------------
+# 2. ISOE (second degré) et ISAE (premier degré)
+# ---------------------------------------------------------------------------
+[isoe]
+texte = "Décret n° 93-55 du 15 janvier 1993 ; arrêté du 15 janvier 1993 (montants)"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/"
+non_soumise_pension = "« Une indemnité de suivi et d'orientation des élèves non soumise à retenues pour pensions est allouée … » (décret art. 1, toutes versions)"
+
+[[isoe.indexation]]
+depuis = 1992-09-01
+jusqu_a = 2023-09-01
+regle = "Les taux annuels des deux parts de l'indemnité … sont fixés par arrêté conjoint … Ces taux sont indexés sur la valeur du point indiciaire de la fonction publique."
+source = "Décret 93-55, art. 4, version 01/03/1992–01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2006-01-01/"
+
+[[isoe.indexation]]
+depuis = 2023-09-01
+regle = "Les montants de la part fixe et de la part modulable sont indexés sur la valeur du point indiciaire de la fonction publique."
+source = "Décret 93-55, art. 4 mod. par décret 2023-627 art. 4, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/"
+note = "Toujours indexée au 2026-10-17 (part fonctionnelle non indexée). Conséquence : le montant de l'arrêté est un montant de référence ; le montant revalorisé après chaque hausse du point n'est écrit dans aucun texte lu → MANQUANT (à calculer ou à lire dans une note de service)."
+
+[[isoe.versement]]
+depuis = 2005-09-01
+jusqu_a = 2023-09-01
+regle = "L'indemnité est versée mensuellement aux intéressés."
+source = "Décret 93-55, art. 6 mod. par décret 2005-256, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2006-01-01/"
+
+[[isoe.versement]]
+depuis = 2023-09-01
+regle = "La part fixe et la part modulable de cette indemnité sont versées mensuellement aux intéressés. Le montant de la ou des parts fonctionnelles de l'indemnité est versé mensuellement par neuvième. Le versement de la totalité d'une part fonctionnelle intervient sous réserve de l'accomplissement de l'intégralité de la mission complémentaire y ouvrant droit."
+source = "Décret 93-55, art. 6 mod. par décret 2023-627 art. 5, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/"
+note = "Le texte dit « mensuellement » sans préciser 12 mois ; « par neuvième » pour la seule part fonctionnelle."
+
+[[isoe.part_fixe_regle]]
+depuis = 2026-02-15
+regle = "L'attribution de cette part est liée à l'exercice des fonctions enseignantes y ouvrant droit … Les personnels qui n'exercent pas cette fonction pendant l'intégralité de leurs obligations règlementaires de service bénéficient d'une fraction de cette part, calculée au prorata de la durée d'exercice des fonctions y ouvrant droit."
+source = "Décret 93-55, art. 2 mod. par décret 2026-89 art. 10, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/"
+note = "Avant le 15/02/2026 : « L'attribution de cette part est liée à l'exercice effectif des fonctions enseignantes … » (art. 2, version 01/03/1992–15/02/2026). La part fixe est aussi due « aux enseignants des classes post-baccalauréat » (toutes versions)."
+
+[[isoe.part_fixe]]
+depuis = 1992-09-01
+jusqu_a = 2009-01-01
+montant_francs = 6426
+source = "Arrêté du 15/01/1993, art. 1, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2006-01-01/"
+note = "Montant en francs de 1992 ; valeur en euros servie entre 2006 et 2008 = MANQUANT (résulte de l'indexation, aucun texte lu ne l'écrit)."
+
+[[isoe.part_fixe]]
+depuis = 2009-01-01
+jusqu_a = 2021-09-01
+montant = 1183.68
+source = "Arrêté du 15/01/1993, art. 1 mod. par arrêté du 6/11/2009 art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2018-01-01/"
+
+[[isoe.part_fixe]]
+depuis = 2021-09-01
+jusqu_a = 2023-09-01
+montant = 1213.56
+source = "Arrêté du 15/01/1993, art. 1 mod. par arrêté du 20/08/2021 (NOR MENH2120247A), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2022-10-18/"
+
+[[isoe.part_fixe]]
+depuis = 2023-09-01
+montant = 2550
+source = "Arrêté du 15/01/1993, art. 1 mod. par arrêté du 19/07/2023 art. 2 (NOR MENH2319966A), en vigueur 01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/"
+
+[[isoe.part_modulable]]
+depuis = 1992-09-01
+jusqu_a = 2009-01-01
+montants_francs = { sixieme_cinquieme_quatrieme = 6600, troisieme = 7550, premiere_annee_bep_cap = 7550, seconde_lgt = 7550, premiere_terminale_lgt_et_autres_lp = 4800 }
+source = "Arrêté du 15/01/1993, art. 2, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2006-01-01/"
+
+[[isoe.part_modulable]]
+depuis = 2009-01-01
+jusqu_a = 2021-09-01
+montants = { sixieme_cinquieme_quatrieme = 1215.00, troisieme = 1390.80, premiere_annee_bep_cap = 1390.80, bac_pro_3_ans = 1390.80, seconde_lgt = 1390.80, premiere_terminale_lgt_et_autres_lp = 883.92 }
+source = "Arrêté du 15/01/1993, art. 2 mod. par arrêté du 6/11/2009, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2018-01-01/"
+
+[[isoe.part_modulable]]
+depuis = 2021-09-01
+jusqu_a = 2023-09-01
+montants = { sixieme_cinquieme_quatrieme = 1245.84, troisieme = 1425.84, premiere_annee_cap = 1425.84, bac_pro_3_ans = 1425.84, seconde_lgt = 1425.84, autres_divisions_lp = 906.24, premiere_terminale_lgt_pp = 906.24, premiere_terminale_lgt_pre = 453.12 }
+source = "Arrêté du 15/01/1993, art. 2 mod. par arrêté du 20/08/2021, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2022-10-18/"
+
+[[isoe.part_modulable]]
+depuis = 2023-09-01
+montants = { sixieme_cinquieme_quatrieme = 1308.72, troisieme = 1497.84, premiere_deuxieme_annee_cap = 1497.84, bac_pro_3_ans = 1497.84, seconde_lgt = 1497.84, autres_divisions_lp = 951.96, premiere_terminale_lgt_pp = 1497.84, premiere_terminale_lgt_pre = 748.92 }
+source = "Arrêté du 15/01/1993, art. 2 mod. par arrêté du 19/07/2023 art. 3, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2023-10-01/"
+note = "Au 01/09/2026 (arrêté du 10/07/2026, NOR MENE2615973A) : mêmes montants, ajout des « classes préparatoires à la classe de seconde » aux lignes 4° et 5° (https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/)."
+
+[[isoe.part_fonctionnelle]]
+depuis = 2023-09-01
+montant_par_part = 1250
+regle = "Une part fonctionnelle correspond à l'exercice d'une mission complémentaire … L'enseignant peut se voir confier une mission … dont le volume horaire ou la charge estimée correspond à la moitié d'une de ces missions. Il perçoit dans ce cas la moitié du montant de la part fonctionnelle."
+source = "Arrêté du 15/01/1993, art. 2-1 créé par arrêté du 19/07/2023 art. 4 ; décret 93-55 art. 3-1 (version 10/09/2025, décret 2025-926), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/"
+note = "Missions et volumes horaires (remplacement de courte durée 18 h ; devoirs faits, stages de réussite 24 h …) : arrêté art. 2-2, version 10/09/2025."
+
+[isae]
+texte = "Décret n° 2013-790 du 30 août 2013 ; arrêté du 30 août 2013 (montants)"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914226/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/"
+indexation = "Aucune clause d'indexation dans le décret (art. 4 : « Les montants annuels de l'indemnité sont fixés par arrêté conjoint … »), version 01/09/2023."
+versement = "« La part fixe est versée mensuellement aux intéressés. Le montant de la ou des parts fonctionnelles est versé mensuellement par neuvième. » (décret art. 3, version 10/09/2025)"
+
+[[isae.part_fixe]]
+depuis = 2013-09-01
+jusqu_a = 2016-09-01
+montant = 400
+source = "Arrêté du 30/08/2013, art. 1, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2014-01-01/"
+
+[[isae.part_fixe]]
+depuis = 2016-09-01
+jusqu_a = 2023-09-01
+montant = 1200
+source = "Arrêté du 30/08/2013, art. 1 mod. par arrêté du 27/06/2016, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2022-01-01/"
+
+[[isae.part_fixe]]
+depuis = 2023-09-01
+montant = 2550
+source = "Arrêté du 30/08/2013, art. 1 mod. par arrêté du 19/07/2023 art. 6, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/"
+
+[[isae.part_fonctionnelle]]
+depuis = 2023-09-01
+montant_par_part = 1250
+source = "Arrêté du 30/08/2013, art. 1-1 créé par arrêté du 19/07/2023 art. 7, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/"
+
+# ---------------------------------------------------------------------------
+# 3. IFP CPGE
+# ---------------------------------------------------------------------------
+[ifp_cpge]
+texte = "Décret n° 99-886 du 19 octobre 1999 ; arrêté du 19 octobre 1999"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000212309/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000030338057/2026-10-17/"
+beneficiaires = "« Une indemnité de fonctions particulières, non soumise à retenue pour pension, est allouée aux personnels enseignants qui dispensent hebdomadairement dans les classes préparatoires aux grandes écoles … : - soit au moins huit heures d'enseignement ; - soit au moins quatre heures d'enseignement devant une même division ; toutefois, les heures accomplies, le cas échéant, devant des groupes d'élèves issus d'une même division ne sont décomptées qu'une fois lorsqu'elles portent sur des programmes d'enseignement identiques. » (art. 1, version 05/02/2004)"
+indexation = "« Le taux annuel … est fixé par arrêté conjoint … Ce taux est indexé sur la valeur du point indiciaire de la fonction publique. » (art. 3, version 05/02/2004, toujours en vigueur au 2026-10-17)"
+versement = "« L'indemnité est versée mensuellement aux intéressés. » (art. 4, version 22/03/2005 ; auparavant trimestriellement)"
+effet = 1999-09-01
+
+[[ifp_cpge.montant]]
+depuis = 1999-09-01
+montant_francs = 6270
+source = "Arrêté du 19/10/1999, art. 1 (seule version, jamais modifié), https://www.legifrance.gouv.fr/loda/id/LEGITEXT000030338057/2026-10-17/"
+note = "Le seul montant écrit est 6 270 F au 01/09/1999 ; le montant en euros à une date donnée résulte de l'indexation sur le point (art. 3) et n'est écrit dans aucun texte lu → montants datés MANQUANT."
+
+[[ifp_cpge.condition_exercice]]
+depuis = 2004-02-05
+jusqu_a = 2026-02-15
+regle = "L'attribution de l'indemnité est liée à l'exercice effectif des fonctions y ouvrant droit."
+source = "Décret 99-886, art. 2, abrogé par décret 2026-89 art. 14, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000212309/2026-01-01/"
+
+[decret_2026_89]
+texte = "Décret n° 2026-89 du 13 février 2026 modifiant divers décrets indemnitaires visant à harmoniser les modalités d'attribution de ces primes et indemnités"
+url = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000053482648"
+en_vigueur = 2026-02-15
+articles_utiles = [
+  "art. 10 : ISOE part fixe, attribution « liée à l'exercice des fonctions » + fraction au prorata de la durée d'exercice si pas l'intégralité des ORS",
+  "art. 11 : ISOE part modulable liée à la désignation par le chef d'établissement ; suspendue en cas de remplacement/intérim",
+  "art. 14 : abroge l'art. 2 du décret 99-886 (IFP CPGE, « exercice effectif »)",
+  "art. 19 : ISAE part fixe, même règle de prorata que l'ISOE",
+  "art. 24 et 25 : abrogent les art. 3 et 8 du décret 2015-1087 (REP+/REP, « exercice effectif »)",
+  "art. 31 : supprime le 1er alinéa de l'art. 3 du décret 2020-1524 (prime d'équipement)",
+  "art. 32 : supprime le second alinéa de l'art. 6 du décret 2021-276 (prime d'attractivité, « mêmes règles que le traitement »)",
+]
+
+# ---------------------------------------------------------------------------
+# 4. ORS
+# ---------------------------------------------------------------------------
+[ors.decret_2014_940]
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000029390906/2026-10-17/"
+depuis = 2015-09-01
+maxima = { agrege = 15, agrege_eps = 17, certifie = 18, adjoint_enseignement = 18, plp = 18, eps = 20, pe_instituteur_erea_segpa_ulis = 21 }
+source = "Décret 2014-940, art. 2 I, version 01/09/2015"
+ponderations = [
+  "art. 6 : cycle terminal voie GT, agrégés/certifiés/documentation : coefficient 1,1, réduction limitée à une heure",
+  "art. 7 : STS : coefficient 1,25",
+  "art. 8 : éducation prioritaire (liste par arrêté) : coefficient 1,1",
+]
+heures_imposables = "« … peuvent être tenus d'effectuer, sauf empêchement pour raison de santé, deux heures supplémentaires hebdomadaires en sus de leur maximum de service. » (art. 4 III, version 01/09/2019)"
+avant_2015 = "Décret 50-581 art. 1 (version 01/09/2007–01/09/2015) : « Agrégés : quinze heures ; Non agrégés : dix-huit heures » ; art. 5 : -1 h « première chaire » (abrogés par 2014-940 art. 10) — https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006060582/2026-10-17/"
+
+[ors.cpge_50_581_art6]
+url = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006060582/2026-10-17/"
+version = "Décret 50-581, art. 6, mod. par décret 2014-941 art. 4, en vigueur 31/08/2015"
+champ = "professeurs de mathématiques, de sciences physiques et de sciences naturelles qui donnent tout leur enseignement dans les CPGE"
+# effectif : plus_de_35 / de_20_a_35 / moins_de_20
+maths_speciales_et_ens_sciences_exp = { plus_de_35 = 8, de_20_a_35 = 9, moins_de_20 = 10 }
+maths_sup_et_assimilees = { plus_de_35 = 9, de_20_a_35 = 10, moins_de_20 = 11 }
+autres_cpge = { plus_de_35 = 11, de_20_a_35 = 12, moins_de_20 = 13 }
+regle_service_partage = "Les professeurs … dont le service est partagé entre la classe de mathématiques spéciales … et les autres classes désignées ci-dessus ont le même maximum de service que s'ils donnaient tout leur enseignement dans la classe de mathématiques spéciales … Le maximum de service des professeurs qui n'assurent dans les classes désignées ci-dessus qu'une partie de leur service est fixé conformément à l'article 2 du décret n° 2014-940 … Toutefois chaque heure d'enseignement fait dans les classes désignées ci-dessus est comptée pour une heure et demie, sous réserve : a) … les heures consacrées aux mêmes enseignements dans deux divisions ou sections d'une même classe ne soient comptées qu'une fois ; b) Que le maximum de service effectif du professeur ne deviendra pas, de ce fait, inférieur à celui prévu ci-dessus …"
+regle_deux_classes = "Lorsqu'un professeur fait tout son service dans deux des classes considérées … : Si l'une seulement compte plus de trente-cinq élèves, le maximum de service du professeur sera le même que si les deux classes comptent plus de trente-cinq élèves. Si l'une compte entre vingt et trente-cinq élèves et l'autre moins de vingt élèves, le maximum … sera le même que si les deux classes comptaient entre vingt et trente-cinq élèves."
+comparaison = "La grille « première année 9/10/11, seconde année 8/9/10 » est exacte pour maths sup (et classes assimilées) / maths spé (et prépa ENS sciences exp.), disciplines maths, physique, sciences naturelles. Elle est fausse pour les « CPGE non désignées » (11/12/13) et pour les lettres/langues (art. 7)."
+date_effectif = "MANQUANT : l'ancien art. 4 (« élèves présents au 15 novembre », version 2007) est abrogé depuis 01/09/2015 ; aucune date de décompte d'effectif lue dans les textes en vigueur."
+
+[ors.cpge_50_581_art7]
+version = "Décret 50-581, art. 7, mod. par décret 2014-941 art. 4, en vigueur 31/08/2015"
+champ = "professeurs de philosophie, lettres, histoire et géographie ou langues vivantes"
+premiere_superieure = { plus_de_35 = 8, de_20_a_35 = 9, moins_de_20 = 10 }
+lettres_superieures_et_assimilees = { plus_de_35 = 9, de_20_a_35 = 10, moins_de_20 = 11 }
+plancher_lettres_en_classes_scientifiques = { maths_speciales_ens = { plus_de_35 = 10, de_20_a_35 = 11, moins_de_20 = 12 }, maths_sup_et_autres = { plus_de_35 = 11, de_20_a_35 = 12, moins_de_20 = 13 } }
+source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006060582/2026-10-17/"
+
+[ors.cpge_50_582_art6]
+version = "Décret 50-582, art. 6, mod. par décret 2014-941 art. 5, en vigueur 31/08/2015"
+regle = "Le maximum de service des professeurs qui donnent tout leur enseignement dans les classes préparatoires aux grandes écoles dont la liste est déterminée par arrêté ministériel est fixé à douze heures. Le maximum de service des professeurs de mathématiques et sciences physiques qui donnent tout leur enseignement dans les classes préparatoires (deuxième année) au concours de recrutement spécial défini par le décret n° 59-897 du 30 juillet 1959 est fixé à dix heures. … chaque heure d'enseignement faite dans les classes préparatoires aux grandes écoles est comptée pour une heure et demie, sous réserve …"
+source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006060583/2026-10-17/"
+
+[ors.chaires_superieures]
+regle = "Les professeurs de chaires supérieures sont soumis, en matière d'obligations de service, aux décrets n° 50-581 et n° 50-582 du 25 mai 1950. Ils peuvent être astreints, selon les nécessités de services, à donner une partie de leur enseignement dans les classes de second cycle long."
+source = "Décret 68-503 du 30 mai 1968, art. 6 (en vigueur depuis 01/01/1967), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000868842/2026-10-17/"
+note = "Donc mêmes tableaux que ci-dessus (art. 6/7 du 50-581, art. 6 du 50-582) ; pas d'ORS propre."
+
+# ---------------------------------------------------------------------------
+# 5. HEURES SUPPLÉMENTAIRES — décret 50-1253
+# ---------------------------------------------------------------------------
+[heures_sup]
+texte = "Décret n° 50-1253 du 6 octobre 1950"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/"
+non_soumise_pension = "« … une indemnité non soumise à retenue pour pension civile. » (art. 1)"
+contractuels = "Art. 1 (version 15/10/2021) : « Les professeurs contractuels exerçant à temps complet et recrutés en application du décret n° 2016-1171 … peuvent bénéficier de ces indemnités » ; art. 2 : leurs taux sont fixés par arrêté (arrêté du 29/08/2016, non lu → MANQUANT)."
+
+[[heures_sup.hsa_formule]]
+depuis = 1999-09-01
+jusqu_a = 2021-10-15
+regle = "Le taux annuel de l'indemnité … est calculé en divisant le traitement moyen … par le maximum de service réglementaire ; le résultat est multiplié par la fraction 9/13e. Dans la limite d'une heure supplémentaire excédant les maxima de services réglementaires des personnes mentionnés à l'article premier ci-dessus, ce taux est majoré de 20%. … le traitement moyen est celui correspondant à la moyenne arithmétique du traitement budgétaire de début de carrière et du traitement budgétaire de fin de carrière [de la classe normale pour les corps dotés d'une hors-classe ou d'une classe exceptionnelle]. Pour les personnels enseignants nommés à la hors-classe ou à la classe exceptionnelle, le montant de l'indemnité … est majoré de 10%."
+source = "Décret 50-1253, art. 2 (versions 01/09/1999–01/09/2016 et 01/09/2016–15/10/2021), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2006-01-01/ et /2020-01-01/"
+
+[[heures_sup.hsa_formule]]
+depuis = 2021-10-15
+regle = "… Dans la limite d'une heure supplémentaire excédant les maxima de services réglementaires ou les maxima des services résultant de la quotité de travail à temps partiel des personnes mentionnés à l'article premier ci-dessus, ce taux est majoré de 20%. [reste identique, +10 % HC/CE] … Les taux sont indexés sur la valeur du point indiciaire de la fonction publique."
+source = "Décret 50-1253, art. 2 mod. par décret 2021-1327 art. 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/"
+note = "Depuis le 15/10/2021 la 1re HSA majorée de 20 % est aussi ouverte aux temps partiels (au-delà de la quotité)."
+
+[[heures_sup.cpge]]
+depuis = 1998-09-01
+jusqu_a = 2016-09-01
+regle = "Le taux des heures supplémentaires d'enseignement assurées par les professeurs autres que ceux régis par le décret n° 68-503 du 30 mai 1968 donnant tout leur enseignement dans les classes préparatoires aux grandes écoles est calculé sur la base du traitement du professeur agrégé et du maximum de service réglementaire les concernant."
+source = "Décret 50-1253, art. 3, version 01/09/1998–01/09/2016, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2006-01-01/"
+
+[[heures_sup.cpge]]
+depuis = 2016-09-01
+regle = "Le taux des heures supplémentaires d'enseignement assurées par les professeurs autres que ceux régis par le décret n° 68-503 du 30 mai 1968 donnant tout leur enseignement dans les classes préparatoires aux grandes écoles est calculé sur la base du traitement du professeur agrégé de classe normale et du maximum de service réglementaire le concernant. Le quatrième alinéa de l'article 2 ne leur est pas applicable."
+source = "Décret 50-1253, art. 3 mod. par décret 2016-1172 art. 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/"
+note = "Le « quatrième alinéa de l'article 2 » est la majoration de 10 % HC/CE : pas de +10 % pour ces professeurs de CPGE depuis le 01/09/2016. Les chaires supérieures (décret 68-503) sont hors de cette règle ; leur base propre n'est pas écrite dans l'art. 3 → elles relèvent de l'art. 2 (traitement moyen de leur corps) ; à confirmer."
+
+[heures_sup.interrogations_cpge]
+depuis = 1998-09-01
+regle = "Les heures d'interrogation effectuées dans les classes préparatoires aux grandes écoles sont toujours décomptées à l'unité. Elles sont rétribuées à raison du trente-sixième du tarif annuel de l'heure supplémentaire, tel qu'il résulte des dispositions du présent décret, ce tarif étant réduit de 25 %."
+coefficient = "taux_HSA_annuel / 36 × 0,75"
+source = "Décret 50-1253, art. 3 (identique 1998 → 2026), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/"
+
+[[heures_sup.hse]]
+depuis = 2005-08-27
+jusqu_a = 2008-01-01
+regle = "… chaque heure effectivement faite est rétribuée à raison de un trente-sixième de l'indemnité annuelle définie à l'article 2, le taux ainsi déterminé étant majoré de 15%."
+coefficient = "taux_HSA_annuel / 36 × 1,15"
+source = "Décret 50-1253, art. 5 mod. par décret 2005-1036, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2006-01-01/"
+
+[[heures_sup.hse]]
+depuis = 2008-01-01
+regle = "Lorsque le service supplémentaire ne comporte pas un horaire régulier, chaque heure effectivement faite est rétribuée à raison de un trente-sixième de l'indemnité annuelle définie à l'article 2, le taux ainsi déterminé étant majoré de 25 %. … les heures supplémentaires consacrées à des tâches de surveillance sont rémunérées à raison d'un trente-sixième du taux annuel … le taux obtenu étant réduit de 50 %."
+coefficient = "taux_HSA_annuel / 36 × 1,25 ; surveillance / 36 × 0,5"
+source = "Décret 50-1253, art. 5 mod. par décret 2008-199 art. 5 (01/01/2008), puis décret 2009-81 (24/01/2009, ajout études dirigées) ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2008-06-01/ et /2026-10-17/"
+
+[heures_sup.versement]
+regle = "Les indemnités pour heures supplémentaires susvisées sont payables par neuvième. En cas d'absence ou de congé individuel, l'indemnité est fixée proportionnellement à la période de présence, le décompte s'établissant à raison de un deux cent soixante-dixième de l'indemnité annuelle pour chaque journée de présence."
+source = "Décret 50-1253, art. 4 (version 01/09/1999, mod. par décret 99-824 art. 2 ; complétée le 30/06/2024 par décret 2024-641 pour le maintien en CLM/CGM), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/"
+
+[heures_sup.decret_99_824]
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000577416/2026-10-17/"
+contenu = "Modifie les art. 2, 4 et 5 du décret 50-1253 ; prend effet au 1er septembre 1999 (art. 4). Texte de modification seul : le contenu consolidé est repris ci-dessus."
+
+# ---------------------------------------------------------------------------
+# 6. ÉLÉMENTS COMMUNS
+# ---------------------------------------------------------------------------
+[indemnite_residence]
+texte = "Décret n° 85-1148 du 24 octobre 1985, art. 9"
+url = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/"
+taux = { zone_sans_abattement = 0.03, abattement_2_22 = 0.01, autres_zones = 0.0 }
+assiette = "« Cette indemnité est calculée sur la base de leur traitement soumis aux retenues pour pension » (art. 9, toutes versions lues 2006, 2013, 2026)"
+specifiques = "Art. 9 bis : Corse 3 % (depuis 01/04/1998) ; art. 9 ter : communes de l'Ain et de la Haute-Savoie en zone A, 3 % (versements à compter de décembre 2023)."
+
+# Plancher : traitement d'au plus l'IM indiqué → IR calculée sur cet IM.
+[[indemnite_residence.plancher]]
+depuis = 2001-05-01
+jusqu_a = 2006-11-01
+im = 297
+source = "Art. 9, version 01/05/2001–01/11/2006, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2006-01-01/"
+[[indemnite_residence.plancher]]
+depuis = 2006-11-01
+jusqu_a = 2011-01-01
+im = 298
+source = "Art. 9 mod. par décret 2006-1283, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2007-01-01/"
+[[indemnite_residence.plancher]]
+depuis = 2011-01-01
+jusqu_a = 2012-01-01
+im = 299
+source = "Art. 9 mod. par décret 2011-51, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2011-06-01/"
+[[indemnite_residence.plancher]]
+depuis = 2012-01-01
+jusqu_a = 2012-07-07
+im = 306
+source = "Art. 9 mod. par décret 2012-37, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2012-03-01/"
+[[indemnite_residence.plancher]]
+depuis = 2012-07-07
+jusqu_a = 2013-01-01
+im = 312
+source = "Art. 9 mod. par décret 2012-853, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2012-08-01/"
+[[indemnite_residence.plancher]]
+depuis = 2013-01-01
+jusqu_a = 2022-01-01
+im = 313
+source = "Art. 9 mod. par décret 2013-33, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2017-03-01/"
+[[indemnite_residence.plancher]]
+depuis = 2022-01-01
+regle = "Les agents dont le traitement est inférieur ou égal à celui correspondant à l'indice majoré mentionné au premier alinéa de l'article 8 du présent décret perçoivent l'indemnité de résidence afférente à cet indice."
+im = "= minimum de traitement de l'art. 8 (voir [minimum_traitement])"
+source = "Art. 9 mod. par décret 2021-1749, en vigueur 01/01/2022, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/"
+
+[minimum_traitement]
+texte = "Décret 85-1148, art. 8 (IM minimum ; sert de plancher d'IR depuis le 01/01/2022)"
+valeurs = [
+  { depuis = 2005-06-30, jusqu_a = 2006-07-01, im = 275, source = "décret 2005-726, /2006-01-01/" },
+  { depuis = 2006-11-01, jusqu_a = 2007-07-01, im = "MANQUANT (version lue sans l'IM extrait)", source = "décret 2006-1283, /2007-01-01/" },
+  { depuis = 2007-07-01, jusqu_a = 2008-05-01, im = 283, source = "décret 2007-1054, /2007-08-01/" },
+  { depuis = 2008-05-01, jusqu_a = 2008-07-01, im = 288, source = "décret 2008-400, /2008-06-01/" },
+  { depuis = 2008-07-01, jusqu_a = 2009-07-01, im = 290, source = "décret 2008-622, /2008-08-01/" },
+  { depuis = 2009-07-01, jusqu_a = 2011-01-01, im = 292, source = "décret 2009-824, /2010-08-01/" },
+  { depuis = 2011-01-01, jusqu_a = 2012-01-01, im = 295, source = "décret 2011-51, /2011-06-01/" },
+  { depuis = 2012-01-01, jusqu_a = 2012-07-07, im = 302, source = "décret 2012-37, /2012-03-01/" },
+  { depuis = 2012-07-07, jusqu_a = 2013-01-01, im = 308, source = "décret 2012-853, /2012-08-01/" },
+  { depuis = 2013-01-01, jusqu_a = 2021-10-01, im = 309, source = "décret 2013-33, /2017-03-01/" },
+  { depuis = 2021-10-01, jusqu_a = 2022-01-01, im = 340, source = "décret 2021-1270, /2021-11-01/" },
+  { depuis = 2022-01-01, jusqu_a = 2022-05-01, im = 343, source = "décret 2021-1749, /2022-01-15/" },
+  { depuis = 2022-05-01, jusqu_a = 2023-01-01, im = 352, source = "décret 2022-586, /2022-06-01/" },
+  { depuis = 2023-01-01, jusqu_a = 2023-05-01, im = 353, source = "décret 2022-1615, /2023-03-01/" },
+  { depuis = 2023-05-01, jusqu_a = 2024-01-01, im = 361, source = "décret 2023-312 puis 2023-519, /2023-06-01/ et /2023-12-01/" },
+  { depuis = 2024-01-01, im = 366, source = "décret 2023-519 art. 2, /2026-10-17/" },
+]
+url_base = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738"
+note = "Plancher d'IR : IM 313 du 01/01/2013 au 31/12/2021 ; puis IM de l'art. 8 : 343, 352, 353, 361, 366 (depuis le 01/01/2024)."
+
+[sft]
+texte = "Décret 85-1148, art. 10 à 12"
+url = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/"
+bareme = [
+  { enfants = 1, fixe_mensuel = 2.29, proportionnel = 0.0 },
+  { enfants = 2, fixe_mensuel = 10.67, proportionnel = 0.03 },
+  { enfants = 3, fixe_mensuel = 15.24, proportionnel = 0.08 },
+  { enfants = "par enfant au-delà du troisième", fixe_mensuel = 4.57, proportionnel = 0.06 },
+]
+bareme_source = "Art. 10 bis, tableau identique dans les versions 01/01/2002, 01/11/2006 et 01/01/2024"
+temps_partiel = "« … le supplément familial de traitement est, pour l'agent à temps partiel, fonction de la quotité de traitement soumis aux retenues pour pension qu'il perçoit, à l'exception de l'élément fixe prévu pour un enfant. » (art. 12, version 13/06/1999)"
+residence_alternee = "Art. 11 bis et 11 ter (depuis 12/11/2020) : partage par moitié possible, coefficient = nombre moyen d'enfants (0,5 par enfant en résidence alternée) / nombre total."
+
+[[sft.plancher_plafond]]
+depuis = 2002-01-01
+jusqu_a = 2006-11-01
+plafond = "traitement de l'IM 716 (IB 879)"
+plancher = "IM 448 (IB 524)"
+source = "Art. 10 bis, version 01/01/2002–01/11/2006, /2006-01-01/"
+[[sft.plancher_plafond]]
+depuis = 2006-11-01
+jusqu_a = 2024-01-01
+plafond = "traitement de l'IM 717 (IB 879)"
+plancher = "IM 449 (IB 524)"
+source = "Art. 10 bis mod. par décret 2006-1283, /2021-06-01/"
+[[sft.plancher_plafond]]
+depuis = 2024-01-01
+plafond = "traitement afférent à l'IB 879"
+plancher = "IB 524"
+source = "Art. 10 bis mod. par décret 2023-519 art. 2, /2026-10-17/"
+note = "Depuis 2024 le texte ne cite plus d'IM : il faut la correspondance IB→IM en vigueur (décret 82-1105, non lu ici)."
+
+[transport]
+texte = "Décret n° 2010-676 du 21 juin 2010"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2026-10-17/"
+versement = "« Le montant de la prise en charge partielle du prix des titres d'abonnement est versé mensuellement. » (art. 4)"
+temps_partiel = "Art. 7 : quotité ≥ moitié de la durée légale → prise en charge « dans les mêmes conditions que s'il travaillait à temps plein » ; < moitié → « réduite de moitié »."
+suspension = "Art. 6 : suspendue pendant les congés de maladie, CLM, CGM, CLD, maternité/adoption, paternité … ; maintenue jusqu'à la fin du mois où débute le congé."
+plafond_euros = "MANQUANT : le décret fixe le plafond par référence au tarif de l'abonnement annuel Île-de-France ; aucun montant en euros lu."
+avant_2010 = "MANQUANT : régime antérieur (décrets de 1982, 1983 et 2006 abrogés par l'art. 11) non lu."
+
+[[transport.taux]]
+depuis = 2010-07-01
+jusqu_a = 2023-09-01
+taux = 0.50
+regle = "L'employeur public prend en charge la moitié du tarif des abonnements mentionnés à l'article 2."
+plafond = "2010–2015 : « 50 % de la somme des tarifs des abonnements annuels cumulés permettant d'effectuer depuis Paris le trajet maximum et le trajet minimum » en Île-de-France ; depuis 07/10/2015 (décret 2015-1228) : « tarif de l'abonnement annuel permettant d'effectuer le trajet maximum … après application d'un coefficient multiplicateur égal à 1,25 »."
+source = "Art. 3, versions 01/07/2010–07/10/2015 et 07/10/2015–01/09/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2010-08-01/ et /2023-08-01/"
+
+[[transport.taux]]
+depuis = 2023-09-01
+taux = 0.75
+regle = "L'employeur public prend en charge les trois quarts du tarif des abonnements mentionnés à l'article 2."
+plafond = "tarif de l'abonnement annuel Île-de-France trajet maximum × 1,25 (inchangé)"
+source = "Art. 3 mod. par décret 2023-812 art. 1, « pour la prise en charge des déplacements effectués à compter de cette date », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2023-10-01/"
+
+[forfait_mobilites_durables]
+texte = "Décret n° 2020-543 du 9 mai 2020 ; arrêté du 9 mai 2020"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041858525/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041858561/2026-10-17/"
+versement = "« Le « forfait mobilités durables » est versé l'année suivant celle du dépôt de la déclaration prévue à l'article 4 » (décret art. 5) ; déclaration sur l'honneur au plus tard le 31 décembre (art. 4)."
+quotite = "« Le nombre minimal de jours est modulé selon la quotité de temps de travail de l'agent. » (décret art. 3)"
+cumul_transport = "Cumulable avec le remboursement d'abonnement pour les déplacements à compter du 01/09/2022, sauf même abonnement (décret art. 8, version 15/12/2022)."
+
+[[forfait_mobilites_durables.bareme]]
+depuis = 2020-05-11
+jusqu_a = 2022-01-01
+jours_min = 100
+montant = 200
+source = "Arrêté du 9/05/2020, art. 1 et 2, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041858561/2021-01-01/"
+note = "Réduction de moitié pour 2020 évoquée par le décret (non relue ici : à vérifier avant usage)."
+
+[[forfait_mobilites_durables.bareme]]
+depuis = 2022-01-01
+paliers = [ { jours_min = 30, jours_max = 59, montant = 100 }, { jours_min = 60, jours_max = 99, montant = 200 }, { jours_min = 100, montant = 300 } ]
+source = "Arrêté du 9/05/2020, art. 1 et 2 mod. par arrêté du 13/12/2022 (NOR TFPF2222475A), « déplacements … effectués à compter du 1er janvier 2022 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041858561/2026-10-17/"
+
+[prime_equipement_informatique]
+texte = "Décret n° 2020-1524 du 5 décembre 2020 ; arrêté du 5 décembre 2020"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000042614334/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000042614360/2026-10-17/"
+depuis = 2021-01-01
+montant_annuel = 176
+montant_source = "Arrêté du 5/12/2020, art. 1 (seule version) : « … est de 176 euros »"
+beneficiaires = "« … aux psychologues de l'éducation nationale stagiaires et titulaires et aux enseignants stagiaires et titulaires … qui exercent des missions d'enseignement, à l'exception des professeurs de la discipline de documentation » ; contractuels en CDI ou CDD ≥ 1 an (art. 1)."
+temps_partiel = "« … qui exercent à temps partiel ou à temps incomplet perçoivent la prime à taux plein. » (art. 1)"
+versement = "« Cette prime est versée annuellement aux personnels en fonction au 1er janvier. » (art. 3, version 15/02/2026 ; avant, un premier alinéa sur l'exercice effectif, supprimé par décret 2026-89 art. 31)"
+
+[psc_remboursement]
+texte = "Décret n° 2021-1164 du 8 septembre 2021"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000044030655/2026-10-17/"
+depuis = 2022-01-01
+montant_mensuel = 15
+regle = "Le montant du remboursement au titre d'un mois est fixé à 15 euros. Le remboursement est versé mensuellement. (art. 4)"
+temps_partiel = "« … il bénéficie du remboursement dans les mêmes conditions que s'il travaillait à temps plein ou complet. » (art. 7)"
+fin = "Art. 13 : applicable « jusqu'à la date d'effet de la sélection mentionnée aux III de l'article 22 bis de la loi du 13 juillet 1983 » ; date de fin pour l'Éducation nationale = MANQUANT (non lue)."
+arrete = "Aucun arrêté nécessaire : le montant est dans le décret."
+
+[transfert_primes_points]
+texte = "Décret n° 2016-588 du 11 mai 2016"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000032520735/2026-10-17/"
+regle = "Abattement sur les indemnités ; « Le montant maximal annuel brut de l'abattement est fixé comme suit » (art. 3, version 01/01/2017 mod. par décret 2018-807) ; précomptes mensuels = un douzième du plafond (art. 4)."
+cat_A_annexe = [ { annee = 2016, plafond = 167 }, { depuis_annee = 2017, plafond = 389 } ]
+cat_A_hors_annexe = [ { depuis_annee = 2017, plafond = 167 }, { depuis_annee = 2019, plafond = 389 } ]
+cat_B = [ { depuis_annee = 2016, plafond = 278 } ]
+cat_C = [ { depuis_annee = 2017, plafond = 167 } ]
+enseignants = "Agrégés, certifiés, chaires supérieures, professeurs des écoles absents de l'annexe (recherche dans l'annexe, version 27/12/2018) → catégorie A « non mentionnés au 1° » : 167 € en 2017–2018, 389 € depuis 2019."
+exclusions_assiette = "Art. 2 : exclues l'IR, le SFT, les remboursements de frais, la prise en charge transport (décret 2010-676), les IHTS, l'astreinte, l'indemnité compensatrice CSG."
+
+[indemnite_compensatrice_csg]
+texte = "Décret n° 2017-1889 du 30 décembre 2017"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000036342240/2026-10-17/"
+depuis = 2018-01-01
+regle_en_poste_avant_2018 = "La rémunération brute annuelle perçue au cours de l'année 2017 est multipliée par 1,6702 %. Sont déduits … [contribution exceptionnelle de solidarité, cotisation maladie RG, contribution chômage] … Le résultat obtenu … est ensuite multiplié par 1,1053. (art. 2 I)"
+regle_nommes_apres_2018 = "La rémunération mensuelle brute à la date de la nomination ou du recrutement est multipliée par 0,76 %. (art. 2 III ; idem réintégration, art. 2 II)"
+versement = "mensuel ; prorata en cas de recrutement en cours de mois (art. 3) ; varie avec la quotité de travail « dans les mêmes proportions que le traitement » (art. 4)"
+reevaluation = "Depuis 01/01/2021 (décret 2020-1626) : « Au 1er janvier de chaque année, si la rémunération … a évolué entre l'année civile écoulée et la précédente, le montant de l'indemnité est réévalué proportionnellement à cette évolution. » (art. 5). Version 2018–2020 de l'art. 5 : MANQUANT (non lue)."
+
+[rep]
+texte = "Décret n° 2015-1087 du 28 août 2015 ; arrêté du 28 août 2015 fixant les taux annuels"
+url_decret = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031113279/2026-10-17/"
+url_arrete = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031113410/2026-10-17/"
+versement = "REP+ : « La part fixe est versée mensuellement. La part modulable est versée à l'issue de chaque année scolaire. » (décret art. 1-2, depuis 01/07/2021)"
+remplacement = "« Le versement de l'indemnité est suspendu à compter du remplacement ou de l'intérim de l'agent dans ses fonctions. » (décret art. 4)"
+sortie_de_liste = "Maintien 3 ans si l'école/établissement sort de la liste et que l'agent y reste affecté (décret art. 5)."
+alinea_2 = "« deuxième alinéa » des art. 1 et 6 depuis 01/01/2023 = assistants d'éducation et AESH ; « premier alinéa » = enseignants, CPE, direction, ATSS, psychologues."
+exercice_effectif = "Art. 3 et 8 (« subordonnée à l'exercice effectif des fonctions ») abrogés le 15/02/2026 par décret 2026-89 art. 24 et 25."
+
+[[rep.rep_plus]]
+depuis = 2015-09-01
+jusqu_a = 2018-09-01
+montant = 2312
+source = "Arrêté du 28/08/2015, art. 1, version initiale, /2016-01-01/"
+[[rep.rep_plus]]
+depuis = 2018-09-01
+jusqu_a = 2019-09-01
+montant = 3479
+source = "Arrêté du 28/08/2015, art. 1 mod. par arrêté du 28/08/2018, /2019-01-01/"
+[[rep.rep_plus]]
+depuis = 2019-09-01
+jusqu_a = 2021-09-01
+montant = 4646
+source = "Arrêté du 28/08/2015, art. 1 mod. par arrêté du 23/07/2019, /2020-01-01/"
+[[rep.rep_plus]]
+depuis = 2021-09-01
+jusqu_a = 2023-01-01
+part_fixe = 5114
+part_modulable_max = 702
+source = "Arrêté du 28/08/2015, art. 1 mod. par arrêté du 28/06/2021, /2021-10-01/"
+[[rep.rep_plus]]
+depuis = 2023-01-01
+part_fixe = 5114
+part_modulable_max = 702
+part_fixe_aed_aesh = 3263
+part_modulable_max_aed_aesh = 448
+source = "Arrêté du 28/08/2015, art. 1 mod. par arrêté du 8/12/2022 (NOR MENH2230834A), /2026-10-17/"
+
+[[rep.rep]]
+depuis = 2015-09-01
+jusqu_a = 2023-01-01
+montant = 1734
+source = "Arrêté du 28/08/2015, art. 2, version initiale, /2016-01-01/ et /2021-10-01/"
+[[rep.rep]]
+depuis = 2023-01-01
+montant = 1734
+montant_aed_aesh = 1106
+source = "Arrêté du 28/08/2015, art. 2 mod. par arrêté du 8/12/2022, /2026-10-17/"
+
+[retenue_pension_civile]
+texte = "Décret n° 2010-1749 du 30 décembre 2010, art. 1 (taux de la cotisation du 2° de l'art. L. 61 du CPCMR)"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000023335006/2026-10-17/"
+# Taux applicable à une année = celui de la version du tableau en vigueur cette année-là.
+taux = [
+  { annee = 2011, taux = 0.0812, source = "version initiale 01/01/2011–04/07/2012, /2011-06-01/" },
+  { periode = "2012-01-01..2012-10-31", taux = 0.0839, source = "version 04/07/2012 (décret 2012-847), /2013-06-01/" },
+  { periode = "2012-11-01..2012-12-31", taux = 0.0849, source = "idem" },
+  { annee = 2013, taux = 0.0876, source = "idem" },
+  { annee = 2014, taux = 0.0914, source = "version 01/01/2014 (décret 2013-1290), /2014-06-01/" },
+  { annee = 2015, taux = 0.0954, source = "version 01/01/2015 (décret 2014-1531), /2026-10-17/" },
+  { annee = 2016, taux = 0.0994, source = "idem" },
+  { annee = 2017, taux = 0.1029, source = "idem" },
+  { annee = 2018, taux = 0.1056, source = "idem" },
+  { annee = 2019, taux = 0.1083, source = "idem" },
+  { depuis_annee = 2020, taux = 0.1110, source = "idem, toujours en vigueur au 2026-10-17" },
+]
+avant_2011 = "MANQUANT : le tableau initial cite 7,85 % pour 2010 (ligne de référence d'un décret en vigueur au 01/01/2011) ; taux 2006–2010 non lus dans leur texte propre."
+
+[rafp]
+texte = "Décret n° 2004-569 du 18 juin 2004"
+url = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000803653/2026-10-17/"
+taux_global = 0.10
+repartition = "« Le taux global de cotisation est fixé à 10 % du montant de l'assiette. Il est réparti à parts égales entre l'employeur et le bénéficiaire. » (art. 3, en vigueur depuis 19/06/2004) → 5 % agent"
+plafond = "« Ces éléments sont pris en compte dans la limite de 20 % du traitement indiciaire brut total ou de la solde brute totale perçus au cours de l'année considérée. » (art. 2, version 17/04/2024, décret 2024-348 ; même limite de 20 % dans l'arrêté du 26/11/2004)"
+assiette = "Revenus d'activité de l'année entrant dans l'assiette CSG, hors ceux qui entrent dans l'assiette de la pension CPCMR (art. 2)."

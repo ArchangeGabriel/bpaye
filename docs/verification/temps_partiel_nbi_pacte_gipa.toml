@@ -1,0 +1,400 @@
+# Vérification sur sources officielles pour bpaye — 2026-10-17
+# Règle : chaque valeur a une `source` (URL datée, article, version) et, pour une règle,
+# la phrase du texte (`texte`). Ce qui n'a pas été lu est marqué MANQUANT.
+# Tous les textes Légifrance ont été lus dans la version consolidée au 2026-10-17, sauf
+# mention contraire.
+# `derive = true` : valeur calculée à partir de textes lus, pas écrite telle quelle.
+
+# ======================================================================
+# 1. TEMPS PARTIEL ET QUOTITÉ
+# ======================================================================
+[temps_partiel]
+note = "L'ordonnance 82-296 (art. 6 pour la rémunération, pas l'art. 2) est abrogée depuis le 01/03/2022 par l'ordonnance 2021-1574 ; la règle est désormais au CGFP, art. L612-5. Pour l'État, elle était avant 2022 à l'art. 40 de la loi 84-16 (MANQUANT : non relu)."
+
+[temps_partiel.fraction_generale]
+regle = "fraction = durée hebdomadaire effectuée / durée des obligations hebdomadaires à temps complet ; s'applique au traitement, à l'IR et aux primes et indemnités de toute nature"
+texte = "Le fonctionnaire autorisé à travailler à temps partiel perçoit une fraction du traitement, de l'indemnité de résidence ainsi que des primes et indemnités de toute nature afférentes soit à son grade et à son échelon, soit à l'emploi auquel il a été nommé. Cette fraction est égale au rapport entre la durée hebdomadaire du service effectué et la durée résultant des obligations hebdomadaires de service réglementairement fixées pour les fonctionnaires de même grade exerçant à temps complet les mêmes fonctions dans l'administration ou le service concerné."
+source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000044416551/LEGISCTA000044423499/2026-10-17/ — CGFP art. L612-5, al. 1-2, version en vigueur depuis le 01/03/2022 (création ordonnance 2021-1574)"
+
+[temps_partiel.fraction_80_90]
+q80 = "6/7"
+q90 = "32/35"
+texte = "Pour les quotités égales à 80 ou 90 % du temps complet et par dérogation au second alinéa, cette fraction est égale respectivement aux six septièmes ou aux trente-deux trente-cinquièmes de la rémunération mentionnée au premier alinéa."
+source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000044416551/LEGISCTA000044423499/2026-10-17/ — CGFP art. L612-5, al. 3, en vigueur depuis le 01/03/2022"
+source_historique = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000889074/2022-02-28/ — ordonnance 82-296 art. 6, version du 02/04/1982 au 01/03/2022 (« 6/7 ou aux 32/35 du traitement, des primes et indemnités »)"
+
+[temps_partiel.quotites_autorisees]
+sur_autorisation = [50, 60, 70, 80, 90]
+de_droit = [50, 60, 70, 80]
+source_autorisation = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006063839/2026-10-17/ — décret 82-624 art. 1 al. 1, en vigueur depuis le 14/06/2015 (décret 2015-652)"
+source_droit = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000044416551/LEGISCTA000044423499/2026-10-17/ — CGFP art. L612-3 (« selon une quotité de 50, 60, 70 ou 80 % »), en vigueur depuis le 01/03/2022 ; aussi décret 82-624 art. 1-2"
+
+[temps_partiel.enseignants_quotite_amenagee]
+regle = "Personnels à obligations de service dont la quotité est aménagée entre 80 % et 90 % : fraction de rémunération (en %) = quotité × 4/7 + 40, arrondie à un chiffre après la virgule"
+texte = "les personnels relevant d'un régime d'obligations de service, dont la quotité de temps de travail est aménagée entre 80 % et 90 %, perçoivent une fraction de rémunération calculée en pourcentage selon la formule suivante : (Quotité de temps partiel aménagée en pourcentage d'un service à temps complet x 4/7) + 40. Pour le calcul de cette fraction de rémunération, il est retenu un pourcentage exprimé avec un chiffre après la virgule."
+source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006063839/2026-10-17/ — décret 82-624 art. 1 al. 3-4, en vigueur depuis le 14/06/2015 (décret 2015-652 art. 4)"
+controle = "la formule redonne 6/7 à 80 % (85,7) et 32/35 à 90 % (91,4)"
+controle_derive = true
+arrondi = "MANQUANT : le texte dit « un chiffre après la virgule » sans préciser arrondi ou troncature"
+
+[temps_partiel.enseignants_second_degre_heures]
+regle = "Second degré : service à temps partiel aménagé en nombre entier d'heures hebdomadaires ; quotité entre 50 % et 90 % ; la quotité est heures / ORS"
+texte = "Pour les personnels des établissements d'enseignement du second degré, qui, relevant d'un régime d'obligations de service défini en heures hebdomadaires, exercent à temps partiel, la durée du service est aménagée de façon à obtenir un nombre entier d'heures hebdomadaires, correspondant à la quotité de temps de travail choisie et qui ne peut correspondre à une quotité de travail inférieure à 50 % ou supérieure à 90 %."
+source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071191/LEGISCTA000030722423/2026-10-17/ — code de l'éducation art. R911-7 al. 2, en vigueur depuis le 14/06/2015"
+source_cadre = "même URL — art. D911-4 : le décret 82-624 s'applique aux personnels de l'éducation « sous réserve des dispositions des articles R. 911-5 à R. 911-9 » ; CGFP L612-10 (« soit un nombre entier d'heures, soit un nombre entier de demi-journées ... La fraction de rémunération versée est adaptée dans les mêmes conditions »)"
+note = "« quotité = heures / ORS » n'est pas écrit en toutes lettres : c'est L612-5 al. 2 (durée effectuée / obligations à temps complet) appliqué à R911-7. L'art. 1-1 du décret 82-624 ne traite pas de cela mais de la surcotisation."
+
+[temps_partiel.enseignants_temps_partiel_de_droit]
+regle = "Temps partiel de droit aménagé : rémunération au prorata (quotité), sauf si l'aménagement fait dépasser 80 % : alors formule de l'art. 1 du décret 82-624 (×4/7 + 40)"
+texte = "La rémunération est calculée dans les conditions prévues au premier alinéa de l'article 40 de la loi n° 84-16 du 11 janvier 1984 [...], sauf si les règles d'aménagement des horaires définies dans le présent article conduisent la quotité de temps de travail des intéressés à dépasser 80 %. La rémunération est alors calculée dans les conditions prévues à l'article 1er du décret n° 82-624 du 20 juillet 1982"
+source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071191/LEGISCTA000030722423/2026-10-17/ — code de l'éducation art. R911-9, en vigueur depuis le 14/06/2015"
+note = "R911-9 renvoie encore à l'art. 40 de la loi 84-16, abrogée : son contenu est au CGFP L612-5."
+
+[temps_partiel.annee_scolaire]
+texte = "l'autorisation d'assurer un service à temps partiel n'est donnée que pour une période correspondant à une année scolaire [...] prennent effet au 1er septembre. La demande des intéressés doit être présentée avant le 31 mars précédant l'ouverture de l'année scolaire"
+source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071191/LEGISCTA000030722425/2026-10-17/ — code de l'éducation art. R911-5, en vigueur depuis le 14/06/2015"
+
+[temps_partiel.proratisation]
+traitement = { proratise = true, source = "CGFP L612-5 (ci-dessus)" }
+indemnite_residence = { proratise = true, source = "CGFP L612-5 (ci-dessus)" }
+primes_en_general = { proratise = true, source = "CGFP L612-5 : « primes et indemnités de toute nature afférentes soit à son grade et à son échelon, soit à l'emploi »" }
+isoe_part_fixe = { proratise = "MANQUANT (pas de clause temps partiel propre ; L612-5 s'applique a priori)", note = "décret 93-55 art. 2 (version du 15/02/2026, décret 2026-89) prorate selon la durée d'exercice des fonctions, pas selon la quotité : « Les personnels qui n'exercent pas cette fonction pendant l'intégralité de leurs obligations règlementaires de service bénéficient d'une fraction de cette part, calculée au prorata de la durée d'exercice des fonctions y ouvrant droit. »", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/" }
+isoe_isae_part_fonctionnelle = { proratise = "MANQUANT : aucun texte lu ne dit si la part fonctionnelle (liée à une mission) suit la quotité" }
+prime_attractivite = { proratise = "MANQUANT : décret 2021-276 consolidé au 2026-10-17 ne contient ni « temps partiel » ni « quotité » (recherche plein texte) ; L612-5 s'applique a priori", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/" }
+rep_rep_plus = { proratise = "MANQUANT : décret 2015-1087 consolidé au 2026-10-17 ne contient ni « temps partiel » ni « quotité » ; L612-5 s'applique a priori", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031113279/2026-10-17/" }
+prime_equipement_informatique = { proratise = false, texte = "Les personnels visés aux premier et deuxième alinéas qui exercent à temps partiel ou à temps incomplet perçoivent la prime à taux plein.", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000042614334/2026-10-17/ — décret 2020-1524 art. 1 al. 3, en vigueur depuis le 01/01/2021" }
+nbi = { proratise = true, texte = "Les fonctionnaires autorisés à exercer leur activité à temps partiel et affectés sur un emploi ouvrant droit à la nouvelle bonification indiciaire perçoivent une fraction de celle-ci dans les conditions déterminées par le décret du 20 juillet 1982 susvisé.", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000356073/2026-10-17/ — décret 91-1229 art. 3, en vigueur depuis le 08/12/1991" }
+
+[temps_partiel.sft]
+regle = "SFT proportionnel à la quotité de traitement soumis à retenue pour pension perçue, sauf l'élément fixe pour un enfant ; jamais inférieur au minimum d'un temps plein avec le même nombre d'enfants"
+texte = "Sauf dérogations prévues par des dispositions législatives ou réglementaires, le supplément familial de traitement est, pour l'agent à temps partiel, fonction de la quotité de traitement soumis aux retenues pour pension qu'il perçoit, à l'exception de l'élément fixe prévu pour un enfant."
+source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/ — décret 85-1148 art. 12, en vigueur depuis le 13/06/1999 (décret 99-491)"
+plancher_texte = "Le supplément familial de traitement ne peut être inférieur au montant minimum versé aux fonctionnaires travaillant à temps plein ayant le même nombre d'enfants à charge."
+plancher_source = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000044416551/LEGISCTA000044423499/2026-10-17/ — CGFP art. L612-6, en vigueur depuis le 01/03/2022"
+bareme = { un_enfant_fixe = 2.29, deux_fixe = 10.67, deux_pct = 3, trois_fixe = 15.24, trois_pct = 8, par_enfant_sup_fixe = 4.57, par_enfant_sup_pct = 6, plafond_ib = 879, plancher_ib = 524, source = "même URL — décret 85-1148 art. 10 bis, en vigueur depuis le 01/01/2024 (décret 2023-519)" }
+
+[temps_partiel.surcotisation]
+regle = "Option L11 bis : périodes à temps partiel (depuis le 01/01/2004) décomptées comme temps plein, contre une retenue pour pension sur le traitement d'un temps plein ; gain limité à 4 trimestres (8 pour IPP ≥ 80 %)"
+texte_L11bis = "les périodes de travail effectuées à temps partiel à compter du 1er janvier 2004 peuvent être décomptées comme des périodes de travail à temps plein, sous réserve du versement d'une retenue pour pension dont le taux est fixé par décret. Cette retenue est appliquée au traitement correspondant à celui d'un agent de même grade, échelon et indice travaillant à temps plein. Cette prise en compte ne peut avoir pour effet d'augmenter la durée de services mentionnée à l'article L. 13 de plus de quatre trimestres."
+source_L11bis = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006070302/LEGISCTA000006148893/2026-10-17/ — CPCMR art. L11 bis, en vigueur depuis le 01/01/2004 (loi 2003-775 art. 47)"
+demande = "lors de la demande d'autorisation ou de son renouvellement ; en renouvellement tacite, au plus tard à la fin de la période précédente ; porte sur toute la période (décret 82-624 art. 1-1, en vigueur depuis le 30/12/2003, décret 2003-1307) — https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006063839/2026-10-17/"
+taux_formule = "taux = t_salarié × q + 0,80 × (t_salarié + t_CNRACL_employeur) × (1 − q), q = quotité travaillée (pour un service aménagé : la quotité choisie) ; assiette = TIB temps plein y compris NBI"
+texte_D5 = "I. - Le taux de la retenue pour pension prévue par l'article L. 11 bis [...] est la somme : 1° Du taux de la cotisation à la charge des agents prévue au 2° l'article L. 61, multiplié par la quotité de temps travaillé de l'agent ; 2° D'un taux égal à 80 % de la somme du taux mentionné au 1° et du taux mentionné au II de l'article 5 du décret n° 91-613 du 28 juin 1991 [...], multiplié par la quotité de temps non travaillé de l'agent. II. - Le taux mentionné au premier alinéa du I est appliqué au traitement indiciaire brut, y compris nouvelle bonification indiciaire [...] correspondant à celui d'un agent de même grade, échelon et indice que l'intéressé et exerçant à temps plein."
+source_D5 = "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000049064677/2026-10-17/ — CPCMR art. D5, en vigueur depuis le 01/02/2024 (décret 2024-49 art. 1), applicable aux cotisations des périodes à compter du 01/01/2024"
+avant_2024 = "décret 2004-678 art. 2 (même formule, version du 01/09/2020 au 01/02/2024), abrogé par décret 2024-49 art. 6 — https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000439623/2026-10-17/ ; taux annuels 2004–2023 : MANQUANT (valeurs de 91-613 art. 5 II avant 2024 non relues)"
+t_salarie = "11,10 % (cité par décret 2024-49 art. 5) ; le taux L61 lui-même : MANQUANT ici (non relu)"
+derogation_options_anterieures = { taux_travaille = 11.10, taux_non_travaille = 33.40, texte = "pour les fonctionnaires et magistrats ayant opté pour le paiement de cette retenue pour pension à la date d'entrée en vigueur du présent décret, est égale à la somme de 11,10 % multiplié par la quotité de temps travaillé de et de 33,40 % multiplié par la quotité de temps non travaillé.", source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000049059894 — décret 2024-49 art. 5 (JORF), sans date de fin écrite" }
+
+[temps_partiel.surcotisation.taux_cnracl_employeur]
+# décret 91-613 art. 5 II, al. 1
+"2024" = { taux = 31.65, source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000049059894 — décret 2024-49 art. 2, périodes à compter du 01/01/2024" }
+"2025" = { taux = 34.65, source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000720106/2025-06-01/ — décret 91-613 art. 5 II, version du 01/01/2025 au 01/01/2026 (décret 2025-86)" }
+"2026" = { taux = 37.65, source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000720106/2026-10-17/ — décret 91-613 art. 5 II, version du 01/01/2026 au 01/01/2027 (décret 2025-86)" }
+"2027" = { taux = 40.65, source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000720106/2027-01-02/ — décret 91-613 art. 5 II, en vigueur au 02/01/2027 (décret 2025-86 art. 1, 3° du I)" }
+
+[temps_partiel.surcotisation.taux_part_non_travaillee]
+# 0,80 × (11,10 + taux CNRACL) — derive = true
+derive = true
+"2024" = 34.20
+"2025" = 36.60
+"2026" = 39.00
+"2027" = 41.40
+note = "Surprenant : pour un fonctionnaire de l'État, D5 renvoie au taux employeur CNRACL (91-613 art. 5 II), pas au taux employeur État."
+
+[temps_partiel.hsa]
+regle = "Un enseignant titulaire du 2nd degré à temps partiel peut percevoir des HS (50-1253) pour les heures faites à sa demande au-delà des maxima résultant de sa quotité ; plafond mensuel = traitement net temps plein − traitement net à temps partiel. La 1re HS au-delà de ces maxima est majorée de 20 %."
+texte_R911_6 = "Les personnels enseignants titulaires du second degré autorisés à travailler à temps partiel perçoivent des heures supplémentaires dans les conditions prévues par le décret n° 50-1253 du 6 octobre 1950 [...] lorsqu'ils effectuent à leur demande, des heures complémentaires d'enseignement excédant les maxima des services résultant de la quotité de travail à temps partiel. Pour chaque mois, la rémunération de ces heures ne doit pas être supérieure au montant résultant de la différence entre le traitement mensuel net afférent à l'exercice à temps plein des fonctions et celui correspondant à la quotité de travail à temps partiel prévue à l'alinéa précédent."
+source_R911_6 = "https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006071191/LEGISCTA000030722425/2026-10-17/ — code de l'éducation art. R911-6, en vigueur depuis le 15/10/2021 (décret 2021-1326 art. 1)"
+avant_2021 = "décret 82-624 art. 3 bis (abrogé le 14/06/2015) puis R911-6 avant le 15/10/2021 : HS seulement pour des remplacements « exceptionnellement », « pour une période inférieure à la durée de l'année scolaire » — texte de 3 bis lu sur https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006063839/2026-10-17/ ; version de R911-6 du 14/06/2015 au 15/10/2021 : MANQUANT (non relue)"
+texte_50_1253_art2 = "Dans la limite d'une heure supplémentaire excédant les maxima de services réglementaires ou les maxima des services résultant de la quotité de travail à temps partiel des personnes mentionnés à l'article premier ci-dessus, ce taux est majoré de 20%."
+source_50_1253 = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2026-10-17/ — décret 50-1253 art. 1 et 2, en vigueur depuis le 15/10/2021 (décret 2021-1327)"
+fonctionnaires_hors_enseignants = "décret 82-624 art. 3 (IHTS, contingent proportionnel à la quotité, heure = (TB annuel + IR temps plein) / 1820) — même URL 82-624, en vigueur depuis le 30/12/2003"
+
+[temps_partiel.csg]
+statut = "MANQUANT : aucune règle propre au temps partiel cherchée ni lue (l'assiette CSG porte sur les sommes versées)"
+
+[temps_partiel.rafp]
+regle = "Assiette RAFP limitée à 20 % du TIB total perçu dans l'année (donc du TIB proratisé à temps partiel) ; taux global 10 %, moitié agent, moitié employeur"
+texte_art2 = "Ces éléments sont pris en compte dans la limite de 20 % du traitement indiciaire brut total ou de la solde brute totale perçus au cours de l'année considérée."
+texte_art3 = "Le taux global de cotisation est fixé à 10 % du montant de l'assiette. Il est réparti à parts égales entre l'employeur et le bénéficiaire."
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000803653/2026-10-17/ — décret 2004-569 art. 2 (version issue du décret 2024-348, dernière mise à jour du texte 17/04/2024) et art. 3 (en vigueur depuis le 19/06/2004)"
+note = "« TIB perçu » à temps partiel = TIB proratisé : déduit du mot « perçus », pas écrit pour le temps partiel."
+
+# ======================================================================
+# 2. NBI
+# ======================================================================
+[nbi]
+loi = "loi 91-73 art. 27"
+texte_loi = "I. - La nouvelle bonification indiciaire des fonctionnaires et des militaires instituée à compter du 1er août 1990 est attribuée pour certains emplois comportant une responsabilité ou une technicité particulières dans des conditions fixées par décret. II. - Elle est prise en compte pour le calcul de la pension de retraite dans les conditions fixées ci-après, et elle est soumise à une cotisation pour la vieillesse."
+source_loi = "https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006696481/2026-10-17/ — loi 91-73 art. 27, en vigueur depuis le 01/01/2004 (loi 2003-775 art. 72)"
+
+[nbi.education_nationale]
+texte = "Une nouvelle bonification indiciaire, prise en compte et soumise à cotisation pour le calcul de la pension de retraite, peut être versée mensuellement, dans la limite des crédits disponibles, aux fonctionnaires du ministère de l'éducation nationale exerçant une des fonctions figurant en annexe au présent décret."
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000356073/2026-10-17/ — décret 91-1229 art. 1, en vigueur depuis le 28/08/2004 (décret 2004-876)"
+plafond_points = { valeur = 50, texte = "Les fonctions mentionnées à l'annexe au présent décret ne peuvent en aucun cas conduire au versement d'une nouvelle bonification indiciaire supérieure à 50 points.", source = "même URL — art. 2, en vigueur depuis le 01/09/2010 (décret 2010-950)" }
+cumul = "non cumulable avec une autre bonification indiciaire d'une autre nature, sauf pour les directeurs d'école (art. 2)"
+decret_2006_779 = "MANQUANT : non cherché/lu"
+
+[nbi.calcul]
+regle = "Montant = points NBI × valeur du point ; la NBI s'ajoute au traitement indiciaire"
+texte_85_1148_art2 = "Les traitements et soldes soumis aux retenues pour pension [...] sont calculés en multipliant le centième de la valeur du traitement fixée à l'article 3 ci-dessous par l'indice majoré correspondant à leur grade ou emploi, et échelon."
+valeur_point_annuelle_indice_100 = { valeur = 5907.34, depuis = "2023-07-01", source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/ — décret 85-1148 art. 3, en vigueur depuis le 01/07/2023 (décret 2023-519), toujours en vigueur au 17/10/2026" }
+points_majores = "MANQUANT : aucun texte EN lu ne dit que les points NBI sont des points d'indice majoré (l'arrêté du 06/12/1991 écrit seulement « Points ») ; d'autres ministères l'écrivent (non relu ici)"
+temps_partiel = "réduite dans les mêmes proportions que le traitement (décret 93-522 art. 3 ; décret 91-1229 art. 3)"
+
+[nbi.pension]
+retenue_pc = true
+texte = "prise en compte et soumise à cotisation pour le calcul de la pension de retraite"
+source = "décret 91-1229 art. 1 (ci-dessus) ; loi 91-73 art. 27 II ; assiette de la surcotisation L11 bis « y compris nouvelle bonification indiciaire » (CPCMR D5 II)"
+note = "Pension : supplément de pension = moyenne annuelle de la NBI perçue × trimestres de perception × rapport L13 (loi 91-73 art. 27 III), pas une intégration dans le traitement des 6 derniers mois."
+
+[nbi.ir_sft_primes]
+texte = "Pour le calcul de l'indemnité de résidence et du supplément familial de traitement, la nouvelle bonification indiciaire s'ajoute au traitement indiciaire de l'agent. Elle est réduite dans les mêmes proportions que le traitement en cas de travail à temps partiel."
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000362602/2026-10-17/ — décret 93-522 art. 3, en vigueur depuis le 28/03/1993"
+primes_en_pourcentage = "s'ajoute au traitement indiciaire pour les primes fixées en % du traitement, sauf celles prises en compte pour la pension (art. 4)"
+maintien = "maintenue dans les mêmes proportions que le traitement en temps partiel thérapeutique et pendant certains congés (art. 2, version du 31/07/2021, décret 2021-997)"
+cotisation_maladie = "soumise à la cotisation prestations en nature maladie (art. 5)"
+gipa = "exclue du calcul de la GIPA (décret 2008-539 art. 3)"
+
+[nbi.codes_bulletin]
+traitement_nbi = "MANQUANT : 101070 introuvable dans les annexes DGFiP lues (diffusion au 01/01/2024 : annexes 3, 4, 6, 7, 9, 10, 11, 12, 13, 14, 15) ; l'annexe générale des codes n'a pas pu être obtenue"
+retenue_pc_nbi = "MANQUANT"
+
+[nbi.fonctions_enseignants]
+source = "https://www.legifrance.gouv.fr/loda/id/LEGITEXT000019798613/2026-10-17/ — arrêté du 06/12/1991, annexe, version en vigueur depuis le 01/01/2020 (arrêté du 30/12/2019)"
+avertissement = "Tableau à colonnes (attributions au 1/8/1994, 1/8/1995, 1/8/1996, 1/1/2003, 1/1/2004) rendu à plat par Légifrance : l'affectation des valeurs aux colonnes est une lecture, à vérifier sur le PDF du JO"
+directeur_ecole = { points = 8, colonnes_lues = "3 / 6 / 8 points (1994 / 1995 / 1996) pour toutes les tailles d'école", note = "s'ajoute à la bonification indiciaire propre aux directeurs (autre texte, non lu)" }
+ulis_clis_enseignant_specialise_pe = { points = 27, libelle = "Personnels enseignants du premier degré affectés soit dans une classe d'intégration scolaire, soit dans une classe de perfectionnement [...] : Professeurs des écoles" }
+ulis_clis_instituteurs = { points = [27, 12], note = "27 (arrêté 26/01/1983) ou 12 (arrêté 28/02/1973)" }
+conseiller_pedagogique_pe = { points = 27 }
+unss_fnsu = { points = 20 }
+ddfpt_chef_de_travaux = { points = 40, majoration_etablissements_93_55_art3 = 10 }
+coordonnateur_cfa = { points = 40 }
+directeur_cio = { points = 20 }
+education_prioritaire = "Pas de NBI enseignant : rubrique III « Établissements scolaires soumis à des contraintes particulières » abrogée par arrêté du 3 mai 2002 ; annexe du décret 91-1229 : « III.-Abrogé ». NBI « ville » d'autres textes : MANQUANT (non cherchée)"
+
+# ======================================================================
+# 3. PACTE ENSEIGNANT — PARTS FONCTIONNELLES ISOE / ISAE
+# ======================================================================
+[pacte]
+creation = "décret 2023-627 du 19/07/2023, en vigueur le 01/09/2023"
+
+[pacte.montant]
+part_isoe = 1250.0
+part_isae = 1250.0
+texte_isoe = "Le montant d'une part fonctionnelle de l'indemnité de suivi et d'orientation des élèves prévue à l'article 1er du décret du 15 janvier 1993 est fixé à 1 250 €."
+source_isoe = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/ — arrêté du 15/01/1993 art. 2-1, en vigueur depuis le 01/09/2023 (arrêté du 19/07/2023), toujours en vigueur au 17/10/2026"
+texte_isae = "Le montant d'une part fonctionnelle de l'indemnité de suivi et d'accompagnement des élèves prévue à l'article 1er du décret du 30 août 2013 susvisé est fixé à 1 250 €."
+source_isae = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/ — arrêté du 30/08/2013 art. 1-1, en vigueur depuis le 01/09/2023"
+non_indexee = "décret 93-55 art. 4 : seules la part fixe et la part modulable « sont indexés sur la valeur du point » ; la part fonctionnelle « comporte un montant unique »"
+demi_part = "moitié du montant pour une mission dont le volume horaire ou la charge vaut la moitié d'une mission ; au 2nd degré, seulement si engagé pour au moins une mission entière, sauf remplacement de courte durée, « devoirs faits », « stages de réussite » (décret 93-55 art. 3-1, version du 10/09/2025 ; décret 2013-790 art. 2-1)"
+
+[pacte.versement]
+regle = "versée mensuellement par neuvième ; totalité sous réserve d'accomplir toute la mission"
+texte = "Le montant de la ou des parts fonctionnelles de l'indemnité est versé mensuellement par neuvième. Le versement de la totalité d'une part fonctionnelle intervient sous réserve de l'accomplissement de l'intégralité de la mission complémentaire y ouvrant droit."
+source_isoe = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/ — décret 93-55 art. 6, en vigueur depuis le 01/09/2023 (décret 2023-627 art. 5)"
+source_isae = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914226/2026-10-17/ — décret 2013-790 art. 3, en vigueur depuis le 10/09/2025 (décret 2025-926)"
+mois = "MANQUANT : aucun texte lu ne dit sur quels mois tombent les neuf neuvièmes"
+report = "si mission inachevée sans redéploiement possible, date limite reportable au 31 octobre de l'année scolaire suivante, si la moitié est faite et sans changement d'établissement (décret 93-55 art. 3-2 ; décret 2013-790 art. 2-2, versions du 10/09/2025)"
+
+[pacte.missions_2nd_degre]
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/ — arrêté du 15/01/1993 art. 2-2, en vigueur depuis le 10/09/2025 (arrêté du 08/09/2025)"
+remplacement_courte_duree_h = 18
+devoirs_faits_h = 24
+stages_reussite_ecole_ouverte_h = 24
+decouverte_metiers_colleges_h = 24
+lp_post_bac_pro_h = 24
+lp_activites_optionnelles_h = 24
+missions_sans_volume = ["Appui à la prise en charge d'élèves à besoins particuliers", "Encadrement de la découverte des métiers dans les classes de 5e, 4e et 3e", "Coordination et prise en charge des projets d'innovation pédagogique", "LP/EREA : Accompagnement des élèves en difficulté", "LP/EREA : Accompagnement vers l'emploi"]
+cpe_psyen = "part fonctionnelle ouverte aux CPE et PsyEN EDO (décret 93-55 art. 3-1, dernier alinéa)"
+
+[pacte.missions_1er_degre]
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/ — arrêté du 30/08/2013 art. 1-2, en vigueur depuis le 10/09/2025"
+soutien_renforce_fondamentaux_h = 18
+devoirs_faits_h = 24
+stages_reussite_ecole_ouverte_h = 24
+soutien_fondamentaux_h = 24
+missions_sans_volume = ["Appui à la prise en charge d'élèves à besoins particuliers", "Coordination et prise en charge des projets d'innovation pédagogique", "Référent harcèlement scolaire"]
+
+[pacte.codes]
+isoe_part_fonctionnelle = { code_dgfip = "2475", libelle = "Indemnité de suivi et d'orientation des élèves – Part fonctionnelle allouée aux enseignants du 2nd degré", textes = "Décret n° 2023-627 du 19 juillet 2023 ; Décret n° 2023-808 du 22 août 2023" }
+isae_part_fonctionnelle = { code_dgfip = "2476", libelle = "Indemnité de suivi et d'accompagnement des élèves – Part fonctionnelle allouée aux enseignants du 1er degré", textes = "Décret n° 2023-627 du 19 juillet 2023" }
+source = "DGFiP, bureau 2FCE-2A, NOMENCLATURE DES CODES, ANNEXE 14C : HEURES SUPPLÉMENTAIRES EXONÉRÉES (fichier ANNEXE_14C_HS_EXO_20240101.xlsx, page 6/6), diffusion au 01/01/2024 — copie hébergée par l'AMUE : https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2024/Paye2024/annexe6.pdf"
+reserve = "Document DGFiP, mais lu sur amue.fr (pas de copie sur un site DGFiP trouvée) ; version 2025/2026 : MANQUANT"
+code_bulletin_6_chiffres = "MANQUANT : la DGFiP numérote sur 4 chiffres (2475, 2476) ; le préfixe « 20 » de 202475/202476 sur le bulletin n'est expliqué par aucun texte lu"
+
+[pacte.regime_social_fiscal]
+regle = "Les parts fonctionnelles ISOE et ISAE entrent dans le champ de la réduction de cotisations salariales (L241-17 CSS) et de l'exonération d'impôt sur le revenu (art. 81 quater CGI), comme les heures supplémentaires"
+texte = "29° Les parts fonctionnelles versées en application du décret n° 93-55 du 15 janvier 1993 modifié [...] et du décret n° 2013-790 du 30 août 2013 modifié [...]"
+texte_chapeau = "entrent dans le champ d'application de la réduction de cotisations prévue au même article et de l'exonération d'impôt sur le revenu prévue à l'article 81 quater du code général des impôts les éléments de rémunération suivants :"
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000038168767/2026-10-17/ — décret 2019-133 art. 1, 29°, en vigueur depuis le 08/12/2023 (décret 2023-1147), applicable aux parts fonctionnelles allouées à compter de l'année 2023"
+reduction_fonctionnaire = "réduction = taux de cotisation salariale RAFP (art. 3 du décret 2004-569 : 5 %) × montant, dans la limite du plafond RAFP de 20 % (décret 2019-133 art. 2, 1°, en vigueur depuis le 28/02/2019)"
+plafond_81_quater = { valeur = 8037.00, texte = "fixe le plafond d'exonération fiscale à 8.037,00 € sans limitation dans le temps", source = "DGFiP 2FCE-2A, « Paramètres applicables au 1er janvier 2024 », § 2.8 — https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2024/Paye2024/annexe10.pdf ; art. 81 quater CGI lui-même : MANQUANT (non relu)" }
+retenue_pension = "non soumise à retenue pour pension (décret 93-55 art. 1 : ISOE « non soumise à retenues pour pensions ») ; ISAE : MANQUANT (art. 1 du décret 2013-790 n'en parle pas)"
+csg_crds = "MANQUANT (non lu)"
+
+[pacte.statut]
+"2025-2026" = "en vigueur : décret 93-55 art. 3-1 et 3-2 et décret 2013-790 art. 1, 2-2, 3 modifiés par le décret 2025-926 du 08/09/2025, applicables aux rémunérations versées à compter de septembre 2025 ; missions modifiées par l'arrêté du 08/09/2025"
+"2026-2027" = "en vigueur au 17/10/2026 : mêmes articles, montant 1 250 € inchangé ; le décret 2026-89 du 13/02/2026 a modifié les art. 2 et 3 du décret 93-55 (part fixe, part modulable) et les art. 2 et 2-3 du décret 2013-790, pas les parts fonctionnelles ; l'arrêté du 10/07/2026 a revalorisé la part modulable ISOE au 01/09/2026 (art. 2 de l'arrêté du 15/01/1993), pas la part fonctionnelle"
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/ ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/ ; https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914226/2026-10-17/"
+part_modulable_isoe_2026 = { "6e_5e_4e" = 1308.72, "3e_cap_bacpro_2nde" = 1497.84, autres_lp = 951.96, "1re_term_pp" = 1497.84, "1re_term_referent" = 748.92, source = "arrêté du 15/01/1993 art. 2, en vigueur depuis le 01/09/2026 (arrêté du 10/07/2026 art. 5)" }
+
+# ======================================================================
+# 4. GIPA
+# ======================================================================
+[gipa]
+champ = "fonctionnaires, militaires, magistrats, personnels des cultes ; contractuels CDI, et CDD continus chez le même employeur, rémunérés par référence à un indice (art. 1, version du 19/11/2017) ; grade dont l'indice sommital ≤ HEB (art. 2)"
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000018934143/2026-10-17/ — décret 2008-539, version consolidée au 17/10/2026"
+
+[gipa.formule]
+texte = "G = TIB de l'année de début de la période de référence X (1 + inflation sur la période de référence) - TIB de l'année de fin de la période de référence."
+inflation = "Inflation sur la période de référence = (Moyenne IPC de l'année de fin de la période de référence/Moyenne IPC de l'année de début de la période de référence) ― 1."
+tib = "Le TIB de l'année pris en compte correspond à l'indice majoré détenu au 31 décembre de chacune des deux années bornant la période de référence multiplié par la valeur moyenne annuelle du point pour chacune de ces deux années."
+exclusions = "Sont exclus de la détermination du montant de la garantie l'indemnité de résidence, le supplément familial de traitement, la nouvelle bonification indiciaire et toutes les autres primes et indemnités pouvant être servies aux agents."
+source = "décret 2008-539 art. 3, en vigueur depuis le 21/02/2008"
+eligibilite = "rémunéré sur un emploi public au moins 3 ans sur les 4 ; même qualité (fonctionnaire, etc.) aux deux bornes (art. 9, version du 19/11/2017)"
+temps_partiel = { texte = "Pour les agents ayant effectué une période de travail à temps partiel sur tout ou partie de la durée de la période de référence en cause, le montant de la garantie est attribué à hauteur de la quotité travaillée au 31 décembre de l'année qui clôt la période de référence.", source = "décret 2008-539 art. 10, version du 11/12/2009 (décret 2009-1520)" }
+exclusions_versement = "emploi fonctionnel (sauf C et B) à une borne ; poste à l'étranger au 31/12 de fin ; sanction ayant baissé le traitement (art. 10)"
+rafp = { texte = "l'indemnité dite de garantie individuelle du pouvoir d'achat [...] fait partie des éléments de rémunération soumis à cotisations au régime de retraite additionnelle de la fonction publique [...]. A titre dérogatoire, cette indemnité n'est pas soumise à la limite fixée au deuxième alinéa du même article.", source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019491873/2026-10-17/ — décret 2008-964 art. 1 (en vigueur depuis le 18/09/2008) ; art. 2 qui limitait aux années 2008–2011 abrogé le 05/05/2014 par décret 2014-452" }
+arrete_annuel = "décret 2008-539 art. 8 (version du 01/01/2009) : un arrêté budget + fonction publique fixe le taux d'inflation et les valeurs annuelles du point"
+
+# Pour chaque année : période de référence (31/12/N-4 → 31/12/N-1), inflation, valeurs moyennes annuelles du point (indice 100 → ici valeur par point, en euros, telle qu'écrite).
+[gipa.annees.2008]
+debut = "2003-12-31"
+fin = "2007-12-31"
+inflation_pct = 6.8
+point_debut = 52.4933
+point_fin = 54.3753
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000018934143/2026-10-17/ — décret 2008-539 art. 4 (pas d'arrêté : valeurs dans le décret)"
+
+[gipa.annees.2009]
+debut = "2004-12-31"
+fin = "2008-12-31"
+inflation_pct = 7.9
+point_debut = 52.7558
+point_fin = 54.6791
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000020647411 — arrêté du 20/05/2009 art. 1 (JORF 23/05/2009) ; période : décret art. 4 bis"
+
+[gipa.annees.2010]
+debut = "2005-12-31"
+fin = "2009-12-31"
+inflation_pct = 6.2
+point_debut = 53.2012
+point_fin = 55.0260
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000022244470 — arrêté du 03/05/2010 art. 1 (JORF 22/05/2010)"
+restriction = "en 2010, seulement les agents au sommet de grade depuis 4 ans au 31/12/2009, et certains retraités de 2010 (décret 2008-539 art. 6 et 7)"
+
+[gipa.annees.2011]
+debut = "2006-12-31"
+fin = "2010-12-31"
+inflation_pct = 5.9
+point_debut = 53.8453
+point_fin = 55.4253
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000023820235 — arrêté du 23/03/2011 art. 1 (JORF 06/04/2011)"
+
+[gipa.annees.2012]
+debut = "2007-12-31"
+fin = "2011-12-31"
+inflation_pct = 6.5
+point_debut = 54.3753
+point_fin = 55.5635
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000025677347 — arrêté du 20/03/2012 art. 1 (JORF 12/04/2012)"
+
+[gipa.annees.2013]
+debut = "2008-12-31"
+fin = "2012-12-31"
+inflation_pct = 5.5
+point_debut = 54.6791
+point_fin = 55.5635
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000027385791 — arrêté du 18/04/2013 art. 1 (JORF 04/05/2013)"
+
+[gipa.annees.2014]
+debut = "2009-12-31"
+fin = "2013-12-31"
+inflation_pct = 6.3
+point_debut = 55.0260
+point_fin = 55.5635
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000028714327 — arrêté du 03/03/2014 art. 1 (JORF 12/03/2014)"
+
+[gipa.annees.2015]
+debut = "2010-12-31"
+fin = "2014-12-31"
+inflation_pct = 5.16
+point_debut = 55.4253
+point_fin = 55.5635
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000030228311 — arrêté du 04/02/2015 art. 1 (JORF 13/02/2015)"
+
+[gipa.annees.2016]
+debut = "2011-12-31"
+fin = "2015-12-31"
+inflation_pct = 3.08
+point_debut = 55.5635
+point_fin = 55.5635
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000032788711 — arrêté du 27/06/2016 art. 1 (JORF 28/06/2016)"
+
+[gipa.annees.2017]
+debut = "2012-12-31"
+fin = "2016-12-31"
+inflation_pct = 1.38
+point_debut = 55.5635
+point_fin = 55.7302
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000036039100 — arrêté du 17/11/2017 art. 1 (JORF 18/11/2017)"
+
+[gipa.annees.2018]
+debut = "2013-12-31"
+fin = "2017-12-31"
+inflation_pct = 1.64
+point_debut = 55.5635
+point_fin = 56.2044
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037562549 — arrêté du 05/11/2018 art. 1 (JORF 07/11/2018)"
+
+[gipa.annees.2019]
+debut = "2014-12-31"
+fin = "2018-12-31"
+inflation_pct = 2.85
+point_debut = 55.5635
+point_fin = 56.2323
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000039196491 — arrêté du 08/10/2019 art. 1 (JORF 10/10/2019)"
+
+[gipa.annees.2020]
+debut = "2015-12-31"
+fin = "2019-12-31"
+inflation_pct = 3.77
+point_debut = 55.5635
+point_fin = 56.2323
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000042460948 — arrêté du 23/10/2020 art. 1 (JORF 25/10/2020)"
+
+[gipa.annees.2021]
+debut = "2016-12-31"
+fin = "2020-12-31"
+inflation_pct = 3.78
+point_debut = 55.7302
+point_fin = 56.2323
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043931322 — arrêté du 23/07/2021 art. 1 (JORF 12/08/2021)"
+
+[gipa.annees.2022]
+debut = "2017-12-31"
+fin = "2021-12-31"
+inflation_pct = 4.36
+point_debut = 56.2044
+point_fin = 56.2323
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046127610 — arrêté du 01/08/2022 art. 1 (JORF 02/08/2022)"
+
+[gipa.annees.2023]
+debut = "2018-12-31"
+fin = "2022-12-31"
+inflation_pct = 8.19
+point_debut = 56.2323
+point_fin = 57.2164
+source = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047964947 — arrêté du 11/08/2023 art. 1 (JORF 13/08/2023)"
+
+[gipa.statut_2024_2026]
+"2024" = "aucune reconduction trouvée : le décret 2008-539 consolidé au 17/10/2026 s'arrête à la période de 2023 (art. 5, version du 14/08/2023, décret 2023-775) ; aucun décret ni arrêté au titre contenant « garantie individuelle du pouvoir d'achat » publié au JORF après le 13/08/2023"
+"2025" = "idem"
+"2026" = "idem (au 17/10/2026)"
+source = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000018934143/2026-10-17/ ; recherche Légifrance fonds JORF, champ titre, « garantie individuelle du pouvoir d'achat », faite le 17/10/2026 (31 résultats, le plus récent : arrêté et décret du 11/08/2023)"
+reserve = "La recherche porte sur les titres : une reconduction logée dans un texte d'un autre titre (loi de finances, décret « mesures salariales ») échapperait à cette recherche → absence de reconduction à confirmer, sinon MANQUANT"
+
+[gipa.code_bulletin]
+titulaires = "MANQUANT : 201480 (ou 1480) introuvable dans les annexes DGFiP lues au 01/01/2024 ; le seul passage GIPA (annexe 10, § 9.1) porte sur la RAFP"
+rafp_dgfip = "« L'indemnité dite de garantie individuelle de pouvoir d'achat [...] est prise en compte en totalité et sans limitation de durée dans l'assiette de cotisation » — DGFiP 2FCE-2A, Paramètres au 01/01/2024, § 9.1, https://www.amue.fr/fileadmin/amue/ressources-humaines/veille-reglementaire/2024/Paye2024/annexe10.pdf"

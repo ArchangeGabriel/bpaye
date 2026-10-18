@@ -1,0 +1,434 @@
+# Indemnités propres et données manquantes de bpaye — relevé du 2026-10-17.
+#
+# Règle : chaque valeur vient d'un texte officiel lu ce jour (Légifrance version consolidée
+# datée, JORF y compris PDF du Journal officiel, BO ministériel, Île-de-France Mobilités).
+# « MANQUANT » : texte non lu, rien n'est deviné. Les montants sont annuels bruts sauf mention.
+# Les dates d'effet suivent les notes « entrent en vigueur » des textes modificatifs ; quand
+# Légifrance affiche une date de version différente (publication), les deux sont notées.
+
+# ════════════════════════════════════════════════════════════════════════════════════════
+# A. INDEMNITÉS PROPRES
+# ════════════════════════════════════════════════════════════════════════════════════════
+
+# ── CPE : indemnité forfaitaire (décret 91-468 du 14 mai 1991) ─────────────────────────────
+# Décret 91-468, art. 2 : taux fixé par arrêté conjoint ; jusqu'au 2021-04-01, alinéa 2 :
+# « Il est indexé sur la valeur du point indiciaire de la fonction publique. » (version du
+# 17/05/1991 au 01/04/2021) ; l'indexation disparaît le 2021-04-01 (décret 2021-275, art. 1).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000344372/2015-01-01/
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000344372/2026-10-17/
+
+[[ind_cpe]]
+date = 1990-09-01
+montant_annuel = "3000 F"
+indexe_point = true
+source = "arrêté du 14 mai 1991 (NOR MENF9100941A, JORF n° 114 du 17 mai 1991), art. 1 « est fixé à 3000 F », art. 2 effet au 1er septembre 1990, https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000161744"
+
+[[ind_cpe]]
+date = 2010-01-01
+montant_annuel = "MANQUANT"
+source = "MANQUANT : de 2010 au 2015-08-31, le taux résulte de l'arrêté du 24 février 1993 (abrogé par l'arrêté du 24 novembre 2015, art. 2) indexé sur le point (décret 91-468, art. 2) ; cet arrêté n'est pas trouvé sur Légifrance (recherche titre et texte intégral), son montant n'est donc pas lu"
+
+[[ind_cpe]]
+date = 2015-09-01
+montant_annuel = 1199.16
+indexe_point = true
+source = "arrêté du 24 novembre 2015 (NOR MENH1514080A), art. 1 « est fixé à 1 199,16 euros », version en vigueur du 01/09/2015 au 01/04/2021 ; art. 3 effet au 1er septembre 2015, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2016-01-01/"
+note = "le décret 91-468, art. 2 (version jusqu'au 2021-04-01) indexe ce taux sur le point : les montants revalorisés au 2016-07-01 et 2017-02-01 ne figurent dans aucun texte lu (MANQUANT, seulement calculables)"
+
+[[ind_cpe]]
+date = 2021-04-01
+montant_annuel = 1450.00
+indexe_point = false
+source = "arrêté du 24 novembre 2015, art. 1 « est fixé à 1 450 euros », version en vigueur du 01/04/2021 au 01/09/2023, modifié par l'arrêté du 12 mars 2021, art. 1 (JORFTEXT000043246522), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2022-01-01/"
+
+[[ind_cpe]]
+date = 2023-09-01
+montant_annuel = 2743.97
+indexe_point = false
+source = "arrêté du 24 novembre 2015, art. 1 « est fixé à 2 743,97 € », version en vigueur depuis le 01/09/2023, modifié par l'arrêté du 13 juillet 2023 (NOR MENH2319317A, JORF n° 167 du 21 juillet 2023), art. 11, entrée en vigueur art. 14, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2026-10-17/"
+
+# ── Psychologues de l'EN : indemnité de fonctions (décret 2017-1552) ───────────────────────
+# Décret 2017-1552, art. 1 et 2 : indemnité de fonctions, taux par arrêté conjoint, applicable
+# au 2017-09-01 (art. 5) ; aucune indexation. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998622/2026-10-17/
+# Arrêté du 10 novembre 2017 (NOR MENH1720098A, JORF n° 0264 du 11 novembre 2017), art. 1 ;
+# art. 2 : « s'applique à compter du 1er septembre 2017 ».
+# EDA = « Education, développement et apprentissage » ; EDO = « Education, développement et
+# conseil en orientation scolaire et professionnelle ».
+
+[[ind_psyen]]
+date = 2017-09-01
+eda = 2044.19
+edo = 767.10
+source = "arrêté du 10 novembre 2017, art. 1, version en vigueur du 12/11/2017 au 01/01/2022 (effet au 2017-09-01, art. 2), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2018-01-01/"
+
+[[ind_psyen]]
+date = 2022-01-01
+eda = 2044.19
+edo = 1192.80
+source = "arrêté du 10 novembre 2017, art. 1, version en vigueur du 01/01/2022 au 01/01/2023, mod. arrêté du 9 décembre 2021 (NOR MENH2128484A), art. 1 ; entrée en vigueur 1er janvier 2022 (art. 2), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2022-06-01/"
+
+[[ind_psyen]]
+date = 2023-01-01
+eda = 2044.19
+edo = 1618.50
+source = "arrêté du 10 novembre 2017, art. 1, version en vigueur du 01/01/2023 au 01/09/2023, mod. arrêté du 13 décembre 2022 (NOR MENH2233493A), art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2023-06-01/"
+
+[[ind_psyen]]
+date = 2023-09-01
+eda = 3338.16
+edo = 2912.47
+source = "arrêté du 10 novembre 2017, art. 1, version en vigueur du 01/09/2023 au 01/01/2024, mod. arrêté du 13 juillet 2023, art. 13 (entrée en vigueur art. 14), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2023-10-01/"
+
+[[ind_psyen]]
+date = 2024-01-01
+eda = 3338.16
+edo = 3338.16
+source = "arrêté du 10 novembre 2017, art. 1, version en vigueur depuis le 01/01/2024, mod. arrêté du 8 janvier 2024 (NOR MENH2327994A), art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2026-10-17/"
+
+# ── Professeurs documentalistes : ISS (décret 91-467 du 14 mai 1991) ──────────────────────
+# Décret 91-467, art. 2, version du 17/05/1991 au 01/09/2017 : taux par arrêté conjoint, « Il est
+# indexé sur la valeur du point indiciaire de la fonction publique. »
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000161384/2015-01-01/ ; version depuis le
+# 01/09/2017 (décret 2018-637, art. 1) sans cette phrase :
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000161384/2026-10-17/
+
+[[ind_doc]]
+date = 1990-09-01
+montant_annuel = "3000 F"
+indexe_point = true
+source = "arrêté du 14 mai 1991 (NOR MENF9100942A, JORF n° 114 du 17 mai 1991), art. 1 « est fixé à 3000 F », version en vigueur du 18/05/1991 au 21/07/2018, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000527330/2015-01-01/"
+note = "aucun montant en euros n'est écrit dans un texte lu avant le 2017-09-01 : le montant 2010-2017 (3000 F indexés sur le point) est MANQUANT tel quel"
+
+[[ind_doc]]
+date = 2017-09-01
+montant_annuel = 767.10
+indexe_point = false
+source = "arrêté du 14 mai 1991, art. 1 « est fixé à 767,10 € », version du 21/07/2018 au 26/02/2021, mod. arrêté du 18 juillet 2018 (JORFTEXT000037226318), art. 1, « prennent effet le 1er septembre 2017 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000527330/2019-01-01/"
+
+[[ind_doc]]
+date = 2021-03-01
+montant_annuel = 1000.00
+indexe_point = false
+source = "arrêté du 14 mai 1991, art. 1 « est fixé à 1 000 € », version en vigueur du 01/03/2021 au 01/09/2023, mod. arrêté du 17 février 2021 (NOR MENH2104738A), art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000527330/2022-01-01/"
+note = "Légifrance date la version précédente « au 26/02/2021 » et celle-ci « du 01/03/2021 » : date d'effet à confirmer dans l'arrêté du 17 février 2021 (non ouvert)"
+
+[[ind_doc]]
+date = 2023-09-01
+montant_annuel = 2550.00
+indexe_point = false
+source = "arrêté du 14 mai 1991, art. 1 « est fixé à 2 550 € », version en vigueur depuis le 01/09/2023, mod. arrêté du 13 juillet 2023, art. 4 (entrée en vigueur art. 14), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000527330/2026-10-17/"
+
+# ── Directeurs d'école : ISS (décret 83-644 du 8 juillet 1983) ─────────────────────────────
+# Arrêté du 12 septembre 2008 (NOR MENH0818387A, JORF n° 0214 du 13 septembre 2008).
+# art. 1 : taux annuel total par tranche ; art. 2 : part principale + part variable.
+# art. 3 : +20 % (écoles des listes du décret 90-806, puis REP/REP+ du décret 2015-1087 depuis le
+# 2015-09-01) ; art. 3-1 : +50 % (liste ECLAIR du 2011-09-01, REP+ depuis le 2015-09-01),
+# exclusive de l'art. 3. Seuils : « 1 à 4 / 5 à 9 / 10 et plus » jusqu'au 2014-08-31, puis
+# « 1 à 3 / 4 à 9 / 10 et plus ».
+
+[[ind_directeur_iss]]
+date = 2008-09-01
+tranches = ["1-4", "5-9", "10+"]
+part_principale = 1295.62
+part_variable = [200.0, 400.0, 600.0]
+total = [1495.62, 1695.62, 1895.62]
+source = "arrêté du 12 septembre 2008, art. 1 (version du 01/09/2008 au 01/02/2012) et art. 2 (version du 01/09/2008 au 01/09/2010 : part variable « versée en une seule fois au cours du premier trimestre de l'année scolaire »), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2010-01-01/"
+
+[[ind_directeur_iss]]
+date = 2010-09-01
+tranches = ["1-4", "5-9", "10+"]
+part_principale = 1295.62
+part_variable = [200.0, 400.0, 600.0]
+total = [1495.62, 1695.62, 1895.62]
+source = "arrêté du 12 septembre 2008, art. 2, version du 01/09/2010 au 01/02/2012, mod. arrêté du 20 septembre 2010, art. 1 : les deux parts « versées mensuellement », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2011-06-01/"
+
+[[ind_directeur_iss]]
+date = 2012-02-01
+tranches = ["1-4", "5-9", "10+"]
+part_principale = 1295.62
+part_variable = [300.0, 600.0, 900.0]
+total = [1595.62, 1895.62, 2195.62]
+source = "arrêté du 12 septembre 2008, art. 1 et 2, version du 01/02/2012 au 01/09/2014, mod. arrêté du 18 janvier 2012, art. 1 et 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2012-06-01/"
+
+[[ind_directeur_iss]]
+date = 2014-09-01
+tranches = ["1-3", "4-9", "10+"]
+part_principale = 1295.62
+part_variable = [500.0, 700.0, 900.0]
+total = [1795.62, 1995.62, 2195.62]
+source = "arrêté du 12 septembre 2008, art. 1 et 2, version du 01/09/2014 au 26/02/2021, mod. arrêté du 22 juillet 2014, art. 1 et 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2016-01-01/"
+
+[[ind_directeur_iss]]
+date = 2021-01-01
+tranches = ["1-3", "4-9", "10+"]
+part_principale = 1745.62
+part_variable = [500.0, 700.0, 900.0]
+total = [2245.62, 2445.62, 2645.62]
+source = "arrêté du 12 septembre 2008, art. 1 et 2, version du 26/02/2021 au 01/01/2022, mod. arrêté du 18 février 2021 (NOR MENH2103190A, JORF n° 0048 du 25 février 2021), art. 1 et 2 ; son art. 3 : « entre en vigueur le 1er janvier 2021 » (rétroactif), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2021-06-01/ et https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043178894/2021-03-01/"
+
+[[ind_directeur_iss]]
+date = 2022-01-01
+tranches = ["1-3", "4-9", "10+"]
+part_principale = 1970.62
+part_variable = [500.0, 700.0, 900.0]
+total = [2470.62, 2670.62, 2870.62]
+source = "arrêté du 12 septembre 2008, art. 1 et 2, version du 01/01/2022 au 01/09/2023, mod. arrêté du 1er décembre 2021 (NOR MENH2134015A), art. 1 et 2, entrée en vigueur 1er janvier 2022 (art. 3), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2022-06-01/"
+
+[[ind_directeur_iss]]
+date = 2023-09-01
+tranches = ["1-3", "4-9", "10+"]
+part_principale = 1970.62
+part_variable = [1000.0, 1400.0, 1800.0]
+total = [2970.62, 3370.62, 3770.62]
+source = "arrêté du 12 septembre 2008, art. 1 et 2, version en vigueur depuis le 01/09/2023, « Modifié par Arrêté du 19 juillet 2023 », note : entrée en vigueur le 1er septembre 2023 « article 3 de l'arrêté du 20 juillet 2023 (NOR : MENH2318015A) » (Légifrance donne deux dates pour le même arrêté), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2026-10-17/"
+
+[[ind_directeur_iss_majoration]]
+date = 2015-09-01
+rep = 0.20
+rep_plus = 0.50
+source = "arrêté du 12 septembre 2008, art. 3 (+20 %, écoles REP et REP+ du décret 2015-1087) et art. 3-1 (+50 %, REP+, « exclusive de la majoration prévue à l'article 3 »), versions depuis le 01/09/2015, mod. arrêté du 28 août 2015, art. 1 et 2, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2026-10-17/"
+note = "avant le 2015-09-01 : art. 3 (+20 %, liste du décret 90-806, version du 01/09/2008 au 01/09/2015) et art. 3-1 (+50 %, créé par l'arrêté du 12 septembre 2011, version du 01/09/2011 au 01/09/2015)"
+
+# ── Directeurs d'école : bonification indiciaire (BI) ─────────────────────────────────────
+# Décret 83-50 du 26 janvier 1983, art. 1 et 3, versions en vigueur depuis le 01/09/1990
+# (mod. décret 91-111), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000877013/2026-10-17/
+# Groupes définis par le décret 83-52 du 26 janvier 1983, art. 2 (version depuis le 01/09/1990,
+# mod. décret 91-40), pour les professeurs des écoles : 1er groupe « école à classe unique »,
+# 2e « deux à quatre classes », 3e « cinq à neuf classes », 4e « dix classes et plus ».
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000327876/2026-10-17/
+
+[[bi_directeur]]
+date = 1990-09-01
+classes = ["1", "2-4", "5-9", "10+"]
+points_majores = [3, 16, 30, 40]
+source = "décret 83-50, art. 3 (« Deuxième groupe : 16 points majorés ; Troisième groupe : 30 points majorés ; Quatrième groupe : 40 points majorés », premier groupe 3 points), version en vigueur depuis le 01/09/1990 ; groupes : décret 83-52, art. 2"
+note = "art. 3-1 (transitoire) : 8 et 15 points pour les 2e et 3e groupes des directeurs nommés avant le décret de 1987"
+
+# ── Directeurs d'école : NBI ──────────────────────────────────────────────────────────────
+[[nbi_directeur]]
+date = 1996-08-01
+classes = ["1", "2-4", "5", "6-9", "10+"]
+points = [8, 8, 8, 8, 8]
+source = "arrêté du 6 décembre 1991 (NBI éducation nationale, JORFTEXT000000722560), annexe, section VII, c) « Directeurs d'école », colonne « 1er août 1996 » : 8 points pour chaque tranche (3 au 1er août 1994, 6 au 1er août 1995), mod. arrêté du 30 mai 1997 (NOR MENF9700882A), annexe en vigueur depuis le 01/01/2020, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000722560/2026-10-17/ ; base : décret 91-1229, annexe section VII « chargés des fonctions de directeur d'école »"
+note = "lu par un résumé automatique de la page, non recopié du tableau brut : à relire avant de coder"
+
+# ════════════════════════════════════════════════════════════════════════════════════════
+# B. DONNÉES MANQUANTES DE BPAYE
+# ════════════════════════════════════════════════════════════════════════════════════════
+
+# ── Durée de séjour dans les chevrons HEA / HEB ───────────────────────────────────────────
+[[chevrons_hors_echelle]]
+duree_chevron_ans = 1.0
+source = "arrêté interministériel du 29 août 1957 relatif aux emplois supérieurs de l'Etat classés hors échelle, art. 2 : « Les traitements afférents aux 2ème et 3ème chevrons de traitement dans le groupe hors échelle considéré […] sont attribués après un an de perception effective du traitement correspondant au chevron immédiatement inférieur », cité par Conseil d'État, 07/06/2006, n° 271892, https://www.legifrance.gouv.fr/ceta/id/CETATEXT000008239991"
+note = "le texte de l'arrêté lui-même n'est pas sur Légifrance (MANQUANT) ; la règle est lue dans la décision du Conseil d'État qui le cite (jurisprudence constante, ex. CE 20/10/1995 n° 138785) ; aucun statut EN lu (décret 72-580) ne parle de chevron"
+
+# ── Psychologues de l'EN : indices bruts du 2017-09-01 au 2023-08-05 ─────────────────────
+# Décret 2017-145 du 7 février 2017 (NOR MENH1701778D, JORF n° 0034 du 9 février 2017), art. 1,
+# abrogé le 2023-08-06 par le décret 2023-721, art. 9 (grille reprise à l'art. 11-1 du décret
+# 2017-789). Version du 01/01/2018 au 06/08/2023 (mod. décret 2017-1737, art. 53) : colonnes
+# « 1er septembre 2017 », « 1er janvier 2019 », « 1er janvier 2020 », « 1er janvier 2021 ».
+# (La version d'origine, du 01/09/2017 au 01/01/2018, avait les mêmes nombres sous 2017/2018/2019/2020 :
+# le report PPCR d'un an.) Grille identique, échelon par échelon, à celle des CPE (décret 2017-789,
+# art. 3) et à GRILLE_CERTCN/CE de bpaye aux mêmes dates.
+
+[[PSYEN_CN]]
+date = 2017-09-01
+ib = [434, 506, 512, 529, 548, 565, 601, 649, 697, 751, 810]
+source = "décret 2017-145, art. 1, colonne « 1er septembre 2017 », version du 01/01/2018 au 06/08/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_CN]]
+date = 2019-01-01
+ib = [441, 513, 518, 539, 555, 572, 608, 656, 702, 758, 816]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2019 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_CN]]
+date = 2020-01-01
+ib = [444, 513, 523, 542, 562, 582, 619, 668, 712, 763, 821]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2020 » (identique au « 1er janvier 2021 »), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_CN]]
+date = 2023-08-06
+ib = [444, 513, 523, 542, 562, 582, 619, 668, 712, 763, 821]
+source = "décret 2017-789, art. 11-1 (créé par le décret 2023-721, art. 8), version en vigueur depuis le 06/08/2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034601473/2023-08-06/"
+
+[[PSYEN_HC]]
+date = 2017-09-01
+ib = [686, 740, 793, 863, 924, 979]
+source = "décret 2017-145, art. 1, colonne « 1er septembre 2017 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_HC]]
+date = 2019-01-01
+ib = [693, 746, 800, 869, 930, 985]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2019 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_HC]]
+date = 2020-01-01
+ib = [712, 757, 815, 876, 939, 995]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2020 », https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_HC]]
+date = 2021-01-01
+ib = [712, 757, 815, 876, 939, 995, 1015]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2021 » (7e échelon 1 015), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/ ; même grille depuis le 2023-08-06 au décret 2017-789, art. 11-1"
+
+[[PSYEN_CE]]
+date = 2017-09-01
+ib = [844, 897, 949, 1022, "HEA"]
+source = "décret 2017-145, art. 1, colonne « 1er septembre 2017 » (échelon spécial HEA), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+[[PSYEN_CE]]
+date = 2019-01-01
+ib = [850, 903, 956, 1027, "HEA"]
+source = "décret 2017-145, art. 1, colonne « 1er janvier 2019 » (identique en 2020 et 2021) ; le 2023-08-06, l'échelon spécial devient un 5e échelon HEA linéaire (décret 2017-789, art. 11-1 : 850, 903, 956, 1027, HEA), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000034015188/2020-06-01/"
+
+# ── Chaires supérieures avant le 2010-09-01 ───────────────────────────────────────────────
+[[GRILLE_CHSUP_avant_2010]]
+date = "MANQUANT"
+ib = "MANQUANT"
+source = "MANQUANT : texte en vigueur = « l'arrêté du 20 octobre 1977 fixant l'échelonnement indiciaire applicable aux professeurs de chaire supérieure », abrogé au 2010-09-01 par l'arrêté du 26 août 2010 (JORF n° 0201 du 31 août 2010), art. 1, 1°, https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000022753482 ; ni cet arrêté ni ses modificatifs ne sont sur Légifrance (recherches titre et texte intégral : seuls l'arrêté du 30 mai 1968 et les arrêtés 1977 d'autres corps sortent). Il faudrait le JO papier d'octobre 1977 ET les modificatifs postérieurs (1989-1990…), non identifiés."
+
+# ── Barème IB → IM (décret 82-1105, barème A), 2005-07-01 → 2007-06-30 ───────────────────
+# Lu sur les PDF authentifiés du JO (pages images lues une à une, IB 340 à 1015 ; le barème
+# s'arrête à l'IB 1015, il n'existe pas d'IB 1021/1022/1027 avant 2008). Clés = les IB des grilles
+# de bpaye (mêmes clés que son entrée du 2007-07-01).
+# Constat : pour toutes ces IB, l'IM du 2006-11-01 est égal à celui du 2007-07-01 déjà dans bpaye,
+# et l'IM du 2005-07-01 et du 2006-07-01 vaut un point de moins (point d'indice majoré uniforme
+# du décret 2006-1283). Le décret 2006-759 ne change le barème A qu'en bas de grille (IM 190).
+
+[[bareme]]
+date = 2005-07-01
+source = "décret 2005-726 du 29 juin 2005, art. 2 et annexe « Barème A … majorés du 1er juillet 2005 », JORF n° 151 du 30 juin 2005, texte n° 73, PDF du JO pages 6 à 17, https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000810890 ; seul barème A en vigueur du 2005-07-01 au 2006-06-30 (le décret 2005-1301, JORF n° 246 du 21/10/2005, ne change que le point et le barème B)"
+ib_im = { "379" = 348, "385" = 352, "423" = 375, "427" = 378, "434" = 382, "441" = 387, "444" = 389, "450" = 394, "469" = 409, "480" = 415, "500" = 430, "501" = 431, "506" = 435, "510" = 438, "511" = 439, "512" = 439, "513" = 440, "516" = 442, "518" = 444, "523" = 447, "524" = 448, "525" = 449, "529" = 452, "539" = 457, "542" = 460, "548" = 465, "550" = 466, "555" = 470, "562" = 475, "565" = 477, "572" = 482, "579" = 488, "582" = 491, "584" = 492, "587" = 494, "589" = 496, "591" = 497, "596" = 501, "601" = 505, "608" = 510, "611" = 512, "615" = 515, "618" = 517, "619" = 518, "627" = 525, "634" = 530, "638" = 533, "645" = 538, "649" = 541, "656" = 546, "664" = 553, "668" = 556, "672" = 559, "673" = 560, "682" = 566, "684" = 568, "685" = 569, "686" = 569, "691" = 573, "693" = 574, "697" = 577, "698" = 578, "702" = 582, "712" = 589, "716" = 592, "726" = 600, "731" = 603, "737" = 608, "740" = 610, "741" = 611, "746" = 615, "748" = 617, "751" = 619, "757" = 623, "758" = 624, "763" = 628, "772" = 634, "780" = 641, "785" = 645, "792" = 650, "793" = 651, "800" = 656, "801" = 657, "803" = 658, "807" = 661, "810" = 663, "815" = 667, "816" = 668, "821" = 672, "829" = 678, "835" = 683, "844" = 689, "850" = 694, "852" = 695, "857" = 699, "863" = 704, "864" = 705, "869" = 709, "876" = 714, "879" = 716, "897" = 729, "901" = 733, "903" = 734, "906" = 737, "910" = 740, "915" = 744, "922" = 749, "924" = 750, "930" = 755, "931" = 756, "939" = 762, "949" = 769, "956" = 774, "958" = 775, "962" = 779, "966" = 782, "973" = 787, "976" = 790, "979" = 792, "983" = 795, "985" = 797, "988" = 799, "995" = 805, "1015" = 820 }
+
+[[bareme]]
+date = 2006-07-01
+source = "décret 2006-759 du 29 juin 2006, art. 2 et annexe « Barème A … majorés du 1er juillet 2006 », JORF n° 150 du 30 juin 2006, texte n° 50, PDF du JO pages 6 à 17, https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000422923"
+ib_im = { "379" = 348, "385" = 352, "423" = 375, "427" = 378, "434" = 382, "441" = 387, "444" = 389, "450" = 394, "469" = 409, "480" = 415, "500" = 430, "501" = 431, "506" = 435, "510" = 438, "511" = 439, "512" = 439, "513" = 440, "516" = 442, "518" = 444, "523" = 447, "524" = 448, "525" = 449, "529" = 452, "539" = 457, "542" = 460, "548" = 465, "550" = 466, "555" = 470, "562" = 475, "565" = 477, "572" = 482, "579" = 488, "582" = 491, "584" = 492, "587" = 494, "589" = 496, "591" = 497, "596" = 501, "601" = 505, "608" = 510, "611" = 512, "615" = 515, "618" = 517, "619" = 518, "627" = 525, "634" = 530, "638" = 533, "645" = 538, "649" = 541, "656" = 546, "664" = 553, "668" = 556, "672" = 559, "673" = 560, "682" = 566, "684" = 568, "685" = 569, "686" = 569, "691" = 573, "693" = 574, "697" = 577, "698" = 578, "702" = 582, "712" = 589, "716" = 592, "726" = 600, "731" = 603, "737" = 608, "740" = 610, "741" = 611, "746" = 615, "748" = 617, "751" = 619, "757" = 623, "758" = 624, "763" = 628, "772" = 634, "780" = 641, "785" = 645, "792" = 650, "793" = 651, "800" = 656, "801" = 657, "803" = 658, "807" = 661, "810" = 663, "815" = 667, "816" = 668, "821" = 672, "829" = 678, "835" = 683, "844" = 689, "850" = 694, "852" = 695, "857" = 699, "863" = 704, "864" = 705, "869" = 709, "876" = 714, "879" = 716, "897" = 729, "901" = 733, "903" = 734, "906" = 737, "910" = 740, "915" = 744, "922" = 749, "924" = 750, "930" = 755, "931" = 756, "939" = 762, "949" = 769, "956" = 774, "958" = 775, "962" = 779, "966" = 782, "973" = 787, "976" = 790, "979" = 792, "983" = 795, "985" = 797, "988" = 799, "995" = 805, "1015" = 820 }
+
+[[bareme]]
+date = 2006-11-01
+source = "décret 2006-1283 du 19 octobre 2006 (NOR FPPX0600176D), art. 2 et annexe « Majorés du 1er novembre 2006 », JORF n° 244 du 20 octobre 2006, texte n° 32, PDF du JO pages 7 à 17, https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000000615828"
+ib_im = { "379" = 349, "385" = 353, "423" = 376, "427" = 379, "434" = 383, "441" = 388, "444" = 390, "450" = 395, "469" = 410, "480" = 416, "500" = 431, "501" = 432, "506" = 436, "510" = 439, "511" = 440, "512" = 440, "513" = 441, "516" = 443, "518" = 445, "523" = 448, "524" = 449, "525" = 450, "529" = 453, "539" = 458, "542" = 461, "548" = 466, "550" = 467, "555" = 471, "562" = 476, "565" = 478, "572" = 483, "579" = 489, "582" = 492, "584" = 493, "587" = 495, "589" = 497, "591" = 498, "596" = 502, "601" = 506, "608" = 511, "611" = 513, "615" = 516, "618" = 518, "619" = 519, "627" = 526, "634" = 531, "638" = 534, "645" = 539, "649" = 542, "656" = 547, "664" = 554, "668" = 557, "672" = 560, "673" = 561, "682" = 567, "684" = 569, "685" = 570, "686" = 570, "691" = 574, "693" = 575, "697" = 578, "698" = 579, "702" = 583, "712" = 590, "716" = 593, "726" = 601, "731" = 604, "737" = 609, "740" = 611, "741" = 612, "746" = 616, "748" = 618, "751" = 620, "757" = 624, "758" = 625, "763" = 629, "772" = 635, "780" = 642, "785" = 646, "792" = 651, "793" = 652, "800" = 657, "801" = 658, "803" = 659, "807" = 662, "810" = 664, "815" = 668, "816" = 669, "821" = 673, "829" = 679, "835" = 684, "844" = 690, "850" = 695, "852" = 696, "857" = 700, "863" = 705, "864" = 706, "869" = 710, "876" = 715, "879" = 717, "897" = 730, "901" = 734, "903" = 735, "906" = 738, "910" = 741, "915" = 745, "922" = 750, "924" = 751, "930" = 756, "931" = 757, "939" = 763, "949" = 770, "956" = 775, "958" = 776, "962" = 780, "966" = 783, "973" = 788, "976" = 791, "979" = 793, "983" = 796, "985" = 798, "988" = 800, "995" = 806, "1015" = 821 }
+
+# ── Remboursement de transport (décret 2010-676, art. 3) ─────────────────────────────────
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2012-01-01/ (version du 01/07/2010
+# au 07/10/2015), /2020-01-01/ (du 07/10/2015 au 01/09/2023), /2026-10-17/ (depuis le 01/09/2023).
+
+[[transport_regle]]
+date = 2010-07-01
+taux = 0.50
+plafond = "50 % de la somme des tarifs des abonnements annuels cumulés permettant d'effectuer depuis Paris le trajet maximum et le trajet minimum (zone de l'autorité organisatrice d'Île-de-France)"
+source = "décret 2010-676, art. 3, version du 01/07/2010 au 07/10/2015, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2012-01-01/"
+
+[[transport_regle]]
+date = 2015-10-07
+taux = 0.50
+plafond = "plafond fixé à partir du tarif de l'abonnement annuel permettant le trajet maximum en Île-de-France, après application d'un coefficient multiplicateur égal à 1,25"
+source = "décret 2010-676, art. 3, version du 07/10/2015 au 01/09/2023, mod. décret 2015-1228 du 2 octobre 2015, art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2020-01-01/"
+
+[[transport_regle]]
+date = 2023-09-01
+taux = 0.75
+plafond = "même rédaction (tarif annuel du trajet maximum × 1,25)"
+source = "décret 2010-676, art. 3, version depuis le 01/09/2023, mod. décret 2023-812 du 21 août 2023, art. 1 (trajets effectués à compter du 1er septembre 2023, art. 2), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2026-10-17/"
+
+# Plafond mensuel appliqué : note de service du ministère de l'agriculture (BO-agri), donc
+# source ministérielle et non IDFM. Il vaut exactement tarif annuel × 1,25 / 12 (2023-2026).
+[[transport_plafond_mensuel]]
+date = 2016-08-01
+plafond = 86.16
+source = "note de service SG/SRH/SDCAR/2023-811 du 22/12/2023 (ministère de l'agriculture), § II-2.2, tableau « Plafond de prise en charge … 1er aout 2016 : 86,16 € », https://info.agriculture.gouv.fr/boagri/instruction-2023-811/telechargement"
+
+[[transport_plafond_mensuel]]
+date = 2023-01-01
+plafond = 96.36
+source = "note SG/SRH/SDCAR/2023-811, § II-2.2 (« 1er janvier 2023 : 96,36 € ») ; idem note SG/SRH/SDCAR/2026-163 du 24/03/2026, annexe 1, https://info.agriculture.gouv.fr/boagri/instruction-2026-163/telechargement"
+
+[[transport_plafond_mensuel]]
+date = 2024-01-01
+plafond = 99.00
+source = "note SG/SRH/SDCAR/2023-811, § II-2.2 « fixé à 99,00 €/mois à compter du 1er janvier 2024 » ; note 2026-163, annexe 1"
+
+[[transport_plafond_mensuel]]
+date = 2025-01-01
+plafond = 101.75
+source = "note SG/SRH/SDCAR/2026-163 du 24/03/2026, annexe 1, https://info.agriculture.gouv.fr/boagri/instruction-2026-163/telechargement"
+
+[[transport_plafond_mensuel]]
+date = 2026-01-01
+plafond = 104.04
+source = "note SG/SRH/SDCAR/2026-163 du 24/03/2026, annexe 1"
+
+[[transport_plafond_mensuel]]
+date = 2010-07-01
+plafond = "MANQUANT"
+source = "MANQUANT du 2010-07-01 au 2016-07-31 : aucune source officielle lue (formule 2010 : 50 % de la somme des tarifs annuels zones 1-2 et zones 1-6/1-5 ; formule 2015 : tarif annuel toutes zones × 1,25)"
+
+# Tarif annuel Navigo toutes zones (Île-de-France Mobilités)
+[[navigo_annuel_toutes_zones]]
+date = 2025-01-01
+tarif_annuel = 976.80
+tarif_mensuel = 88.80
+source = "Île-de-France Mobilités, « Les tarifs Île-de-France Mobilités 2025 », Navigo Annuel « Toutes zones : 976,80 € », Navigo Mois « Toutes zones : 88,80 € », https://www.iledefrance-mobilites.fr/tarifs-titre-de-transport-en-commun-2025 (lu le 2026-10-17)"
+
+[[navigo_annuel_toutes_zones]]
+date = 2026-01-01
+tarif_annuel = 998.80
+tarif_mensuel = 90.80
+source = "Île-de-France Mobilités, https://www.iledefrance-mobilites.fr/tarifs-titre-de-transport-en-commun-2026 (« Toutes zones 998,80 € ») et https://www.iledefrance-mobilites.fr/titres-et-tarifs/detail/forfait-navigo-annuel (« 90,80 € par mois », « Tarifs du forfait applicables au 1er janvier 2026 », « 12e mois consécutif offert ») ; vote du CA du 10 décembre 2025 (communiqué https://presse.iledefrance-mobilites.fr/tarifs-navigo-2026-une-evolution-tarifaire-limitee-pour-accompagner-loffre-supplementaire/)"
+
+[[navigo_annuel_toutes_zones]]
+date = 2024-01-01
+tarif_annuel = 950.40
+source = "pas lu chez IDFM ; tarif repris par le ministère de l'agriculture, note SG/SRH/SDCAR/2023-811, « Barème au 1er janvier 2024 », zones 1 à 5 : 950,40 €"
+
+[[navigo_annuel_toutes_zones]]
+date = 2023-01-01
+tarif_annuel = 925.10
+source = "pas lu chez IDFM ; note SG/SRH/SDCAR/2023-811 (ministère de l'agriculture), « Tarif abonnements annuels au 1er janvier 2023 », zones 1 à 5 : 925,10 €"
+
+[[navigo_annuel_toutes_zones]]
+date = 2010-01-01
+tarif_annuel = "MANQUANT"
+source = "MANQUANT de 2010 à 2022 : tarifs d'IDFM antérieurs à 2025 non lus ; la note agricole donne 803,00 € « du 1er août 2016 au 31 décembre 2022 », incohérent avec son propre plafond de 86,16 € (= 827,20 × 1,25 / 12) : non retenu"
+
+# ── Indemnité compensatrice de la hausse de la CSG (décret 2017-1889) ────────────────────
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000036342240/2018-06-01/ et /2026-10-17/
+# Art. 2 : version unique, en vigueur depuis le 01/01/2018.
+
+[[icsg_regle]]
+cas = "nommé ou recruté à compter du 2018-01-01 (art. 2 III)"
+formule = "rémunération mensuelle brute à la date de la nomination ou du recrutement × 0,76 %"
+exclusion = "agents affiliés au régime général de la sécurité sociale au titre des prestations en espèces de l'assurance maladie"
+source = "décret 2017-1889, art. 2 III, version en vigueur depuis le 01/01/2018"
+
+[[icsg_regle]]
+cas = "assiette (art. 2 IV)"
+definition = "les éléments de rémunération perçus au titre de l'activité publique assujettis à la CSG, hors activités accessoires (art. 25 septies loi 83-634, etc.) ; pour II et III : « la première rémunération servie au titre d'un mois complet »"
+source = "décret 2017-1889, art. 2 IV, version en vigueur depuis le 01/01/2018"
+
+[[icsg_regle]]
+cas = "réintégration d'un agent non rémunéré au 31/12/2017 (art. 2 II)"
+formule = "rémunération brute mensuelle à la date de la réintégration × 0,76 %"
+source = "décret 2017-1889, art. 2 II"
+
+[[icsg_regle]]
+cas = "en poste avant le 2018-01-01 (art. 2 I)"
+formule = "(rémunération brute annuelle 2017 × 1,6702 % − contribution exceptionnelle de solidarité − cotisation salariale maladie − contribution salariale chômage dues sur cette rémunération) × 1,1053"
+source = "décret 2017-1889, art. 2 I"
+
+[[icsg_reevaluation]]
+date = 2019-01-01
+regle = "au 1er janvier 2019, si la rémunération (art. 2 IV) a progressé entre 2017 et 2018, réévaluation proportionnelle à cette progression"
+source = "décret 2017-1889, art. 5, version du 01/01/2018 au 01/01/2020"
+
+[[icsg_reevaluation]]
+date = 2020-01-01
+regle = "idem au 1er janvier 2020, progression entre 2018 et 2019 (premier alinéa du IV)"
+source = "décret 2017-1889, art. 5, version du 01/01/2020 au 01/01/2021, mod. décret 2019-1595 du 31 décembre 2019, art. 1"
+
+[[icsg_reevaluation]]
+date = 2021-01-01
+regle = "au 1er janvier de chaque année, si la rémunération a « évolué » entre l'année civile écoulée et la précédente, réévaluation proportionnelle ; changement de quotité ou congé maladie de l'année neutralisés"
+source = "décret 2017-1889, art. 5, version en vigueur depuis le 01/01/2021, mod. décret 2020-1626 du 18 décembre 2020, art. 1 (entrée en vigueur art. 2)"
+note = "« progressé » (2019-2020) devient « évolué » (2021-) : depuis 2021 la réévaluation peut aussi baisser l'indemnité"

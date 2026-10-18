@@ -1,0 +1,44 @@
+# Une certifiée fictive en collège : entrée en 2008, reclassée en 2017 ; depuis la rentrée
+# 2024, professeure principale de troisième dans un collège REP ; une part de Pacte en 2025, à 80 % (avec surcotisation pour
+# la retraite) à la rentrée 2026, hors classe en 2027. Toutes les clés sont décrites dans
+# docs/DOC.md.
+
+[depart]
+nom        = "Agente Fictive"
+grille     = "GRILLE_CERTCN"   # classe normale des certifiés
+corps      = "Certifié"
+echelon    = 3
+anciennete = 0.0
+date       = 2008-09-01
+zone_vacances = "B"
+
+[[detachements]]
+date    = 2008-09-01
+detache = false
+
+[[avancements]]
+type = "PPCR"                  # reclassement du 1er septembre 2017, d'après son tableau
+
+[[changements_corps]]
+date  = 2027-09-01
+grille = "GRILLE_CERTHC"       # promotion à la hors classe : échelon à l'indice égal ou supérieur
+
+[[rentrees]]
+year   = 2024
+hsa_vs = 2                      # deux heures supplémentaires année
+education_prioritaire = "REP"
+professeur_principal  = "3e"
+
+[[rentrees]]
+year   = 2025
+hsa_vs = 1
+education_prioritaire = "REP"
+professeur_principal  = "3e"
+pacte  = 1                      # une part fonctionnelle : 1 250 € versés d'octobre à juin
+
+[[rentrees]]
+year          = 2026
+education_prioritaire = "REP"   # chaque rentrée redonne tout ce qui vaut pour l'année
+professeur_principal  = "3e"
+temps_partiel = 0.8             # payée 6/7 d'un temps plein
+surcotisation = true            # retraite cotisée comme à temps plein

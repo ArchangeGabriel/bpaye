@@ -1,0 +1,52 @@
+# Une professeure des écoles fictive, sur vingt ans : entrée en 2006, promue au grand choix,
+# reclassée en 2017, accélérée au 8e échelon, directrice d'une école de six classes en REP+
+# depuis 2019, hors classe en 2023, à 80 % en 2024. Toutes les clés sont décrites dans
+# docs/DOC.md.
+
+[depart]
+nom        = "Professeure Fictive"
+grille     = "GRILLE_CERTCN"    # la grille des certifiés, commune aux professeurs des écoles
+corps      = "PE"
+echelon    = 3
+anciennete = 0.0
+date       = 2006-09-01
+zone_vacances = "A"
+
+[[detachements]]
+date    = 2006-09-01
+detache = false
+
+[[avancements]]
+echelon = 6
+type    = "GC"
+
+[[avancements]]
+echelon = 9
+type    = "C"                   # depuis 2017 : un an de moins au 8e échelon
+
+[[avancements]]
+type = "PPCR"
+
+[[changements_corps]]
+date   = 2023-09-01
+grille = "GRILLE_CERTHC"
+
+[[rentrees]]
+year = 2006                     # adjointe : 24 heures d'enseignement (décret 2008-775)
+
+[[rentrees]]
+year = 2019
+education_prioritaire = "REP+"
+direction_ecole       = 6       # ISS de directrice, majorée de 50 % en REP+
+
+[[rentrees]]
+year = 2024
+education_prioritaire = "REP+"
+direction_ecole       = 6
+temps_partiel         = 0.8
+pacte                 = 0.5     # une demi-part de Pacte
+
+[[rentrees]]
+year = 2025
+education_prioritaire = "REP+"
+direction_ecole       = 6

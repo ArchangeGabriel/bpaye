@@ -1,0 +1,287 @@
+import datetime as dt
+import sys
+import types
+
+import pytest
+
+from bpaye import load_agent
+from bpaye.classes import Ligne, ListeLignes
+from bpaye.indemnite_residence import calc_indemnite_residence
+from bpaye.mgen import mgen_part_employeur
+from bpaye.paye import Bulletin, Paye, signe_bpaye
+from bpaye.point import calc_traitement_brut, traitement_plein, valeur_point
+from bpaye.prevision import nets_prevus
+from bpaye.temps_partiel import reduit, taux_surcotisation
+
+
+def _paye(configuration, startmonth, n):
+    carriere, agent = configuration
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    paye = Paye(fonc)
+    paye.generate(startyear=2025, startmonth=startmonth, n=n)
+    return paye
+
+
+def _hsa(bulletin):
+    return [ligne.valeur for ligne in bulletin if ligne.code == 200205 and ligne.valeur]
+
+
+def test_hsa_d_octobre_payee_en_novembre_en_rappel(configuration):
+    paye = _paye(configuration, 1, 24)
+    neuvieme = _hsa(paye(2025, 12))[0]
+    assert _hsa(paye(2025, 10)) == []
+    assert sorted(_hsa(paye(2025, 11))) == [neuvieme, neuvieme]
+    assert any("RAPPEL" in ligne.lib for ligne in paye(2025, 11) if ligne.code == 200205)
+
+
+def test_hsa_d_octobre_sans_novembre_genere_ecartee(configuration):
+    paye = _paye(configuration, 9, 2)  # septembre et octobre seulement
+    assert _hsa(paye(2025, 10)) == []
+
+
+def test_ifp_de_septembre_payee_en_octobre(configuration):
+    paye = _paye(configuration, 1, 24)
+    ifp = [ligne.valeur for ligne in paye(2025, 10) if ligne.code == 200597 and ligne.valeur]
+    assert [ligne.valeur for ligne in paye(2025, 9) if ligne.code == 200597 and ligne.valeur] == []
+    assert len(ifp) == 2 and ifp[0] == ifp[1]
+
+
+def test_indemnite_compensatrice_csg_propre_a_l_agent(configuration):
+    _, agent = configuration
+    sans = _paye(configuration, 1, 3)
+    agent.write_text(
+        agent.read_text() + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\n'
+        "values = [{ date = 2020-01-01, valeur = 30.00 }]\n"
+    )
+    avec = _paye(configuration, 1, 3)
+    assert [ligne.valeur for ligne in avec(2025, 2) if ligne.code == 202209] == [30.00]
+    assert [ligne.valeur for ligne in sans(2025, 2) if ligne.code == 202209] != [30.00]
+
+
+@pytest.mark.parametrize(("annee", "mois", "part_employeur_mgen"), [(2025, 8, 0.0), (2026, 9, 37.70)])
+def test_net_imposable_sans_frais_exoneres_avec_part_employeur_mgen(
+    configuration, annee, mois, part_employeur_mgen
+):
+    bulletin = _paye(configuration, 1, 24)(annee, mois)
+    transport = sum(ligne.valeur for ligne in bulletin if ligne.code == 200039)
+    assert transport > 0
+    attendu = ListeLignes.net_imposable.fget(bulletin) - transport + part_employeur_mgen
+    assert round(bulletin.net_imposable, 2) == round(attendu, 2)
+
+
+def test_select_reel_compte_le_rappel_meme_sans_ligne_bpaye(configuration, monkeypatch):
+    # Décembre : l'IFP du mois et un rappel de trois mois que bpaye ne connaît pas.
+    bulletin_pdf = {"101000": 1.0, "200597": 93.16, "200597_R": 279.48}
+    faux_pdf = types.SimpleNamespace(
+        find_pdfs=lambda dossier, annee: {12: ["decembre.pdf"]}, extract_bulletin=lambda chemin: bulletin_pdf
+    )
+    monkeypatch.setitem(sys.modules, "bpaye.pdf", faux_pdf)
+    paye = _paye(configuration, 1, 12)
+    paye.bull_dir = "bulletins"
+    assert paye.select(200597, (2025, 12), (2025, 12)).somme().reel == 372.64
+
+
+def test_select_reel_ne_double_pas_le_mois_a_deux_lignes(configuration, monkeypatch):
+    # Novembre : bpaye porte deux lignes d'HSA (le mois et octobre en rappel).
+    bulletin_pdf = {"101000": 1.0, "200205": 100.0, "200205_R": 100.0}
+    faux_pdf = types.SimpleNamespace(
+        find_pdfs=lambda dossier, annee: {11: ["novembre.pdf"]}, extract_bulletin=lambda chemin: bulletin_pdf
+    )
+    monkeypatch.setitem(sys.modules, "bpaye.pdf", faux_pdf)
+    paye = _paye(configuration, 1, 12)
+    paye.bull_dir = "bulletins"
+    assert paye.select(200205, (2025, 11), (2025, 11)).somme().reel == 200.0
+
+
+def test_aucune_heure_supplementaire_payee_avant_fin_novembre(configuration):
+    paye = _paye(configuration, 1, 24)
+    for mois in (9, 10):
+        assert not [
+            ligne
+            for ligne in paye(2025, mois)
+            if ligne.code in (200205, 200576, 200207, 200215) and ligne.valeur
+        ]
+    nets = {(n.annee, n.mois): n for n in nets_prevus(*configuration, (2025, 7), 6)}
+    assert nets[(2025, 9)].colles == nets[(2025, 10)].colles == 0
+    assert nets[(2025, 11)].colles > 0  # les colles de septembre
+
+
+def test_paye_avec_un_autre_bareme(configuration, tmp_path):
+    from bpaye.config import Bareme
+
+    fichier = tmp_path / "isoe.toml"
+    isoe = '[isoe]\ntype = "Fixe"\nunite = "annuel"\nvalues = [{ date = 2000-01-01, valeur = 1200.0 }]\n'
+    fichier.write_text(isoe, encoding="utf-8")
+    carriere, agent = configuration
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    paye = Paye(fonc, bareme=Bareme.depuis_fichiers(fichier))
+    paye.generate(startyear=2025, startmonth=1, n=1)
+    assert paye(2025, 1).get_fromcode(200364).valeur == 100.0
+
+
+TEMPS_PARTIEL = """
+[[rentrees]]
+year          = 2025
+annee         = 2
+effectif      = 40
+temps_partiel = 0.8
+surcotisation = true
+nbi           = 30
+pacte         = 1
+"""
+
+
+def _paye_temps_plein_et_partiel(configuration):
+    carriere, agent = configuration
+    plein = _paye(configuration, 1, 24)
+    partielle = carriere.with_name("partiel.toml")
+    texte = carriere.read_text(encoding="utf-8")
+    partielle.write_text(texte[: texte.rindex("[[rentrees]]")] + TEMPS_PARTIEL, encoding="utf-8")
+    fonc = load_agent(agent)
+    fonc.load_carriere(partielle)
+    partiel = Paye(fonc)
+    partiel.generate(startyear=2025, startmonth=1, n=24)
+    return plein, partiel
+
+
+def _valeur(bulletin, code):
+    return sum(ligne.valeur for ligne in bulletin if ligne.code == code)
+
+
+def test_temps_partiel_80_reduit_traitement_et_primes_aux_six_septiemes(configuration):
+    plein, partiel = _paye_temps_plein_et_partiel(configuration)
+    p, q = plein(2026, 1), partiel(2026, 1)
+    for code in (101000, 200364):  # traitement, ISOE part fixe
+        assert _valeur(q, code) == round(_valeur(p, code) * 6 / 7, 2)
+    assert _valeur(q, 202321) == _valeur(p, 202321)  # équipement informatique : à taux plein
+
+
+def test_nbi_a_temps_partiel_reduite_et_dans_l_assiette_de_la_residence(configuration):
+    _, partiel = _paye_temps_plein_et_partiel(configuration)
+    q, date = partiel(2026, 1), partiel(2026, 1).date
+    assert _valeur(q, 101070) == reduit(calc_traitement_brut(30, date), 6 / 7)
+    pt = valeur_point(date)
+    zone = partiel.fonctionnaire.residence(date)
+    plein = calc_indemnite_residence(zone, traitement_plein(partiel.fonctionnaire, date), pt, date)
+    assert _valeur(q, 102000) == reduit(plein, 6 / 7)
+
+
+def test_surcotisation_sur_le_traitement_d_un_temps_plein(configuration):
+    _, partiel = _paye_temps_plein_et_partiel(configuration)
+    q, date = partiel(2026, 1), partiel(2026, 1).date
+    attendu = round(traitement_plein(partiel.fonctionnaire, date) * taux_surcotisation(0.8, date), 2)
+    assert _valeur(q, 101050) == -attendu
+
+
+def test_pacte_par_neuvieme_d_octobre_a_juin(configuration):
+    _, partiel = _paye_temps_plein_et_partiel(configuration)
+    assert _valeur(partiel(2025, 9), 202475) == 0
+    assert _valeur(partiel(2025, 10), 202475) == round(1250 / 9, 2)
+    assert _valeur(partiel(2026, 6), 202475) == round(1250 / 9, 2)
+    assert _valeur(partiel(2026, 7), 202475) == 0
+
+
+def _rafp(paye, mois):
+    return round(sum(ligne.valeur for m in mois for ligne in paye(2025, m) if ligne.code == 501080), 2)
+
+
+def test_rappel_de_traitement_releve_le_plafond_de_la_rafp(configuration):
+    # Heures supplémentaires : le plafond de 20 % du traitement est atteint chaque mois.
+    a_temps, en_retard = _paye(configuration, 1, 12), _paye(configuration, 1, 12)
+    indice = en_retard.fonctionnaire.indice(dt.date(2025, 1, 31))
+    en_retard.retard_indice((2025, 1), (2025, 3), indice=indice - 50)
+    assert _rafp(en_retard, [1]) > _rafp(a_temps, [1])  # moins de traitement perçu, moins de RAFP
+    assert _rafp(en_retard, [1, 2, 3]) == _rafp(a_temps, [1, 2, 3])  # le rappel rattrape
+
+
+def test_assiette_rafp_sans_traitement_ni_frais(configuration):
+    bulletin = _paye(configuration, 1, 12)(2025, 1)
+    frais = sum(ligne.valeur for ligne in bulletin if ligne.code in (200039, 200041))
+    assert frais > 0
+    attendu = bulletin.ind_tot - frais + mgen_part_employeur(bulletin.date)
+    assert bulletin.assiette_rafp == pytest.approx(attendu)
+
+
+def _total(bulletin, code):
+    return sum(ligne.valeur for ligne in bulletin if ligne.code == code)
+
+
+def _paye_2025(configuration):
+    carriere, agent = configuration
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    paye = Paye(fonc)
+    paye.generate(startyear=2025, startmonth=1, n=6)
+    return paye
+
+
+def test_charge_ajoutee_survit_au_recalcul(configuration):
+    paye = _paye_2025(configuration)
+    avant = _total(paye(2025, 3), 401201)
+    paye.addligne(2025, 3, Ligne(-10.0, "Régularisation CSG", code=401201, classe="CHARGE"))
+    paye(2025, 3).generate_charges()
+    assert _total(paye(2025, 3), 401201) == pytest.approx(avant - 10.0)
+
+
+def test_erreur_montant_sur_une_charge_corrige_le_mois_et_rattrape_ensuite(configuration):
+    paye, reference = _paye_2025(configuration), _paye_2025(configuration)
+    csg = round(paye(2025, 3)(401301).valeur, 2)
+    paye.erreur_montant((2025, 3), 401301, csg, csg - 5.0)  # 5 € de CSG retenus en trop
+    assert _total(paye(2025, 3), 401301) == pytest.approx(csg - 5.0)
+    assert _total(paye(2025, 5), 401301) == pytest.approx(_total(reference(2025, 5), 401301) + 5.0)
+
+
+def test_promotion_payee_en_retard_a_temps_partiel_rappelle_la_fraction(configuration):
+    carriere, agent = configuration
+    carriere.write_text(carriere.read_text() + "\n[[rentrees]]\nyear = 2026\ntemps_partiel = 0.5\n")
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    paye = Paye(fonc)
+    paye.generate(startyear=2026, startmonth=9, n=4)
+    jour = dt.date(2026, 9, 30)
+    indice = fonc.indice(jour)
+    paye.retard_indice((2026, 9), (2026, 11), indice=indice - 50)
+    # À mi-temps, le traitement d'un mois vaut la moitié d'un temps plein (décret 82-624,
+    # art. 2 : 50 % payés 50 %) : deux mois de 50 points à moitié.
+    attendu = 2 * (calc_traitement_brut(indice, jour) - calc_traitement_brut(indice - 50, jour)) * 0.5
+    rappel = sum(ligne.valeur for ligne in paye(2026, 11) if ligne.code == 999998)
+    assert rappel == pytest.approx(attendu, abs=0.02)
+
+
+def test_select_d_une_fonction_qui_echoue_le_fait_savoir(configuration):
+    paye = _paye_2025(configuration)
+    with pytest.raises(ZeroDivisionError):
+        paye.select(lambda b: 1 / 0, 2025)
+
+
+def test_trop_percu_lu_sur_le_pdf_garde_son_signe():
+    bulletin = types.SimpleNamespace(lignes=[Ligne(101.75, "REMBT", code=200039, classe="INDEM")])
+    Bulletin.join(bulletin, {"200039": -22.0})
+    assert bulletin.lignes[0].valeur_reel == -22.0
+
+
+def test_retenue_absente_du_calcul_prend_le_signe_d_une_retenue():
+    assert signe_bpaye(Ligne(0.0, "CSG", code=401301, classe="CHARGE")) == -1
+    assert signe_bpaye(Ligne(0.0, "REMBT", code=200039, classe="INDEM")) == 1
+
+
+def test_bulletin_avant_l_entree_dans_la_carriere_refuse(configuration):
+    carriere, agent = configuration
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    with pytest.raises(ValueError, match="avant l'entrée"):
+        Paye(fonc).generate(startyear=2019, startmonth=8, n=2)
+
+
+def test_ic_csg_de_l_agent_avant_son_premier_montant_refuse(configuration):
+    carriere, agent = configuration
+    agent.write_text(
+        agent.read_text()
+        + '\n[ic_csg]\ntype = "Fixe"\nunite = "mensuel"\nvalues = [{ date = 2020-01-01, valeur = 30.0 }]\n'
+    )
+    fonc = load_agent(agent)
+    fonc.load_carriere(carriere)
+    with pytest.raises(ValueError, match="MANQUANT"):
+        Paye(fonc).generate(startyear=2019, startmonth=9, n=4)

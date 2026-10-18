@@ -1,0 +1,267 @@
+# bpaye
+
+[![CI](https://github.com/antnardo/bpaye/actions/workflows/ci.yml/badge.svg)](https://github.com/antnardo/bpaye/actions/workflows/ci.yml)
+![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
+![Licence MIT](https://img.shields.io/badge/licence-MIT-green)
+
+Décrivez la carrière d'un enseignant de l'Éducation nationale : bpaye en calcule les
+bulletins de paye, mois par mois et ligne par ligne, comme la paie de l'État, puis les
+compare aux bulletins PDF réellement reçus.
+
+## Le but
+
+Un bulletin de paye d'enseignant porte vingt à trente lignes : traitement, indemnité de
+résidence, supplément familial, ISOE, heures supplémentaires, primes, pension civile,
+RAFP, CSG… Vérifier qu'il est juste demande de connaître son indice à la date du mois,
+le montant de chaque prime cette année-là et les règles d'arrondi de la paie. Une
+promotion payée trois mois en retard, des heures oubliées ou un rappel incompris se
+voient mal autrement.
+
+bpaye refait ce calcul à partir de deux fichiers qui décrivent l'agent : sa carrière
+(`carriere.toml`) et sa situation (`agent.toml`). Avec l'exemple fictif d'une certifiée
+en collège REP, livré dans `examples/college/` :
+
+```python
+from bpaye import Paye, load_agent
+
+agente = load_agent("examples/college/agent.toml")
+agente.load_carriere("examples/college/carriere.toml")
+
+paye = Paye(agente)
+paye.generate(startyear=2026, startmonth=1, n=12)
+print(paye(2026, 1))
+```
+
+```text
+********************************************************************************
+janvier 2026 -- Certifié CN (595)     ORS: 18, HSA:1
+--------------------------------------------------------------------------------
+ [101000] Traitement Brut                                   : 2929.05€
+ [101050] Pension civile                                    :           -325.12€
+ [102000] Indemnité de résidence                            :   29.29€
+ [104000] Supplément familial traitement                    :   98.54€
+ [200039] REMBT DOMICILE-TRAVAIL                            :   37.50€
+ [200205] Heures Année Enseignement (HSA - 1h)              :  135.44€
+ [200364] ISOE Part fixe                                    :  212.50€
+ [200576] Majo 1ère HSA                                     :   27.09€
+ [201883] Indemnité de sujétion REP                         :  144.50€
+ [202209] Indemnité compensatrice CSG                       :   57.55€
+ [202321] Prime équipement informatique                     :  176.00€
+ [202326] Prime d'attractivité                              :   33.33€
+ [202354] Participation PSC                                 :   15.00€
+ [202475] Part fonctionnelle (Pacte)                        :  138.89€
+ [202566] ISOE Part modulable                               :  124.82€
+ [401201] CSG non déductible                                :           -116.57€
+ [401301] CSG déductible                                    :           -253.09€
+ [401501] CRDS                                              :            -20.09€
+ [453000] Réduction cot. heures sup.                        :             15.07€
+ [501080] RAFP                                              :            -29.29€
+ [558000] Impot Revenu 4.5%                                 :           -143.81€
+ [604970] Transfert Prime Point                             :            -32.42€
+--------------------------------------------------------------------------------
+                                                 BRUT TOTAL : 4159.50€
+                                                 CHARGES    :           -761.51€
+                                                 Net impos. : 3195.73€
+                                                 NET        : 3254.18€
+```
+
+bpaye donne chaque bulletin, ses lignes (`code`, `lib`, `valeur`), son net et son net
+imposable, pour tous les mois d'une carrière, passés ou à venir. Il ne dit pas ce qu'il
+faut réclamer : il montre l'écart avec le bulletin reçu ; à vous de savoir s'il vient
+d'une erreur de la paie ou d'un événement que la carrière ne décrit pas encore.
+
+## Les moyens
+
+1. **Tout est daté.** Une grille, un taux, un montant, un échelon ont une valeur à partir
+   d'une date ; un bulletin prend celle du dernier jour de son mois. Une carrière se
+   rejoue ainsi depuis son début, avec les règles de chaque année.
+2. **Les valeurs viennent des textes.** Chaque grille se compose des indices bruts du
+   statut, du barème des indices majorés et des hors-échelle, chacun daté et sourcé
+   (Légifrance, nomenclature de la DGFiP). Une valeur qu'aucun texte lu ne donne est
+   marquée « MANQUANT » : bpaye refuse alors de calculer plutôt que de deviner.
+3. **La carrière avance seule.** Les échelons suivent les durées du statut, les
+   reclassements de 2017 et de 2023 suivent leurs tableaux ; le fichier ne décrit que ce
+   qui s'en écarte : un avancement au choix, une promotion, ce que change chaque rentrée.
+4. **Les arrondis sont ceux de la paie.** Les textes ne disent pas où la paie arrondit ;
+   bpaye reproduit au centime la règle des bulletins réels (l'assiette de la CSG en deux
+   morceaux, tronquée avant février 2026, arrondie depuis).
+5. **La lecture des PDF se contrôle elle-même.** La somme des lignes lues doit retomber
+   sur le « TOTAUX DU MOIS » imprimé ; sinon, bpaye le signale.
+
+## Installation
+
+bpaye s'installe depuis ce dépôt GitHub (il n'est pas sur PyPI), avec Python 3.11 ou plus
+et Git :
+
+```bash
+pip install "bpaye[pdf] @ git+https://github.com/antnardo/bpaye"
+```
+
+ou, dans un projet géré par uv :
+
+```bash
+uv add "bpaye[pdf] @ git+https://github.com/antnardo/bpaye"
+```
+
+Le calcul ne demande que la bibliothèque standard ; l'extra `pdf` ajoute pdfplumber, qui
+lit les bulletins PDF. Sans lui (`pip install "bpaye @ git+https://github.com/antnardo/bpaye"`),
+tout fonctionne sauf cette lecture.
+
+Les exemples (`examples/`) ne sont pas dans le paquet installé : pour les lancer,
+clonez le dépôt.
+
+```bash
+git clone https://github.com/antnardo/bpaye
+cd bpaye
+pip install ".[pdf]"
+python examples/bulletins.py college
+```
+
+## Décrire un agent
+
+`carriere.toml` donne la grille et l'échelon de départ, les avancements, les promotions
+et une entrée par rentrée :
+
+```toml
+[depart]
+nom        = "Agente Fictive"
+grille     = "GRILLE_CERTCN"   # classe normale des certifiés
+corps      = "Certifié"
+echelon    = 3
+anciennete = 0.0
+date       = 2008-09-01
+
+[[avancements]]
+type = "PPCR"                  # reclassement du 1er septembre 2017
+
+[[changements_corps]]
+date   = 2027-09-01
+grille = "GRILLE_CERTHC"       # hors classe
+
+[[rentrees]]
+year   = 2025
+hsa_vs = 1                     # une heure supplémentaire année
+education_prioritaire = "REP"
+professeur_principal  = "3e"
+pacte  = 1                     # une part de Pacte
+```
+
+`agent.toml` donne le taux du prélèvement à la source, les enfants, la zone de
+résidence et l'abonnement de transport. Trois agents fictifs complets sont livrés :
+
+| Dossier | Agent |
+| --- | --- |
+| `examples/college/` | une certifiée en collège REP, professeure principale, Pacte, puis temps partiel |
+| `examples/agrege_cpge/` | un agrégé en classe préparatoire, heures supplémentaires et colles |
+| `examples/carriere_longue/` | une professeure des écoles de 2006 à 2026, directrice d'école en REP+ |
+
+`python examples/bulletins.py agrege_cpge` en montre la carrière rejouée, le brut et le
+net de chaque année, un bulletin et la paye prévue.
+
+Corps couverts : agrégés (classe normale, hors classe, classe exceptionnelle), chaires
+supérieures, et les corps à la grille des certifiés : certifiés (documentalistes
+compris), professeurs des écoles (directeurs compris), PLP, PEPS, CPE, psychologues de
+l'Éducation nationale. Les grilles remontent à 2005 pour les agrégés, 2006 pour les
+certifiés, 2010 pour les chaires supérieures.
+
+## Calculer et prévoir
+
+Une rubrique sur l'année, ou la paye des mois à venir :
+
+```python
+print(paye.select(200364, 2026).somme())       # l'ISOE de 2026
+
+from bpaye.prevision import nets_prevus
+
+carriere, agent = "examples/college/carriere.toml", "examples/college/agent.toml"
+for mois in nets_prevus(carriere, agent, (2026, 8), 3):
+    print(mois.annee, mois.mois, mois.net)
+```
+
+```text
+Somme [200364] réel=—  calcul=2428.56 € (0/12 mois PDF)
+2026 8 2760.47
+2026 9 2168.15
+2026 10 2168.15
+```
+
+En septembre 2026, l'agente passe à 80 % et n'a plus d'heure supplémentaire : la
+prévision le montre. Ce que la carrière ne prévoit pas (une promotion payée en retard,
+des colles déclarées, une GIPA) se déclare sur la paye : `paye.retard_indice`,
+`paye.colle`, `paye.gipa`… (guide, section 5).
+
+## Vérifier ses bulletins
+
+Les bulletins se téléchargent en PDF sur l'ENSAP. Nommés `AAAA_MM_BP_mois.pdf` dans un
+dossier, bpaye les lit ligne par ligne, rappels à part (`code_R`). Sur un bulletin fictif
+de trois lignes :
+
+```python
+from bpaye.pdf import ecart_totaux, extract_bulletin
+
+lu = extract_bulletin("Bulletins/2026_01_BP_janvier.pdf")
+print(lu["101000"], lu["200205"], lu["200205_R"])   # traitement, HSA, rappel d'HSA
+print(lu["_totaux_mois"], lu["_net_payer"])         # le pied du bulletin
+print(ecart_totaux(lu))                             # 0.0 : lecture complète
+```
+
+```text
+3000.0 300.0 50.0
+3350.0 4000.0
+0.0
+```
+
+`ecart_totaux` vaut zéro quand les lignes lues retombent, au centime, sur le total
+imprimé par la paie ; une rubrique que bpaye ne connaît pas est signalée, pas perdue.
+
+`examples/verifier.py` lit les bulletins d'une année et les compare au calcul, mois par
+mois et rubrique par rubrique :
+
+```bash
+python examples/verifier.py Bulletins/ 2025 examples/college
+```
+
+Pour chaque mois, il affiche le net à payer, le contrôle de la lecture et les rappels,
+puis chaque rubrique où le calcul et le bulletin diffèrent.
+
+## Sources
+
+Chaque valeur des tables porte sa source à côté d'elle : texte, article, version lue.
+Les relevés complets sont dans [`docs/verification/`](docs/verification/). Les règles
+d'arrondi, que les textes ne donnent pas, sont décrites dans [`docs/csg.md`](docs/csg.md)
+(CSG et CRDS) et [`docs/mgen.md`](docs/mgen.md) (PSC santé). Le guide complet, avec
+chaque clé des fichiers et chaque rubrique calculée, est dans [`docs/DOC.md`](docs/DOC.md).
+
+## Limites
+
+- **Les indemnités ponctuelles** (jurys, examens, missions particulières) et la
+  bonification indiciaire des directeurs d'école : la ligne du bulletin se lit, mais
+  n'est pas calculée.
+- **Les montants qu'aucun texte lu ne donne** : la pension civile avant 2011, le plafond
+  de transport avant août 2016, l'indemnité des CPE de 2016 à 2021, les chaires
+  supérieures avant 2010… bpaye refuse de calculer ces mois-là (liste dans le
+  guide, « Limites »).
+- **Les cotisations patronales**, imprimées « pour information » sur le bulletin : hors du
+  sujet de bpaye, qui ne calcule que ce que perçoit l'agent (guide, « Limites »).
+- **Les contractuels**, dont l'indice dépend de l'académie, et **l'enseignement privé**,
+  qui relève d'autres cotisations.
+- **La part solidaire de la PSC santé sous le plafond de la sécurité sociale** : aucun
+  bulletin ne la vérifie encore ([`docs/mgen.md`](docs/mgen.md)).
+- **Le calendrier de la paie** (l'IFP de septembre payée en octobre, les HSA d'octobre en
+  novembre) vient de bulletins réels, non d'un texte.
+
+## Développement
+
+```bash
+uv sync --group dev
+uv run ruff format src tests scripts examples
+uv run ruff check src tests scripts examples
+uv run mypy
+uv run pytest
+```
+
+Le style du code et la règle des sources : [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
+## Licence
+
+MIT.

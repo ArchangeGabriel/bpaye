@@ -1,0 +1,40 @@
+"""Registre des codes de rubrique du bulletin (codes.toml) : libellé, rappel, catégorie, source.
+
+Chaque code porte la référence du document de la DGFiP qui l'atteste (nomenclature PAY
+de janvier 2026). La catégorie (revenu, retenue, patronal, special) est celle de
+bpaye : elle range les lignes du bulletin pour la lecture des PDF et leur affichage.
+"""
+
+import tomllib
+from pathlib import Path
+
+__all__ = [
+    "ALL_CODES",
+    "CATEGORIES",
+    "CODES_TOML",
+    "load_codes",
+]
+
+CODES_TOML = Path(__file__).parent / "codes.toml"
+
+
+def load_codes(path: Path = CODES_TOML) -> dict[str, dict]:
+    """Retourne {code: {libelle, has_rappel, cat, libelle_officiel, imposable, source}}."""
+    with path.open("rb") as f:
+        data = tomllib.load(f)
+    return {
+        c["code"]: {
+            "libelle": c["libelle"],
+            "has_rappel": c["rappel"],
+            "cat": c["categorie"],
+            "libelle_officiel": c.get("libelle_officiel", c["libelle"]),
+            "imposable": c.get("imposable"),
+            "source": c["source"],
+        }
+        for c in data["code"]
+    }
+
+
+ALL_CODES = load_codes()
+with CODES_TOML.open("rb") as _f:
+    CATEGORIES: dict[str, str] = tomllib.load(_f)["categories"]

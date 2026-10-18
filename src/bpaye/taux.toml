@@ -1,0 +1,895 @@
+# bpaye/taux.toml
+# Paramètres de calcul de la paye : taux, montants fixes et temporels.
+# Format : chaque section est un objet Taux ou Fixe.
+#   type = "Taux"  → Temporal de taux (appliqué sur une assiette)
+#   type = "Fixe"  → Temporal de montant fixe
+#   unite = "mensuel" | "annuel"  (Fixe seulement, par défaut "mensuel")
+#   values = [ { date = AAAA-MM-JJ, valeur = X }, ... ]
+
+# ──────────────────────────────────────────────
+# POINT D'INDICE
+# ──────────────────────────────────────────────
+# Valeur annuelle du point (traitement de l'indice 100, ÷ 100), décret 85-1148, art. 3,
+# versions successives lues sur Légifrance : chaque ligne cite la sienne. Le traitement
+# mensuel d'un indice est indice × valeur / 12, tronqué au centime (point.py) : 757 ×
+# 58,2004 / 12 = 3 671,47 €, comme sur les bulletins de juillet 2022, quand 757 × 4,85 donnait
+# 3 671,45 €. Avant le 1/11/2005 : non relu.
+# https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/
+[point]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2005-11-01, valeur = 53.711 },  # décret 2005-1301, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006454458/2005-10-21
+  { date = 2006-07-01, valeur = 53.9795 },  # décret 2006-759, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000006454459/2006-07-01
+  { date = 2007-02-01, valeur = 54.4113 },  # art. 3, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000018201350/2007-02-01
+  { date = 2008-03-01, valeur = 54.6834 },  # décret 2008-198, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000018197142/2008-03-01
+  { date = 2008-10-01, valeur = 54.8475 },  # décret 2008-1016, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000019566124/2008-10-04
+  { date = 2009-07-01, valeur = 55.1217 },  # décret 2009-824, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000020817884/2009-07-01
+  { date = 2009-10-01, valeur = 55.2871 },  # décret 2009-1158, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000021091947/2009-10-01
+  { date = 2010-07-01, valeur = 55.5635 },  # décret 2010-761, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000022450760/2010-07-09
+  { date = 2016-07-01, valeur = 55.8969 },  # décret 2016-670, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000032586948/2016-07-01
+  { date = 2017-02-01, valeur = 56.2323 },  # décret 2016-670, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000032586958/2017-02-01
+  { date = 2022-07-01, valeur = 58.2004 },  # décret 2022-994, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000046027409/2022-07-01
+  { date = 2023-07-01, valeur = 59.0734 },  # décret 2023-519, https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000047751772/2023-07-01
+]
+
+# ──────────────────────────────────────────────
+# PENSION CIVILE (PC)
+# ──────────────────────────────────────────────
+# Décret 2010-1749, art. 1 (taux de la retenue du 2° de l'art. L. 61 du CPCMR), versions
+# successives : https://www.legifrance.gouv.fr/loda/id/JORFTEXT000023335006/2011-06-01/ (2011), /2013-06-01/ (2012-2013,
+# décret 2012-847 : 8,49 % de novembre à décembre 2012), /2014-06-01/ (2014),
+# /2026-10-17/ (2015 à 2020 et après). Avant 2011 : non relu.
+[pc]
+type = "Taux"
+values = [
+  { date = 2011-01-01, valeur = 0.0812 },
+  { date = 2012-01-01, valeur = 0.0839 },
+  { date = 2012-11-01, valeur = 0.0849 },
+  { date = 2013-01-01, valeur = 0.0876 },
+  { date = 2014-01-01, valeur = 0.0914 },
+  { date = 2015-01-01, valeur = 0.0954 },
+  { date = 2016-01-01, valeur = 0.0994 },
+  { date = 2017-01-01, valeur = 0.1029 },
+  { date = 2018-01-01, valeur = 0.1056 },
+  { date = 2019-01-01, valeur = 0.1083 },
+  { date = 2020-01-01, valeur = 0.1110 },
+]
+
+# ──────────────────────────────────────────────
+# RAFP
+# ──────────────────────────────────────────────
+# Décret 2004-569, art. 3 (version depuis le 19/6/2004) : « 10 % du montant de l'assiette,
+# […] réparti à parts égales entre l'employeur et le bénéficiaire » ; art. 2 (version
+# depuis le 17/4/2024, décret 2024-348) : l'assiette est faite des revenus d'activité de
+# l'assiette de la CSG, hors ceux qui comptent pour la pension (traitement, NBI), « dans
+# la limite de 20 % du traitement indiciaire brut total […] perçu[] au cours de l'année »
+# (Bulletin.assiette_rafp, Bulletin.traitement_percu).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000803653/2026-10-17/
+# MANQUANT : les versions de l'art. 2 d'avant 2024 ne sont pas relues, ni le texte qui
+# fixe le départ du régime au 1/1/2005.
+[rafp]
+type = "Taux"
+values = [
+  { date = 2005-01-01, valeur = 0.05 },
+]
+
+# plafond de l'assiette : 20 % du traitement indiciaire perçu (art. 2, ci-dessus)
+[rafp.plafond_pct]
+valeur = 0.20
+
+# ──────────────────────────────────────────────
+# CSG — relevé du 18/10/2026 sur Légifrance, versions datées (docs/verification/csg_crds.toml)
+# Taux sur les revenus d'activité (code de la sécurité sociale, L136-8, I) : 7,5 % depuis
+# le 1/1/2002 (version modifiée par la loi 2001-647, art. 9), 9,2 % depuis le 1/1/2018
+# (loi 2017-1836, art. 8). Part déductible de l'impôt (code général des impôts, art. 154
+# quinquies, I) : 5,1 points (versions de 2001 à 2017), 6,8 points depuis le 1/1/2018 (loi
+# 2017-1837, art. 67). La part non déductible est la différence : 2,4 points de bout en bout.
+# Réduction pour frais professionnels (L136-2, I) : 5 % jusqu'en 2004 ; 3 % pour les revenus
+# perçus depuis le 1/1/2005 (loi 2004-810, art. 72 V) ; limitée au « montant brut inférieur
+# à quatre fois la valeur du plafond » de la sécurité sociale depuis le 22/12/2010 (loi
+# 2010-1594, art. 20, sans date d'application propre) ; 1,75 % depuis le 23/12/2011 (loi
+# 2011-1906, art. 17, sans date d'application propre). Le seuil est csg.abattement_plafonds
+# × [pmss] du mois (charges.seuil_abattement).
+# https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006740248/2005-06-01 (L136-2)
+# https://www.legifrance.gouv.fr/codes/section_lc/LEGITEXT000006073189/LEGISCTA000006156362/2018-06-01/ (L136-8)
+# https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000054336634/2018-06-01 (154 quinquies)
+# MANQUANT : le taux de 2001 (L136-8 n'existe pas dans la version du 1/6/2001 ; le taux
+# était fixé ailleurs, non relu) ; 2001 reprend la valeur de 2002.
+# ──────────────────────────────────────────────
+[csg.abattement_taux]
+# part de l'assiette retenue après la réduction pour frais professionnels (L136-2, I)
+type = "Taux"
+values = [
+  # L136-2, versions du 24/12/2000 au 17/08/2004 : « 5 p. 100 »
+  { date = 2001-01-01, valeur = 0.95   },
+  # loi 2004-810, art. 72 V : « 3 p. 100 », revenus perçus à compter du 1/1/2005
+  { date = 2005-01-01, valeur = 0.97   },
+  # loi 2011-1906, art. 17, I, 2° : « 1,75 % », version du code en vigueur le 23/12/2011
+  { date = 2011-12-23, valeur = 0.9825 },
+]
+
+[csg.abattement_plafonds]
+# nombre de plafonds mensuels de la sécurité sociale sous lequel joue la réduction
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  # L136-2 avant la loi 2010-1594 : réduction sur tout le montant brut, sans plafond
+  { date = 2001-01-01, valeur = inf },
+  # loi 2010-1594, art. 20, 1° : « inférieur à quatre fois la valeur du plafond mentionné
+  # à l'article L. 241-3 », version du code en vigueur le 22/12/2010
+  { date = 2010-12-22, valeur = 4.0 },
+]
+
+[csg.deductible]
+# part déductible de l'impôt (code général des impôts, art. 154 quinquies, I)
+type = "Taux"
+values = [
+  # 154 quinquies, versions du 31/03/2001 au 01/01/2018 : « à hauteur de 5,1 points »
+  { date = 2001-01-01, valeur = 0.051 },
+  # loi 2017-1837, art. 67 : « à hauteur de 6,8 points », version du 01/01/2018
+  { date = 2018-01-01, valeur = 0.068 },
+]
+
+[csg.non_deductible]
+# taux de L136-8 moins la part déductible : 7,5 − 5,1 puis 9,2 − 6,8 points
+type = "Taux"
+values = [
+  { date = 2001-01-01, valeur = 0.024 },
+]
+
+# ──────────────────────────────────────────────
+# CRDS : ordonnance 96-50, art. 14, I : contribution « assise sur les revenus visés et dans
+# les conditions prévues aux articles L. 136-2 à L. 136-4 » (versions du 31/12/2000, du
+# 17/08/2004, du 01/01/2011 et du 01/01/2015 relues), « L. 136-1-1 à L. 136-4 » depuis : la
+# réduction et son plafond sont donc ceux de la CSG, aux mêmes dates (le 1/1/2015 de l'ancien
+# code de bpaye ne correspond à aucun changement du texte). Taux : 0,5 % (art. 19, versions
+# du 25/01/1996, du 01/01/2006, du 13/05/2010 et du 01/01/2020).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000190291/2012-06-01/
+# ──────────────────────────────────────────────
+[crds.abattement_taux]
+# celui de la CSG (art. 14, I)
+type = "Taux"
+values = [
+  { date = 2001-01-01, valeur = 0.95   },
+  { date = 2005-01-01, valeur = 0.97   },
+  { date = 2011-12-23, valeur = 0.9825 },
+]
+
+[crds.taux]
+type = "Taux"
+values = [
+  { date = 2001-01-01, valeur = 0.005 },
+]
+
+# ──────────────────────────────────────────────
+# PLAFOND MENSUEL DE LA SÉCURITÉ SOCIALE (code de la sécurité sociale, L241-3 et D242-17)
+# Fixé chaque année pour les rémunérations versées du 1er janvier au 31 décembre, par décret
+# jusqu'en 2005 et pour 2009, par arrêté sinon (« portant fixation du plafond de la sécurité
+# sociale pour <année> »). Chaque valeur est la « valeur mensuelle » (ou le montant « si les
+# rémunérations ou gains sont versés par mois ») lue dans le JORF le 18/10/2026, à l'adresse
+# https://www.legifrance.gouv.fr/jorf/id/<JORFTEXT>. Sert au seuil de la réduction CSG/CRDS
+# et à la part solidaire MGEN (720577).
+# MANQUANT : 2001, fixé en francs (décret 2000-1284), non relu ; 2001 reprend 2002.
+# ──────────────────────────────────────────────
+[pmss]
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  # décret 2001-1069 du 16/11/2001, JORF n° 267 du 17/11/2001, JORFTEXT000000403609
+  { date = 2001-01-01, valeur = 2352.0 },  # MANQUANT pour 2001 (voir plus haut)
+  { date = 2002-01-01, valeur = 2352.0 },
+  # décret 2002-1374 du 22/11/2002, JORF n° 273 du 23/11/2002, JORFTEXT000000599381
+  { date = 2003-01-01, valeur = 2432.0 },
+  # décret 2003-1159 du 04/12/2003, JORF n° 282 du 06/12/2003, JORFTEXT000000433484
+  { date = 2004-01-01, valeur = 2476.0 },
+  # décret 2004-1292 du 26/11/2004, JORF n° 277 du 28/11/2004, JORFTEXT000000810525
+  { date = 2005-01-01, valeur = 2516.0 },
+  # arrêté du 02/12/2005, JORF n° 286 du 09/12/2005, JORFTEXT000000636240
+  { date = 2006-01-01, valeur = 2589.0 },
+  # arrêté du 15/11/2006, JORF n° 275 du 28/11/2006, JORFTEXT000000616003
+  { date = 2007-01-01, valeur = 2682.0 },
+  # arrêté du 30/10/2007, JORF n° 261 du 10/11/2007, JORFTEXT000000651144
+  { date = 2008-01-01, valeur = 2773.0 },
+  # décret 2008-1394 du 19/12/2008, JORF n° 299 du 24/12/2008, JORFTEXT000019986645
+  { date = 2009-01-01, valeur = 2859.0 },
+  # arrêté du 18/11/2009, JORF n° 274 du 26/11/2009, JORFTEXT000021334833
+  { date = 2010-01-01, valeur = 2885.0 },
+  # arrêté du 26/11/2010, JORF n° 276 du 28/11/2010, JORFTEXT000023140577
+  { date = 2011-01-01, valeur = 2946.0 },
+  # arrêté du 30/12/2011, JORF n° 303 du 31/12/2011, JORFTEXT000025060928
+  { date = 2012-01-01, valeur = 3031.0 },
+  # arrêté du 12/12/2012, JORF n° 297 du 21/12/2012, JORFTEXT000026805244
+  { date = 2013-01-01, valeur = 3086.0 },
+  # arrêté du 07/11/2013, JORF n° 268 du 19/11/2013, JORFTEXT000028214098
+  { date = 2014-01-01, valeur = 3129.0 },
+  # arrêté du 26/11/2014, JORF n° 284 du 09/12/2014, JORFTEXT000029862934
+  { date = 2015-01-01, valeur = 3170.0 },
+  # arrêté du 17/12/2015, JORF n° 298 du 24/12/2015, JORFTEXT000031680291
+  { date = 2016-01-01, valeur = 3218.0 },
+  # arrêté du 05/12/2016, JORF n° 289 du 13/12/2016, JORFTEXT000033578230
+  { date = 2017-01-01, valeur = 3269.0 },
+  # arrêté du 05/12/2017, JORF n° 287 du 09/12/2017, JORFTEXT000036171732
+  { date = 2018-01-01, valeur = 3311.0 },
+  # arrêté du 11/12/2018, JORF n° 290 du 15/12/2018, JORFTEXT000037814803
+  { date = 2019-01-01, valeur = 3377.0 },
+  # arrêté du 02/12/2019, JORF n° 280 du 03/12/2019, JORFTEXT000039440180
+  { date = 2020-01-01, valeur = 3428.0 },
+  # arrêté du 22/12/2020, JORF n° 314 du 29/12/2020, JORFTEXT000042748904
+  { date = 2021-01-01, valeur = 3428.0 },
+  # arrêté du 15/12/2021, JORF n° 294 du 18/12/2021, JORFTEXT000044514684
+  { date = 2022-01-01, valeur = 3428.0 },
+  # arrêté du 09/12/2022, JORF n° 291 du 16/12/2022, JORFTEXT000046745084
+  { date = 2023-01-01, valeur = 3666.0 },
+  # arrêté du 19/12/2023, JORF n° 301 du 29/12/2023, JORFTEXT000048708693
+  { date = 2024-01-01, valeur = 3864.0 },
+  # arrêté du 19/12/2024, JORF n° 308 du 29/12/2024, JORFTEXT000050854392
+  { date = 2025-01-01, valeur = 3925.0 },
+  # arrêté du 22/12/2025, JORF n° 300 du 23/12/2025, JORFTEXT000053143451
+  { date = 2026-01-01, valeur = 4005.0 },
+]
+
+# ──────────────────────────────────────────────
+# CONTRIBUTION SOLIDARITÉ
+# ──────────────────────────────────────────────
+# Supprimée au 1er janvier 2018 (loi de finances pour 2018 ; article non relu), compensée
+# par l'indemnité compensatrice de CSG. Taux observé sur les bulletins.
+[contrisoli]
+type = "Taux"
+values = [
+  { date = 2001-01-01, valeur = 0.01 },
+  { date = 2018-01-01, valeur = 0.0  },  # supprimée
+]
+
+# ──────────────────────────────────────────────
+# INDEMNITÉS FIXES
+# ──────────────────────────────────────────────
+# 201150, « indemnité de fonction aux enseignants du ministère de la défense » (libellé DGFiP,
+# codes.toml). Montant relevé sur des bulletins de paye ; texte non relu.
+[indemnite_detachement]
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2000-01-01, valeur = 136.16 },
+]
+
+# Indemnité de fonctions particulières des CPGE (200597). Décret 99-886, art. 1 (au moins
+# 8 h en CPGE, ou 4 h devant une même division), art. 3 (« ce taux est indexé sur la valeur
+# du point »), art. 4 (versée mensuellement) ; arrêté du 19/10/1999, art. 1 : 6 270 F au
+# 1/9/1999, seul montant écrit. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000212309/2026-10-17/ et
+# https://www.legifrance.gouv.fr/loda/id/LEGITEXT000030338057/2026-10-17/
+# Les montants en euros sont ceux des bulletins ; ils suivent le point (1 064,16 × 58,20 /
+# 56,2323 = 1 101,40 ; × 59,0734 / 56,2323 = 1 117,92). Dates : celles des bulletins.
+[ifp_cpge]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2008-03-01, valeur = 1034.76 },
+  { date = 2012-03-01, valeur = 1051.44 },
+  { date = 2016-09-01, valeur = 1057.80 },
+  { date = 2017-02-01, valeur = 1064.16 },
+  { date = 2022-07-01, valeur = 1101.41 },
+  { date = 2023-09-01, valeur = 1117.92 },
+]
+
+# ISOE part fixe (200364). Décret 93-55, art. 4 : montants indexés sur le point (toujours
+# en 2026) ; art. 6 : versée mensuellement. Arrêté du 15/01/1993, art. 1 : 1 183,68 € au
+# 1/1/2009 (arrêté du 6/11/2009), 1 213,56 € au 1/9/2021 (arrêté du 20/08/2021), 2 550 € au
+# 1/9/2023 (arrêté du 19/07/2023). https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725858/2026-10-17/ et
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/
+# Entre deux arrêtés, le montant suit le point : ceux d'avant 2021 sont relevés sur les
+# bulletins ; 2022-07 et 2023-07 sont 1 213,56 × point / 56,2323 (104,67 € et 106,24 € par
+# mois sur les bulletins).
+[isoe]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2007-02-01, valeur = 1174.20 },
+  { date = 2010-07-01, valeur = 1199.16 },
+  { date = 2016-09-01, valeur = 1206.36 },
+  { date = 2017-02-01, valeur = 1213.56 },
+  { date = 2022-07-01, valeur = 1256.03 },
+  { date = 2023-07-01, valeur = 1274.87 },
+  { date = 2023-09-01, valeur = 2550 },
+]
+
+[indemnite_comp_csg]
+# Indemnité compensatrice CSG : valeur par défaut. Le montant est propre à chaque agent,
+# recalculé chaque 1er janvier : agent.toml le donne dans [ic_csg].
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2018-01-01, valeur = 57.55 },
+]
+
+# ──────────────────────────────────────────────
+# TRANSPORT
+# ──────────────────────────────────────────────
+# Décret 2010-676, art. 3 : la moitié du tarif de l'abonnement, les trois quarts pour les
+# déplacements effectués à compter du 1/9/2023 (décret 2023-812).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2023-08-01/ et /2026-10-17/ ; régime d'avant le 1/7/2010 non relu.
+[transport.taux]
+type = "Taux"
+values = [
+  { date = 2000-01-01, valeur = 0.5 },
+  { date = 2023-09-01, valeur = 0.75 },
+]
+
+# Le plafond est le tarif de l'abonnement annuel Île-de-France le plus long (Navigo toutes
+# zones), × 1,25 / 12 depuis le 7/10/2015 (décret 2010-676, art. 3,
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000022374455/2026-10-17/). Le même pour toute
+# la fonction publique de l'État, à partir du tarif de l'année :
+#   2024 : 950,40 € × 1,25 / 12 = 99,00 € — rectorat de Grenoble, circulaire du 13/12/2024
+#          (réf. 2024-1015) : « Depuis le 1er janvier 2024, la part à la charge de l'employeur
+#          ne peut excéder mensuellement 99 euros » ;
+#   2025 : 976,80 € × 1,25 / 12 = 101,75 € ; 2026 : 998,80 € × 1,25 / 12 = 104,04 € — tarifs
+#          lus le 18/10/2026 sur https://www.iledefrance-mobilites.fr/tarifs-titre-de-transport-en-commun-2025
+#          et …-2026 ; 2023 : 925,10 € × 1,25 / 12 = 96,36 € ;
+#   tarifs de 2023 à 2025 et plafonds de 2023 à 2026 (en Île-de-France et hors) : note
+#          SG/SRH/SDCAR/2026-163 du ministère de l'Agriculture, page 9,
+#          https://info.agriculture.gouv.fr/boagri/instruction-2026-163/telechargement ;
+#          86,16 € au 1/8/2016 : note SG/SRH/SDCAR/2023-811, page 4
+# Relevés : docs/verification/indemnites_et_manques.toml.
+# MANQUANT : avant le 1/8/2016 (jusqu'au 7/10/2015, 50 % de la somme des abonnements du trajet
+# le plus long et du plus court depuis Paris) ; bpaye refuse un abonnement de ces mois.
+[transport.plafond]
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2016-08-01, valeur = 86.16 },
+  { date = 2023-01-01, valeur = 96.36 },
+  { date = 2024-01-01, valeur = 99.00 },
+  { date = 2025-01-01, valeur = 101.75 },
+  { date = 2026-01-01, valeur = 104.04 },
+]
+
+# ──────────────────────────────────────────────
+# INDEMNITÉ DE RÉSIDENCE
+# ──────────────────────────────────────────────
+# Décret 85-1148, art. 9 : 3 %, 1 % ou rien selon la zone, sur le traitement soumis à
+# pension. https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2026-10-17/
+[indemnite_residence]
+taux_zone = [0.03, 0.01, 0.0]
+
+# L'indice majoré en dessous duquel on touche l'indemnité de cet indice : fixé par l'art. 9
+# jusqu'en 2021, puis le minimum de traitement de l'art. 8 (décret 2021-1749).
+[indemnite_residence.indice_min]
+type = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2001-05-01, valeur = 297 },  # art. 9, https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2006-01-01/
+  { date = 2006-11-01, valeur = 298 },  # décret 2006-1283, /2007-01-01/
+  { date = 2011-01-01, valeur = 299 },  # décret 2011-51, /2011-06-01/
+  { date = 2012-01-01, valeur = 306 },  # décret 2012-37, /2012-03-01/
+  { date = 2012-07-07, valeur = 312 },  # décret 2012-853, /2012-08-01/
+  { date = 2013-01-01, valeur = 313 },  # décret 2013-33, /2017-03-01/
+  { date = 2022-01-01, valeur = 343 },  # art. 8, décret 2021-1749, /2022-01-15/
+  { date = 2022-05-01, valeur = 352 },  # art. 8, décret 2022-586, /2022-06-01/
+  { date = 2023-01-01, valeur = 353 },  # art. 8, décret 2022-1615, /2023-03-01/
+  { date = 2023-05-01, valeur = 361 },  # art. 8, décret 2023-312, /2023-06-01/
+  { date = 2024-01-01, valeur = 366 },  # art. 8, décret 2023-519 art. 2, /2026-10-17/
+]
+
+# ──────────────────────────────────────────────
+# PLAFOND EXONÉRATION HS (code 011200)
+# Plafond annuel brut = plafond_net / (1 - 0.9825 × 0.068)
+# Loi 2018-1213, art. 2 : I rétablit le CGI, art. 81 quater (5 000 € nets par an), II
+# l'applique aux heures « réalisées à compter du 1er janvier 2019 ».
+# https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037851899 (lu le 18/10/2026)
+# Avant 2019 : rien depuis le 1/8/2012 (loi 2012-958, art. 3), MANQUANT avant (loi
+# 2007-1223 non relue) ; charges_impots en tient les dates.
+# ──────────────────────────────────────────────
+[hs_exo.plafond_brut]
+type  = "Fixe"
+unite = "mensuel"   # valeur annuelle brute stockée telle quelle (pas ÷12)
+values = [
+  { date = 2019-01-01, valeur = 5358.0 },  # 5000€ nets  → 5357.96, arrondi 5358
+  # 7500€ nets → 8036.94, arrondi 8037 (loi 2022-1158). La loi vaut pour les revenus 2022, mais
+  # la paie ne l'a appliquée qu'en 2023 : novembre 2022 n'exonère rien au-delà de 5 000 € nets.
+  { date = 2023-01-01, valeur = 8037.0 },
+]
+
+# ──────────────────────────────────────────────
+# TRANSFERT PRIME EN POINTS
+# ──────────────────────────────────────────────
+# Décret 2016-588, art. 3 : abattement annuel des enseignants (catégorie A hors annexe),
+# 167 € en 2017 et 2018, 389 € depuis 2019 ; art. 4 : un douzième par mois.
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000032520735/2026-10-17/
+[transfertpp]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2001-01-01, valeur = 0.0   },
+  { date = 2017-01-01, valeur = 167.0 },  # 4 points d'indice
+  { date = 2019-01-01, valeur = 389.0 },  # 7 points d'indice
+]
+
+# ──────────────────────────────────────────────
+# PSC (Participation employeur à la mutuelle)
+# ──────────────────────────────────────────────
+# Décret 2021-1164, art. 4 : 15 € par mois depuis le 1/1/2022. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000044030655/2026-10-17/
+# Fin pour l'Éducation nationale : avril 2026 sur les bulletins (contrat MGEN obligatoire en
+# mai) ; texte de cette date non relu.
+[psc]
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2005-01-01, valeur = 0.0  },  # avant : rien, le décret 2021-1164 la crée au 1/1/2022
+  { date = 2022-01-01, valeur = 15.0 },
+  { date = 2026-05-01, valeur = 0.0  },
+]
+
+# ──────────────────────────────────────────────
+# MGEN PSC (Protection Sociale Complémentaire – depuis mai 2026)
+# Montants relevés sur les bulletins de mai à septembre 2026 : le contrat MGEN – CNP qui
+# les fixe n'a pas été trouvé. Formule de 720577 : docs/mgen.md.
+# ──────────────────────────────────────────────
+[mgen.part_employeur]
+# 720580 – participation patronale (pour information, soumise à CSG sans abattement)
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2000-01-01, valeur = 0.0   },
+  { date = 2026-05-01, valeur = 37.70 },
+]
+
+[mgen.part_forfaitaire]
+# 720576 – cotisation forfaitaire salariale (75,40 × 20 %)
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2000-01-01, valeur = 0.0   },
+  { date = 2026-05-01, valeur = 15.08 },
+]
+
+[mgen.part_solidaire_base]
+# base de la part solidaire (75,40 × 30 %) avant coefficient revenu
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2000-01-01, valeur = 0.0   },
+  { date = 2026-05-01, valeur = 22.62 },
+]
+
+[mgen.brut_moyen]
+# Traitement brut moyen national retenu par l'administration (base 720577)
+type  = "Fixe"
+unite = "mensuel"
+values = [
+  { date = 2024-01-01, valeur = 3107.0 },
+]
+
+# ──────────────────────────────────────────────
+# FMD (Forfait Mobilité Durable) — 3 niveaux, niveau de l'agent dans agent.toml
+# Décret 2020-543, art. 5 : versé l'année suivant la déclaration. Arrêté du 9/5/2020 : 200 €
+# pour 100 jours (2020-2021) ; 100, 200 ou 300 € pour 30, 60 ou 100 jours depuis les
+# déplacements de 2022 (arrêté du 13/12/2022). https://www.legifrance.gouv.fr/loda/id/JORFTEXT000041858561/2026-10-17/
+# Les dates ci-dessous sont celles du versement, en janvier.
+# ──────────────────────────────────────────────
+[fmd.n1]
+type           = "AnnuelPonctuel"
+mois_versement = 1
+values = [
+  { date = 2023-01-01, valeur = 100.0 },
+]
+
+[fmd.n2]
+type           = "AnnuelPonctuel"
+mois_versement = 1
+values = [
+  { date = 2020-01-01, valeur = 200.0 },
+]
+
+[fmd.n3]
+type           = "AnnuelPonctuel"
+mois_versement = 1
+values = [
+  { date = 2020-01-01, valeur = 300.0 },
+]
+
+# ──────────────────────────────────────────────
+# PRIME ÉQUIPEMENT INFORMATIQUE (202321)
+# ──────────────────────────────────────────────
+# Décret 2020-1524, art. 3 : versée chaque année aux personnels en fonction au 1er janvier ;
+# arrêté du 5/12/2020, art. 1 : 176 €. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000042614360/2026-10-17/
+[prime_eq_info]
+type             = "AnnuelPonctuel"
+mois_versement   = 1
+values = [
+  { date = 2005-01-01, valeur = 0.0 },  # avant : rien, le décret 2020-1524 la crée
+  { date = 2021-01-01, valeur = 176.0 },
+]
+
+# ──────────────────────────────────────────────
+# SUPPLÉMENT FAMILIAL DE TRAITEMENT (SFT)
+# ──────────────────────────────────────────────
+# Décret 85-1148, art. 10 bis : un élément fixe et un élément proportionnel au traitement,
+# selon le nombre d'enfants (1, 2, 3, puis par enfant au-delà) ; l'élément proportionnel se
+# calcule sur un traitement ramené entre celui de l'IB 524 (plancher) et celui de l'IB 879
+# (plafond), soit les IM 449 et 717 jusqu'en 2023 (IM écrits dans le texte), 454 et 722
+# depuis 2024 (barème du décret 82-1105). Tableau identique en 2002, 2006 et 2024.
+# https://www.legifrance.gouv.fr/loda/id/LEGITEXT000006064738/2006-01-01/, /2021-06-01/, /2026-10-17/
+[sft]
+fixe           = [2.29, 10.67, 15.24]
+fixe_supp      = 4.57
+prop_brut      = [0.0, 0.03, 0.08]
+prop_brut_supp = 0.06
+ib_plancher    = 524
+ib_plafond     = 879
+
+# ──────────────────────────────────────────────
+# ISAE PART FIXE (201914), professeurs des écoles
+# Décret 2013-790, art. 3 (part fixe versée mensuellement), sans indexation ; arrêté du
+# 30/08/2013, art. 1. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2014-01-01/, /2022-01-01/, /2026-10-17/
+# ──────────────────────────────────────────────
+[isae]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2005-01-01, valeur = 0.0 },  # avant : rien, le décret 2013-790 la crée
+  { date = 2013-09-01, valeur = 400.0 },
+  { date = 2016-09-01, valeur = 1200.0 },  # arrêté du 27/06/2016
+  { date = 2023-09-01, valeur = 2550.0 },  # arrêté du 19/07/2023, art. 6
+]
+
+# ──────────────────────────────────────────────
+# PRIME D'ATTRACTIVITÉ (202326)
+# Décret 2021-276, art. 2 : premier grade seulement ; ni les corps accessibles uniquement par
+# liste d'aptitude (chaires supérieures), ni les enseignants exerçant intégralement dans le
+# supérieur ; stagiaires inclus depuis le 1/9/2023. Art. 6 : versée mensuellement.
+# Montants annuels par échelon de classe normale (arrêté du 12/03/2021, art. 1).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246480/2026-10-17/ et https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2026-10-17/
+# ──────────────────────────────────────────────
+[[prime_attractivite]]
+date = 2021-05-01
+montants = [0, 1400, 1250, 900, 700, 500, 500]
+source = "arrêté du 12/03/2021, art. 1, version initiale, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2021-06-01/"
+
+[[prime_attractivite]]
+date = 2022-02-01
+montants = [0, 2200, 2050, 1500, 1100, 900, 900, 400, 400]
+source = "arrêté du 12/03/2021, art. 1, mod. par l'arrêté du 14/12/2021, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2022-06-01/"
+
+[[prime_attractivite]]
+date = 2023-09-01
+montants = [2130, 2980, 3370, 3180, 2880, 2500, 1500, 400, 400]
+source = "arrêté du 12/03/2021, art. 1, mod. par l'arrêté du 19/07/2023, art. 1, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000043246529/2026-10-17/"
+
+# ──────────────────────────────────────────────
+# ÉDUCATION PRIORITAIRE (REP 201883, REP+ 201882 : part fixe, mensuelle)
+# Décret 2015-1087 ; arrêté du 28/08/2015, art. 1 (REP+) et 2 (REP). La part modulable du
+# REP+ (202355), versée en fin d'année scolaire, n'est pas calculée.
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031113410/2016-01-01/, /2019-01-01/, /2020-01-01/, /2021-10-01/, /2026-10-17/
+# ──────────────────────────────────────────────
+[rep]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2015-09-01, valeur = 1734.0 },
+]
+
+[rep_plus]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2015-09-01, valeur = 2312.0 },
+  { date = 2018-09-01, valeur = 3479.0 },  # arrêté du 28/08/2018
+  { date = 2019-09-01, valeur = 4646.0 },  # arrêté du 23/07/2019
+  { date = 2021-09-01, valeur = 5114.0 },  # arrêté du 28/06/2021
+]
+
+# ──────────────────────────────────────────────
+# ISOE PART MODULABLE (professeur principal), par niveau de la classe
+# Arrêté du 15/01/1993, art. 2, mod. par l'arrêté du 19/07/2023, art. 3. Indexée sur le point
+# (décret 93-55, art. 4) : le point n'a pas bougé depuis le 1/7/2023, d'où les seuls montants
+# de 2023. Avant le 1/9/2023 : non calculée. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2023-10-01/
+# ──────────────────────────────────────────────
+[isoe_modulable]
+date = 2023-09-01
+"6e-5e-4e"            = 1308.72
+"3e"                  = 1497.84
+"cap"                 = 1497.84
+"bac-pro"             = 1497.84
+"2nde"                = 1497.84
+"autres-lp"           = 951.96
+"1re-terminale"       = 1497.84
+"1re-terminale-referent" = 748.92
+
+# ──────────────────────────────────────────────
+# HEURES SUPPLÉMENTAIRES : majorations (décret 50-1253)
+# Art. 2 : +20 % sur une heure au plus, +10 % en hors classe et en classe exceptionnelle
+# (pas en CPGE depuis le 1/9/2016, art. 3). Art. 5 : HSE = 1/36 de l'HSA majoré de 15 %,
+# de 25 % depuis le 1/1/2008. Art. 3 : heures d'interrogation = 1/36 réduit de 25 %.
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000489039/2006-01-01/ et /2026-10-17/
+# ──────────────────────────────────────────────
+[hse_majoration]
+type = "Taux"
+values = [
+  { date = 2005-08-27, valeur = 1.15 },
+  { date = 2008-01-01, valeur = 1.25 },
+]
+
+# ──────────────────────────────────────────────
+# SURCOTISATION D'UN TEMPS PARTIEL (code des pensions, L11 bis et D5 ; temps_partiel.py)
+# Taux employeur de la CNRACL (décret 91-613, art. 5 II), auquel renvoie l'art. D5 depuis
+# le 1/1/2024. https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000049059894 (2024, décret 2024-49, art. 2),
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000720106/2025-06-01/ , /2026-10-17/ , /2027-01-02/ (décret 2025-86)
+# ──────────────────────────────────────────────
+[surcotisation.cnracl_employeur]
+type = "Taux"
+values = [
+  { date = 2024-01-01, valeur = 0.3165 },
+  { date = 2025-01-01, valeur = 0.3465 },
+  { date = 2026-01-01, valeur = 0.3765 },
+  { date = 2027-01-01, valeur = 0.4065 },
+]
+
+# ──────────────────────────────────────────────
+# PACTE : PART FONCTIONNELLE DE L'ISOE (202475) OU DE L'ISAE (202476)
+# 1 250 € par part, non indexée (arrêté du 15/01/1993, art. 2-1 ; arrêté du 30/08/2013,
+# art. 1-1), versée mensuellement par neuvième (décret 93-55, art. 6 ; décret 2013-790,
+# art. 3). Exonérée d'impôt et ouvrant la réduction de cotisations comme les heures
+# supplémentaires (annexe 14 C de la DGFiP ; décret 2019-133, art. 1, 29°).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000725548/2026-10-17/ , https://www.legifrance.gouv.fr/loda/id/JORFTEXT000027914246/2026-10-17/
+# Les mois des neuf versements ne sont écrits dans aucun texte lu : bpaye suppose octobre
+# à juin, comme les HSA (décret 50-1253, art. 4).
+# ──────────────────────────────────────────────
+[pacte_part]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2023-09-01, valeur = 1250.0 },
+]
+
+# ──────────────────────────────────────────────
+# GIPA (201480), décret 2008-539 : G = TIB de début × (1 + inflation) − TIB de fin, le TIB
+# étant l'indice majoré au 31 décembre de l'année × la valeur moyenne annuelle du point
+# (art. 3) ; à la quotité du 31 décembre de fin (art. 10). Un arrêté par année ; aucune
+# GIPA après 2023 (aucun texte paru). https://www.legifrance.gouv.fr/loda/id/JORFTEXT000018934143/2026-10-17/
+# ──────────────────────────────────────────────
+[[gipa]]
+annee         = 2008
+debut         = 2003-12-31
+fin           = 2007-12-31
+inflation     = 0.068
+point_debut   = 52.4933
+point_fin     = 54.3753
+source        = "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000018934143/2026-10-17/ — décret 2008-539 art. 4 (pas d'arrêté : valeurs dans le décret)"
+
+[[gipa]]
+annee         = 2009
+debut         = 2004-12-31
+fin           = 2008-12-31
+inflation     = 0.079
+point_debut   = 52.7558
+point_fin     = 54.6791
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000020647411 — arrêté du 20/05/2009 art. 1 (JORF 23/05/2009) ; période : décret art. 4 bis"
+
+[[gipa]]
+annee         = 2010
+debut         = 2005-12-31
+fin           = 2009-12-31
+inflation     = 0.062
+point_debut   = 53.2012
+point_fin     = 55.026
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000022244470 — arrêté du 03/05/2010 art. 1 (JORF 22/05/2010)"
+
+[[gipa]]
+annee         = 2011
+debut         = 2006-12-31
+fin           = 2010-12-31
+inflation     = 0.059000000000000004
+point_debut   = 53.8453
+point_fin     = 55.4253
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000023820235 — arrêté du 23/03/2011 art. 1 (JORF 06/04/2011)"
+
+[[gipa]]
+annee         = 2012
+debut         = 2007-12-31
+fin           = 2011-12-31
+inflation     = 0.065
+point_debut   = 54.3753
+point_fin     = 55.5635
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000025677347 — arrêté du 20/03/2012 art. 1 (JORF 12/04/2012)"
+
+[[gipa]]
+annee         = 2013
+debut         = 2008-12-31
+fin           = 2012-12-31
+inflation     = 0.055
+point_debut   = 54.6791
+point_fin     = 55.5635
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000027385791 — arrêté du 18/04/2013 art. 1 (JORF 04/05/2013)"
+
+[[gipa]]
+annee         = 2014
+debut         = 2009-12-31
+fin           = 2013-12-31
+inflation     = 0.063
+point_debut   = 55.026
+point_fin     = 55.5635
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000028714327 — arrêté du 03/03/2014 art. 1 (JORF 12/03/2014)"
+
+[[gipa]]
+annee         = 2015
+debut         = 2010-12-31
+fin           = 2014-12-31
+inflation     = 0.0516
+point_debut   = 55.4253
+point_fin     = 55.5635
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000030228311 — arrêté du 04/02/2015 art. 1 (JORF 13/02/2015)"
+
+[[gipa]]
+annee         = 2016
+debut         = 2011-12-31
+fin           = 2015-12-31
+inflation     = 0.0308
+point_debut   = 55.5635
+point_fin     = 55.5635
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000032788711 — arrêté du 27/06/2016 art. 1 (JORF 28/06/2016)"
+
+[[gipa]]
+annee         = 2017
+debut         = 2012-12-31
+fin           = 2016-12-31
+inflation     = 0.0138
+point_debut   = 55.5635
+point_fin     = 55.7302
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000036039100 — arrêté du 17/11/2017 art. 1 (JORF 18/11/2017)"
+
+[[gipa]]
+annee         = 2018
+debut         = 2013-12-31
+fin           = 2017-12-31
+inflation     = 0.016399999999999998
+point_debut   = 55.5635
+point_fin     = 56.2044
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000037562549 — arrêté du 05/11/2018 art. 1 (JORF 07/11/2018)"
+
+[[gipa]]
+annee         = 2019
+debut         = 2014-12-31
+fin           = 2018-12-31
+inflation     = 0.0285
+point_debut   = 55.5635
+point_fin     = 56.2323
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000039196491 — arrêté du 08/10/2019 art. 1 (JORF 10/10/2019)"
+
+[[gipa]]
+annee         = 2020
+debut         = 2015-12-31
+fin           = 2019-12-31
+inflation     = 0.0377
+point_debut   = 55.5635
+point_fin     = 56.2323
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000042460948 — arrêté du 23/10/2020 art. 1 (JORF 25/10/2020)"
+
+[[gipa]]
+annee         = 2021
+debut         = 2016-12-31
+fin           = 2020-12-31
+inflation     = 0.0378
+point_debut   = 55.7302
+point_fin     = 56.2323
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000043931322 — arrêté du 23/07/2021 art. 1 (JORF 12/08/2021)"
+
+[[gipa]]
+annee         = 2022
+debut         = 2017-12-31
+fin           = 2021-12-31
+inflation     = 0.0436
+point_debut   = 56.2044
+point_fin     = 56.2323
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000046127610 — arrêté du 01/08/2022 art. 1 (JORF 02/08/2022)"
+
+[[gipa]]
+annee         = 2023
+debut         = 2018-12-31
+fin           = 2022-12-31
+inflation     = 0.0819
+point_debut   = 56.2323
+point_fin     = 57.2164
+source        = "https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000047964947 — arrêté du 11/08/2023 art. 1 (JORF 13/08/2023)"
+
+# ──────────────────────────────────────────────
+# INDEMNITÉS PROPRES À UN CORPS OU À UNE FONCTION (indemnites_corps.py)
+# Relevé : docs/verification/indemnites_et_manques.toml. Montants annuels, versés au douzième.
+# ──────────────────────────────────────────────
+# CPE, indemnité forfaitaire (200414), décret 91-468 ; taux : arrêté du 24/11/2015, art. 1.
+# Indexée sur le point jusqu'au 1/4/2021 (décret 91-468, art. 2) : les montants revalorisés
+# des 1/7/2016 et 1/2/2017 ne sont écrits dans aucun texte lu, d'où la période manquante.
+# Avant le 1/9/2015 (arrêté du 24/2/1993, introuvable) : MANQUANT.
+[ind_cpe]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2015-09-01, valeur = 1199.16 },  # https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2016-01-01/
+  { date = 2021-04-01, valeur = 1450.00 },  # arrêté du 12/3/2021, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2022-01-01/
+  { date = 2023-09-01, valeur = 2743.97 },  # arrêté du 13/7/2023, art. 11, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000031528027/2026-10-17/
+]
+manquant = [{ debut = 2016-07-01, fin = 2021-03-31 }]
+
+# PsyEN, indemnité de fonctions (202205), décret 2017-1552 ; taux : arrêté du 10/11/2017, art. 1,
+# selon la spécialité. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000035998664/2026-10-17/
+[ind_psyen.eda]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2017-09-01, valeur = 2044.19 },
+  { date = 2023-09-01, valeur = 3338.16 },  # arrêté du 13/7/2023, art. 13
+]
+
+[ind_psyen.edo]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2017-09-01, valeur = 767.10 },
+  { date = 2022-01-01, valeur = 1192.80 },  # arrêté du 9/12/2021
+  { date = 2023-01-01, valeur = 1618.50 },  # arrêté du 13/12/2022
+  { date = 2023-09-01, valeur = 2912.47 },  # arrêté du 13/7/2023, art. 13
+  { date = 2024-01-01, valeur = 3338.16 },  # arrêté du 8/1/2024
+]
+
+# Professeurs documentalistes, indemnité de sujétions particulières (200413), décret 91-467 ;
+# taux : arrêté du 14/5/1991, art. 1. Avant le 1/9/2017 (3 000 F indexés sur le point, sans
+# montant en euros écrit) : MANQUANT. https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000527330/2026-10-17/
+[ind_documentaliste]
+type  = "Fixe"
+unite = "annuel"
+values = [
+  { date = 2017-09-01, valeur = 767.10 },   # arrêté du 18/7/2018, effet au 1/9/2017
+  { date = 2021-03-01, valeur = 1000.00 },  # arrêté du 17/2/2021
+  { date = 2023-09-01, valeur = 2550.00 },  # arrêté du 13/7/2023, art. 4
+]
+
+# Directeurs d'école, ISS (202217 du 1/9/2018 au 31/8/2024, 202568 ensuite), décret 83-644 ;
+# arrêté du 12/9/2008 : art. 2, part principale + part variable selon le nombre de classes,
+# « versées mensuellement » depuis le 1/9/2010 ; art. 3 et 3-1 : « les taux annuels fixés à
+# l'article 2 sont majorés » de 20 % en REP, de 50 % en REP+ (depuis le 1/9/2015).
+# https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2026-10-17/
+[[ind_directeur]]
+date = 2010-09-01
+seuils = [1, 5, 10]                       # 1 à 4, 5 à 9, 10 classes et plus
+part_principale = 1295.62
+part_variable = [200.0, 400.0, 600.0]
+source = "arrêté du 20/9/2010, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2011-06-01/"
+
+[[ind_directeur]]
+date = 2012-02-01
+seuils = [1, 5, 10]
+part_principale = 1295.62
+part_variable = [300.0, 600.0, 900.0]
+source = "arrêté du 18/1/2012, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2012-06-01/"
+
+[[ind_directeur]]
+date = 2014-09-01
+seuils = [1, 4, 10]                       # 1 à 3, 4 à 9, 10 classes et plus
+part_principale = 1295.62
+part_variable = [500.0, 700.0, 900.0]
+source = "arrêté du 22/7/2014, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2016-01-01/"
+
+[[ind_directeur]]
+date = 2021-01-01
+seuils = [1, 4, 10]
+part_principale = 1745.62
+part_variable = [500.0, 700.0, 900.0]
+source = "arrêté du 18/2/2021 (rétroactif au 1/1/2021), https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2021-06-01/"
+
+[[ind_directeur]]
+date = 2022-01-01
+seuils = [1, 4, 10]
+part_principale = 1970.62
+part_variable = [500.0, 700.0, 900.0]
+source = "arrêté du 1/12/2021, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2022-06-01/"
+
+[[ind_directeur]]
+date = 2023-09-01
+seuils = [1, 4, 10]
+part_principale = 1970.62
+part_variable = [1000.0, 1400.0, 1800.0]
+source = "arrêté du 19 (ou 20) juillet 2023, https://www.legifrance.gouv.fr/loda/id/JORFTEXT000019463730/2026-10-17/"
+
+[ind_directeur_majoration]
+date = 2015-09-01
+rep = 0.20
+rep_plus = 0.50

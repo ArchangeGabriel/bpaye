@@ -1,0 +1,22 @@
+# Données personnelles de la professeure fictive : prélèvement à la source, trois enfants
+# nés pendant sa carrière, résidence en zone 2 (1 % du traitement).
+
+[ir]
+type = "Taux"
+values = [{ date = 2019-01-01, valeur = 0.03 }]
+
+[[enfants]]
+date   = 2009-04-01
+nombre = 1
+
+[[enfants]]
+date   = 2012-01-01
+nombre = 2
+
+[[enfants]]
+date   = 2015-10-01
+nombre = 3
+
+[[residence]]
+date = 2006-09-01
+zone = 2

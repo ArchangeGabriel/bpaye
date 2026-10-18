@@ -1,0 +1,48 @@
+# Un agrégé fictif en CPGE : recruté en 2012, promu au grand choix avant 2017, reclassé en
+# 2017, accéléré d'un an au 6e échelon, en seconde année de classe préparatoire scientifique
+# depuis 2019, colleur dans sa classe, hors classe prévue en 2028. Toutes les clés sont décrites dans docs/DOC.md.
+
+[depart]
+nom        = "Agrégé Fictif"
+grille     = "GRILLE_AGCN"      # agrégés, classe normale
+corps      = "Agrégé"
+echelon    = 3
+anciennete = 0.0
+date       = 2012-09-01
+zone_vacances = "C"
+
+[[detachements]]
+date    = 2012-09-01
+detache = false
+
+[[avancements]]
+echelon = 5
+type    = "GC"                  # grand choix (avant le 1er septembre 2017)
+
+[[avancements]]
+type = "PPCR"
+
+[[avancements]]
+echelon = 7
+type    = "C"                   # depuis 2017 : un an de moins au 6e échelon
+
+[[changements_corps]]
+date   = 2028-09-01            # après deux ans au 9e échelon
+grille = "GRILLE_AGHC"
+
+[[rentrees]]
+year     = 2019
+annee    = 2                    # seconde année : l'ORS dépend de l'année et de l'effectif
+effectif = 45
+type_classe = "sciences"
+hsa_vs   = 4
+
+[[rentrees]]
+year     = 2025
+annee    = 2
+effectif = 42
+type_classe = "sciences"
+hsa_vs   = 4
+colles       = { 161 = 3.0 }    # trois heures de colle par semaine dans sa classe
+colles_debut = 2025-09-22
+colles_fin   = 2026-04-10
