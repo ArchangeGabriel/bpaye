@@ -102,14 +102,15 @@ def test_select_reel_ne_double_pas_le_mois_a_deux_lignes(configuration, monkeypa
     assert paye.select(200205, (2025, 11), (2025, 11)).somme().reel == 200.0
 
 
-def test_aucune_heure_supplementaire_payee_avant_fin_novembre(configuration):
+@pytest.mark.parametrize("mois", [9, 10])
+def test_aucune_heure_supplementaire_sur_les_bulletins_de_rentree(configuration, mois):
     paye = _paye(configuration, 1, 24)
-    for mois in (9, 10):
-        assert not [
-            ligne
-            for ligne in paye(2025, mois)
-            if ligne.code in (200205, 200576, 200207, 200215) and ligne.valeur
-        ]
+    assert not [
+        ligne for ligne in paye(2025, mois) if ligne.code in (200205, 200576, 200207, 200215) and ligne.valeur
+    ]
+
+
+def test_aucune_heure_supplementaire_payee_avant_fin_novembre(configuration):
     nets = {(n.annee, n.mois): n for n in nets_prevus(*configuration, (2025, 7), 6)}
     assert nets[(2025, 9)].colles == nets[(2025, 10)].colles == 0
     assert nets[(2025, 11)].colles > 0  # les colles de septembre
@@ -158,12 +159,15 @@ def _valeur(bulletin, code):
     return sum(ligne.valeur for ligne in bulletin if ligne.code == code)
 
 
-def test_temps_partiel_80_reduit_traitement_et_primes_aux_six_septiemes(configuration):
+@pytest.mark.parametrize("code", [101000, 200364])  # traitement, ISOE part fixe
+def test_temps_partiel_80_reduit_traitement_et_primes_aux_six_septiemes(configuration, code):
     plein, partiel = _paye_temps_plein_et_partiel(configuration)
-    p, q = plein(2026, 1), partiel(2026, 1)
-    for code in (101000, 200364):  # traitement, ISOE part fixe
-        assert _valeur(q, code) == round(_valeur(p, code) * 6 / 7, 2)
-    assert _valeur(q, 202321) == _valeur(p, 202321)  # équipement informatique : à taux plein
+    assert _valeur(partiel(2026, 1), code) == round(_valeur(plein(2026, 1), code) * 6 / 7, 2)
+
+
+def test_temps_partiel_80_laisse_la_prime_d_equipement_entiere(configuration):
+    plein, partiel = _paye_temps_plein_et_partiel(configuration)
+    assert _valeur(partiel(2026, 1), 202321) == _valeur(plein(2026, 1), 202321)
 
 
 def test_nbi_a_temps_partiel_reduite_et_dans_l_assiette_de_la_residence(configuration):

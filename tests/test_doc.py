@@ -36,7 +36,7 @@ def test_doc_selection_et_somme(paye):
     assert len(paye.select(lambda b: b.net_imposable, 2025)) == 12
 
 
-def test_doc_prevision():
+def test_doc_prevision_commence_au_mois_demande():
     mois = nets_prevus(EXEMPLE / "carriere.toml", EXEMPLE / "agent.toml", (2025, 9), 12)
     assert [(m.annee, m.mois) for m in mois][:2] == [(2025, 9), (2025, 10)]
 

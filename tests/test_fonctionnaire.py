@@ -121,13 +121,19 @@ def test_avant_la_premiere_rentree_service_ordinaire(tmp_path):
     assert fonc.ors(dt.date(2010, 1, 31)) == 24
 
 
+@pytest.mark.parametrize("attribut", ["residence", "enfants", "fmd_niveau"])
+def test_agent_puis_carriere_ou_l_inverse_donnent_les_memes_donnees(configuration, attribut):
+    carriere, agent = configuration
+    a = load_agent(agent).load_carriere(carriere)
+    b = Fonctionnaire().load_carriere(carriere).load_agent(agent)
+    assert getattr(a, attribut).values == getattr(b, attribut).values
+
+
 def test_agent_puis_carriere_ou_l_inverse_donnent_le_meme_agent(configuration):
     carriere, agent = configuration
     a = load_agent(agent).load_carriere(carriere)
     b = Fonctionnaire().load_carriere(carriere).load_agent(agent)
     date = dt.date(2025, 1, 31)
-    for attribut in ("residence", "enfants", "fmd_niveau"):
-        assert getattr(a, attribut).values == getattr(b, attribut).values, attribut
     assert a.frais_transport(date) == b.frais_transport(date)
     assert a.residence(date) == 1  # celle d'agent.toml, pas la zone 3 par défaut
 

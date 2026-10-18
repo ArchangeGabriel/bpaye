@@ -51,7 +51,7 @@ def test_annee_inconnue_refusee():
         semaines_de_cours(dt.date(2040, 9, 1), dt.date(2041, 4, 1))
 
 
-def test_annee_scolaire():
+def test_annee_scolaire_va_de_septembre_a_aout():
     assert (annee_scolaire(dt.date(2025, 9, 1)), annee_scolaire(dt.date(2026, 8, 31))) == (
         "2025-2026",
         "2025-2026",
