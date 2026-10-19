@@ -4,6 +4,16 @@
 ![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue)
 ![Licence MIT](https://img.shields.io/badge/licence-MIT-green)
 
+> **Avertissement.** bpaye est un outil personnel, sans lien avec le ministère de
+> l'Éducation nationale, la DGFiP ou tout autre service de l'État. Il reconstitue des
+> règles de calcul dispersées dans de nombreux textes, et en partie déduites de bulletins
+> réels quand aucun texte lu ne les précise : ses résultats peuvent être incomplets ou
+> erronés. Ils n'ont aucune valeur officielle et ne remplacent ni le bulletin de paye
+> établi par l'administration, ni les textes applicables, ni l'avis de votre gestionnaire.
+> Une réclamation se fonde sur les textes et sur vos bulletins, non sur bpaye. Le logiciel
+> est fourni « en l'état », sans garantie d'aucune sorte, et ses auteurs ne peuvent être
+> tenus responsables de l'usage qui en est fait (licence MIT, [`LICENSE`](LICENSE)).
+
 Décrivez la carrière d'un enseignant de l'Éducation nationale : bpaye en calcule les
 bulletins de paye, mois par mois et ligne par ligne, comme la paie de l'État, puis les
 compare aux bulletins PDF réellement reçus.
